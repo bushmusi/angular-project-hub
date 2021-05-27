@@ -1,0 +1,477 @@
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-8">
+      <form>
+        <div class="col-md-12 row form-group">
+          <label
+            for="branch_ID"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Branch id</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.branch_ID"
+              #branch_ID="ngModel"
+              name="branch_ID"
+              placeholder="brnach id "
+              id="branch_ID"
+              readonly
+              required
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="trans_ID"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Trans ID</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.trans_ID"
+              #trans_ID="ngModel"
+              name="trans_ID"
+              placeholder=" "
+              id="trans_ID"
+              readonly
+              required
+            />
+            <input class="btn btn-xs btn-info" type="button" value="Select trans ID" (click)="selectTransID()">
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="transaction_Date"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Transaction date</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.transaction_Date"
+              #transaction_Date="ngModel"
+              name="transaction_Date"
+              placeholder=" "
+              id="transaction_Date"
+              readonly
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label for="type_Bank_Reconcilliation" class="col-sm-3 col-form-label"
+            >Reconciliation Type</label
+          >
+          <div class="col-sm-9">
+            <p-dropdown
+              id="type_Bank_Reconcilliation"
+              [options]="reconciliationTypes"
+              [(ngModel)]="bankReconciliation.type_Bank_Reconcilliation"
+              name="type_Bank_Reconcilliation"
+              autofocus
+              filter="true"
+              placeholder="Select Reconciliation Type"
+            >
+              <ng-template let-selectedItem pTemplate="selectedItem">
+                {{ selectedItem.label }}
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                {{ item.label }}
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="description"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Description</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.description"
+              #description="ngModel"
+              name="description"
+              placeholder=" "
+              id="description"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="statement_Amount"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Statement amount</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.statement_Amount"
+              #statement_Amount="ngModel"
+              name="statement_Amount"
+              placeholder=" "
+              id="statement_Amount"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="applied_Amount"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Applied amount</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.applied_Amount"
+              #applied_Amount="ngModel"
+              name="applied_Amount"
+              placeholder=" "
+              id="applied_Amount"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="difference"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Difference</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="bankReconciliation.difference"
+              #difference="ngModel"
+              name="difference"
+              placeholder=" "
+              id="difference"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button
+            type="button"
+            *ngIf="!edit_form"
+            (click)="registerBankReconciliation()"
+            value="Save bankReconciliation"
+            class="btn btn-primary"
+          >
+            Add bankReconciliation
+          </button>
+
+          <button
+            type="button"
+            *ngIf="edit_form"
+            (click)="updateBankReconciliation()"
+            value="Save bankReconciliation"
+            class="btn btn-primary"
+          >
+          Save/Update bankReconciliation
+          </button>
+
+          <button
+            type="button"
+            *ngIf="edit_form"
+            (click)="deleteBankReconciliation()"
+            value="Save bankReconciliation"
+            class="btn btn-danger mx-3"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-4">
+      Details
+      <a href="/#/" class="row">BankReconciliation History</a>
+      <a href="/#/" class="row">BankReconciliation Beginning Balance</a>
+      <a href="#/" class="row">Sales Info</a>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  header="Bank Transaction ID"
+  [(visible)]="isTransID"
+  [style]="{ width: '75vw', height: '105vw' }"
+  [baseZIndex]="10000"
+>
+
+      <div class="m-3">
+        <div class="row">
+          <div class="col-md-12">
+            <form class="row" [formGroup]="transIDFormGroup">
+              <div class="col-md-6  form-group">
+                <label
+                  for="trans_ID"
+                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                  translate
+                  >Trans id</label
+                >
+      
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="trans_ID" 
+                    #trans_ID
+                    name="trans_ID"
+                    id="trans_ID"
+                    readonly
+                    required
+                  />
+                  <div
+                      *ngIf="
+                          transIDFormGroup.controls['trans_ID'].invalid &&
+                          (transIDFormGroup.controls['trans_ID'].dirty ||
+                          transIDFormGroup.controls['trans_ID'].touched)
+                      "
+                      class="alert alert-danger "
+                      >
+                    <div *ngIf="transIDFormGroup.controls['trans_ID'].errors.required">
+                      This field is required.
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6  form-group">
+                <label
+                  for="statement_Date"
+                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                  translate
+                  >Statement Date</label
+                >
+      
+                <div class="col-sm-9">
+                  <input
+                    type="date"
+                    class="form-control date"
+                    formControlName="statement_Date"
+                    #statement_Date
+                    name="statement_Date"
+                    id="statement_Date"
+                    
+                    required
+                  />
+                  <div
+                      *ngIf="
+                          transIDFormGroup.controls['statement_Date'].invalid &&
+                          (transIDFormGroup.controls['statement_Date'].dirty ||
+                          transIDFormGroup.controls['statement_Date'].touched)
+                      "
+                      class="alert alert-danger "
+                      >
+                    <div *ngIf="transIDFormGroup.controls['statement_Date'].errors.required">
+                      This field is required.
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6  form-group">
+                <label
+                  for="statement_No"
+                  class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+                  translate
+                  >Statement No</label
+                >
+      
+                <div class="col-sm-9">
+                  <input
+                    type="number"
+                    class="form-control date"
+                    formControlName="statement_No"
+                    #statement_No
+                    name="statement_No"
+                    id="statement_No"
+                    
+                    required
+                  />
+                  <div
+                      *ngIf="
+                          transIDFormGroup.controls['statement_No'].invalid &&
+                          (transIDFormGroup.controls['statement_No'].dirty ||
+                          transIDFormGroup.controls['statement_No'].touched)
+                      "
+                      class="alert alert-danger "
+                      >
+                    <div *ngIf="transIDFormGroup.controls['statement_No'].errors.required">
+                      This field is required.
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6  form-group">
+                <label
+                  for="balance_Last_Statement"
+                  class="font-weight-bold font-weight-bold col-sm-6 col-form-label"
+                  translate
+                  >Balance Last Statement</label
+                >
+      
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="form-control date"
+                    formControlName="balance_Last_Statement"
+                    #balance_Last_Statement
+                    name="balance_Last_Statement"
+                    id="balance_Last_Statement"
+                    
+                    required
+                  />
+                  <div
+                      *ngIf="
+                          transIDFormGroup.controls['balance_Last_Statement'].invalid &&
+                          (transIDFormGroup.controls['balance_Last_Statement'].dirty ||
+                          transIDFormGroup.controls['balance_Last_Statement'].touched)
+                      "
+                      class="alert alert-danger "
+                      >
+                    <div *ngIf="transIDFormGroup.controls['balance_Last_Statement'].errors.required">
+                      This field is required.
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6  form-group">
+                <label
+                  for="statement_Ending_Balance"
+                  class="font-weight-bold font-weight-bold col-sm-6 col-form-label"
+                  translate
+                  >Statement Ending Balance</label
+                >
+      
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="form-control date"
+                    formControlName="statement_Ending_Balance"
+                    #statement_Ending_Balance
+                    name="statement_Ending_Balance"
+                    id="statement_Ending_Balance"
+                    required
+                  />
+                  <div
+                      *ngIf="
+                          transIDFormGroup.controls['statement_Ending_Balance'].invalid &&
+                          (transIDFormGroup.controls['statement_Ending_Balance'].dirty ||
+                          transIDFormGroup.controls['statement_Ending_Balance'].touched)
+                      "
+                      class="alert alert-danger "
+                      >
+                    <div *ngIf="transIDFormGroup.controls['statement_Ending_Balance'].errors.required">
+                      This field is required.
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6  form-group">
+                <input type="button" value="Add" class="btn btn-info btn-xs" [disabled]="transIDFormGroup.invalid || transIDFormGroup.pristine" *ngIf="!isThereTransRecord" (click) = "addTransID()">
+                <input type="button" value="Save/Update" class="btn btn-info btn-xs" [disabled]="transIDFormGroup.invalid " *ngIf="isThereTransRecord" (click) = "updateTransID()">
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+
+    <p-table
+    [paginator]="true"
+    [value]="bankReconTransactionList"
+    [rows]="5"
+    [resizableColumns]="true"
+    [tableStyle]="{ 'table-layout': 'auto' }"
+    >
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th translate>Trans ID</th>
+        <th translate>statement Date</th>
+        <th translate>statement No</th>
+        <th translate>balance Last Statement</th>
+        <th translate>statement Ending Balance</th>
+        <th translate></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td>{{ item.trans_ID }}</td>
+        <td>{{ item.statement_Date }}</td>
+        <td>{{ item.statement_No }}</td>
+        <td>{{ item.balance_Last_Statement }}</td>
+        <td>{{ item.statement_Ending_Balance }}</td>
+        <td>
+          <button
+            class="btn btn-xs btn-success"
+            type="button"
+            (click)="getTransID(item)"
+            translate
+          >
+            Select
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    </p-table>
+
+
+<ng-template pTemplate="footer">
+  <p-button
+    icon="pi pi-check"
+    label="Ok"
+    styleClass="p-button-text"
+  ></p-button>
+</ng-template>
+
+</p-dialog>
+

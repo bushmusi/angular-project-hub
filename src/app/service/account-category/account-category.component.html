@@ -1,0 +1,99 @@
+<h3 class="font-weight-bold">Account category</h3>
+<div>
+  <div class="m-3">
+    <p-table
+      [value]="accountCategories"
+      [resizableColumns]="true"
+      (onEditComplete)="performUpdate($event)"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn>code</th>
+          <th pResizableColumn scope="col" translate>Name</th>
+          <th pResizableColumn scope="col">
+            <button
+              type="button"
+              *ngIf="!disable"
+              class="btn btn-primary"
+              (click)="clearForm()"
+              translate
+            >
+              Add New
+            </button>
+          </th>
+        </tr>
+
+        <tr *ngIf="IsAddFormVisible">
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="accountCategory.code"
+              class="form-control"
+              name="code"
+              placeholder="code"
+              id="code"
+              required
+            />
+          </td>
+
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="accountCategory.name"
+              class="form-control"
+              name="name"
+              placeholder="Name"
+              id="name"
+              required
+            />
+          </td>
+
+          <td scope="col" rowspan="2" style="text-align: center">
+            <button
+              type="button"
+              *ngIf="!disable"
+              class="btn btn-primary"
+              (click)="registerAccountCategory()"
+              translate
+            >
+              Save
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-accountCategory>
+        <tr>
+          <td>
+            {{ accountCategory.code }}
+          </td>
+
+          <td [pEditableColumn]="accountCategory" pEditableColumnField="name">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="accountCategory.name"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ accountCategory.name }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="deleteAccountCategory(accountCategory)"
+            >
+              <i class="pi pi-trash"></i>
+              Delete
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

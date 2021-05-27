@@ -1,0 +1,175 @@
+
+<div class="row mt-4 mb-4">
+  <div class="col"></div>
+  <div class="col-md-12">
+    <div class="container"  >
+      <p-table [value]="currencyList" [paginator]="true" [rows]="3">
+        <ng-template pTemplate="header">
+          <tr>
+            <th scope="col" translate>Currency ID</th>
+            <th scope="col" translate>Name</th>
+            <th scope="col" translate>Is Enable</th>
+            <th scope="col" translate>Current Value To Birr</th>
+            <th scope="col" translate></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>{{ item.currencyID }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.enable }}</td>
+            <td>{{ item.current_Value_To_Birr }}</td>
+            <td>
+              <button
+          type="button"
+          class="btn btn-primary"
+                (click)="selectCurrency(item)"
+                translate
+              >
+                Edit
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div class="col"></div>
+</div>
+
+
+<div class="card MB-4" >
+  <div class="card-body">
+    <h5 class="card-title MB-4">CURRENCY FORM</h5>
+
+    <form class="row" [formGroup]="currencyFormGroup" novalidate>
+      <div class="col-md-6 row form-group">
+        <label
+          for="code"
+          class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+          translate
+          >Currency ID</label
+        >
+    
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            name="currencyID"
+            placeholder="currencyID"
+            id="currencyID"
+            formControlName="currencyID"
+            #currencyID
+            required
+          />
+          <div *ngIf="currencyFormGroup.controls['currencyID'].invalid && (currencyFormGroup.controls['currencyID'].dirty || currencyFormGroup.controls['currencyID'].touched)" class="alert alert-danger">  
+            <div *ngIf="currencyFormGroup.controls['currencyID'].errors.required">  
+              This field is required.  
+            </div>  
+          </div> 
+    
+        </div>
+      </div>
+    
+      <div class="col-md-6 row form-group">
+        <label
+          for="code"
+          class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+          translate
+          >Name</label
+        >
+    
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            placeholder="Name"
+            id="name"
+            formControlName="name"
+            #name
+            required
+          />
+          <div *ngIf="currencyFormGroup.controls['name'].invalid && (currencyFormGroup.controls['name'].dirty || currencyFormGroup.controls['name'].touched)" class="alert alert-danger">  
+            <div *ngIf="currencyFormGroup.controls['name'].errors.required">  
+              This field is required.  
+            </div>  
+          </div> 
+        </div>
+      </div>
+    
+      <div class="col-md-6 row form-group">
+        <label
+          for="enable"
+          class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+          translate
+          >Enable</label
+        >
+    
+        <div class="col-sm-9">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="enable" formControlName="enable" #enable>
+            <label class="form-check-label" for="enable">is enable</label>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-6 row form-group">
+        <label
+          for="current_Value_To_Birr"
+          class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+          translate
+          >Current Value To Birr</label
+        >
+    
+        <div class="col-sm-9">
+          <input
+            type="number"
+            class="form-control"
+            name="current_Value_To_Birr"
+            placeholder="current_Value_To_Birr"
+            id="current_Value_To_Birr"
+            formControlName="current_Value_To_Birr"
+            #current_Value_To_Birr
+            required
+          />
+          <div *ngIf="currencyFormGroup.controls['current_Value_To_Birr'].invalid && (currencyFormGroup.controls['current_Value_To_Birr'].dirty || currencyFormGroup.controls['current_Value_To_Birr'].touched)" class="alert alert-danger">  
+            <div *ngIf="currencyFormGroup.controls['current_Value_To_Birr'].errors.required">  
+              This field is required.  
+            </div>  
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 row form-group">
+        <div class="col-sm-9">
+          <input
+            type="button"
+            class="btn btn-xs btn-info"
+            value="Add"
+            *ngIf="!isEdit"
+            [disabled] ="currencyFormGroup.invalid || currencyFormGroup.pristine"
+            (click) = "addCurrency()"
+          />
+          <input
+            type="button"
+            class="btn btn-xs btn-info"
+            value="Save/Update"
+            (click) = "updateCurrency()"
+            [disabled] ="currencyFormGroup.invalid "
+            *ngIf="isEdit"
+          />
+          <input
+            type="button"
+            class="btn btn-xs btn-danger"
+            value="Delete"
+            (click) = "deleteCurrency()"
+            [disabled] ="currencyFormGroup.invalid "
+            *ngIf="isEdit"
+          />
+        </div>
+      </div>    
+    </form>
+
+  </div>
+</div>
+

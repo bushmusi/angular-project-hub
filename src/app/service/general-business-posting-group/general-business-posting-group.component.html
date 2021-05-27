@@ -1,0 +1,159 @@
+<h3 class="font-weight-bold">General business posting group</h3>
+<div>
+  <div class="m-3">
+    <p-table
+      [value]="genBusinessPostingGroups"
+      [resizableColumns]="true"
+      (onEditComplete)="performUpdate($event)"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn scope="col" translate>Code</th>
+          <th pResizableColumn>Description</th>
+          <th pResizableColumn>Vat business posting group</th>
+          <th pResizableColumn scope="col">
+            <button
+              type="button"
+              *ngIf="!disable"
+              class="btn btn-primary"
+              (click)="clearForm()"
+              translate
+            >
+              Add New
+            </button>
+          </th>
+        </tr>
+
+        <tr *ngIf="IsAddFormVisible">
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="genBusinessPostingGroup.code"
+              class="form-control"
+              name="code"
+              placeholder="Code"
+              id="code"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="genBusinessPostingGroup.description"
+              class="form-control"
+              name="description"
+              placeholder="Description"
+              id="description"
+              required
+            />
+          </td>
+          <td class="p-2">
+            <!-- <input
+              type="text"
+              [(ngModel)]="genBusinessPostingGroup.def_VAT_Prod_Posting_Group"
+              class="form-control"
+              name="def_VAT_Prod_Posting_Group"
+              placeholder="def VAT"
+              id="def_VAT_Prod_Posting_Group"
+              required
+            /> -->
+
+            <p-autoComplete
+              name="def_VAT_Prod_Posting_Group"
+              filter="true"
+              [(ngModel)]="genBusinessPostingGroup.def_VAT_Prod_Posting_Group"
+              [suggestions]="taxBusinessionSearchResult"
+              (completeMethod)="searchTaxBusinession($event)"
+              name="def_VAT_Prod_Posting_Group"
+              field="code"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td scope="col" rowspan="2" style="text-align: center">
+            <button
+              type="button"
+              *ngIf="!disable"
+              class="btn btn-primary"
+              (click)="registerGenBusinessPostingGroup()"
+              translate
+            >
+              Save
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-genBusinessPostingGroup>
+        <tr>
+          <td>
+            {{ genBusinessPostingGroup.code }}
+          </td>
+
+          <td
+            [pEditableColumn]="genBusinessPostingGroup"
+            pEditableColumnField="description"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="genBusinessPostingGroup.description"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ genBusinessPostingGroup.description }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td
+            [pEditableColumn]="genBusinessPostingGroup"
+            pEditableColumnField="def_VAT_Prod_Posting_Group"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="def_VAT_Prod_Posting_Group"
+                  filter="true"
+                  [(ngModel)]="
+                    genBusinessPostingGroup.def_VAT_Prod_Posting_Group
+                  "
+                  [suggestions]="taxBusinessionSearchResult"
+                  (completeMethod)="searchTaxBusinession($event)"
+                  name="def_VAT_Prod_Posting_Group"
+                  field="code"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  genBusinessPostingGroup.def_VAT_Prod_Posting_Group
+                    ? genBusinessPostingGroup.def_VAT_Prod_Posting_Group
+                        .account_ID ||
+                      genBusinessPostingGroup.def_VAT_Prod_Posting_Group
+                    : genBusinessPostingGroup.def_VAT_Prod_Posting_Group
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <button
+            type="button"
+            class="btn btn-danger"
+              (click)="deleteGenBusinessPostingGroup(genBusinessPostingGroup)"
+            >
+              <i class="pi pi-trash"></i>
+              Delete
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

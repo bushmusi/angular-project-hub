@@ -1,0 +1,421 @@
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-12">
+      <form>
+        <div class="row">
+          <div class="col-md-6 row form-group">
+            <label
+              for="inventoryItemId"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Inventory Item Id</label
+            >
+            <div class="col-sm-9">
+              <p-autoComplete
+                *ngIf="!edit_form"
+                name="inventoryItemId"
+                filter="true"
+                [(ngModel)]="inventoryItem.inv_ID"
+                [suggestions]="inventoryItemIdResult"
+                (completeMethod)="searchItem($event)"
+                field="item_Name"
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.item_Name
+                  }}</span>
+                </ng-template>
+                <ng-template let-car pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ car.inv_ID }} : {{ car.item_Name }}
+                    </div>
+                  </div>
+                </ng-template></p-autoComplete
+              >
+
+              <input
+                *ngIf="edit_form"
+                type="text"
+                class="form-control"
+                [(ngModel)]="inventoryItem.inv_ID"
+                #FullName="ngModel"
+                name="inventoryItemId"
+                disabled
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="ItemName"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >ItemName</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="textarea"
+                class="form-control"
+                [(ngModel)]="inventoryItem.item_Name"
+                #ItemName="ngModel"
+                name="ItemName"
+                placeholder=" "
+                id="ItemName"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 row form-group">
+            <label
+              for="Description"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Description</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="textarea"
+                class="form-control"
+                [(ngModel)]="inventoryItem.description"
+                #Description="ngModel"
+                name="Description"
+                placeholder=" "
+                id="Description"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="ItemClass"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Item Class</label
+            >
+
+            <div class="col-sm-9">
+              <select
+                class="form-control"
+                [(ngModel)]="inventoryItem.item_Class"
+                #ItemClass="ngModel"
+                name="ItemClass"
+                id="ItemClass"
+                required
+              >
+                <option disabled>select</option>
+                <option
+                  *ngFor="let ItemClass of ItemClasss"
+                  [value]="ItemClass.name"
+                >
+                  {{ ItemClass.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label
+              for="Price"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Price</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="inventoryItem.price"
+                #Price="ngModel"
+                name="Price"
+                placeholder=" "
+                id="Price"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="CostMethod"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Cost Method</label
+            >
+            <div class="col-sm-9">
+              <select
+                class="form-control"
+                [(ngModel)]="inventoryItem.cost_Method"
+                #CostMethod="ngModel"
+                name="CostMethod"
+                id="CostMethod"
+                required
+              >
+                <option disabled>select</option>
+                <option
+                  *ngFor="let CostMethod of CostMethods"
+                  [value]="CostMethod.id"
+                >
+                  {{ CostMethod.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="LastUnitCost"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Last unit cost</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="inventoryItem.last_Unit_Cost"
+                #LastUnitCost="ngModel"
+                name="LastUnitCost"
+                placeholder=" "
+                id="LastUnitCost"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="PartNumber"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Part Number</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="inventoryItem.partNumber"
+                #PartNumber="ngModel"
+                name="PartNumber"
+                placeholder=" "
+                id="PartNumber"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="Minimum_Stock"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Minimum Stock</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="inventoryItem.minimum_Stock"
+                #Minimum_Stock="ngModel"
+                name="Minimum_Stock"
+                placeholder=" "
+                id="Minimum_Stock"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="Recorder_Quantity"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Recorder Quantity</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="inventoryItem.reorder_Quantity"
+                #Recorder_Quantity="ngModel"
+                name="Recorder_Quantity"
+                placeholder=" "
+                id="Recorder_Quantity"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="PreferedVendor"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Preferred Vendor</label
+            >
+            <div class="col-sm-9">
+              <select
+                class="form-control"
+                [(ngModel)]="inventoryItem.referred_Vendor_id"
+                #PreferedVendor="ngModel"
+                name="PreferedVendor"
+                id="PreferedVendor"
+                required
+              >
+                <option disabled>select</option>
+                <option
+                  *ngFor="let PreferedVendor of PreferedVendors"
+                  [value]="PreferedVendor.vendor_ID"
+                >
+                  {{ PreferedVendor.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="Buyer"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Buyer</label
+            >
+            <div class="col-sm-9">
+              <select
+                class="form-control"
+                [(ngModel)]="inventoryItem.buyer_ID"
+                #Buyer="ngModel"
+                name="Buyer"
+                id="Buyer"
+                required
+              >
+                <option disabled>select</option>
+                <option
+                  *ngFor="let buyer of Buyers"
+                  [value]="buyer.customer_ID"
+                >
+                  {{ buyer.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="inventory_Posting_Group"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Inventory posting group</label
+            >
+            <div class="col-sm-9">
+              <select
+                class="form-control"
+                [(ngModel)]="inventoryItem.inventory_Posting_Group"
+                #inventory_Posting_Group="ngModel"
+                name="inventory_Posting_Group"
+                id="inventory_Posting_Group"
+                required
+              >
+                <option disabled>select</option>
+                <option
+                  *ngFor="let inventory_Posting_Group of inventoryPostingGroups"
+                  [value]="inventory_Posting_Group.code"
+                >
+                  {{ inventory_Posting_Group.code }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="gen_Pord_Posting_Group"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >General product posting group</label
+            >
+            <div class="col-sm-9">
+              <select
+                class="form-control"
+                [(ngModel)]="inventoryItem.gen_Pord_Posting_Group"
+                #gen_Pord_Posting_Group="ngModel"
+                name="gen_Pord_Posting_Group"
+                id="gen_Pord_Posting_Group"
+                required
+              >
+                <option disabled>select</option>
+                <option
+                  *ngFor="let gen_Pord_Posting_Group of productPostingGroups"
+                  [value]="gen_Pord_Posting_Group.code"
+                >
+                  {{ gen_Pord_Posting_Group.code }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row col-6">
+            <label
+              for="picture"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Picture</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="file"
+                id="picture"
+                (change)="handleUpload($event)"
+                name="picture"
+              />
+            </div>
+          </div>
+
+          <div class="text-center col-12">
+            <button
+            type="button"
+            *ngIf="!edit_form"
+              (click)="addInventoryItem()"
+              value="Save Item"
+              class="btn btn-primary"
+            >
+              Save Item
+            </button>
+
+            <button
+            type="button"
+              *ngIf="edit_form"
+              (click)="updateInventoryItem()"
+              value="Save Item"
+              class="btn btn-primary"
+            >
+              Update Item
+            </button>
+
+            <button
+            type="button"
+            *ngIf="edit_form"
+              (click)="deleteInventoryItem()"
+              class="btn btn-danger mx-3"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

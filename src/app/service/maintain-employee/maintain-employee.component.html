@@ -1,0 +1,559 @@
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-12">
+      <form>
+        <div class="row">
+          <div class="col-md-6 row form-group">
+            <label
+              for="employeeId"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Employee id</label
+            >
+            <div class="col-sm-9">
+              <p-autoComplete
+                *ngIf="!edit_form"
+                name="employeeId"
+                filter="true"
+                [(ngModel)]="employee.employee_Id"
+                [suggestions]="employeeIdResult"
+                (completeMethod)="searchItem($event)"
+                field="item_Name"
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.fName
+                  }}</span>
+                </ng-template>
+                <ng-template let-car pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ car.employee_Id }} : {{ car.fName }}
+                    </div>
+                  </div>
+                </ng-template></p-autoComplete
+              >
+
+              <input
+                *ngIf="edit_form"
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.employee_Id"
+                #FullName="ngModel"
+                name="employeeId"
+                placeholder="Employee id"
+                disabled
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="type_Employement"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Employment type</label
+            >
+
+            <div class="col-sm-9">
+              <select
+                class="form-control"
+                [(ngModel)]="employee.type_Employement"
+                #type_Employement="ngModel"
+                name="type_Employement"
+                required
+              >
+                <option
+                  *ngFor="let employeeType of employeeTypes"
+                  [value]="employeeType.lkdetail_code"
+                >
+                  {{ employeeType.english_description }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="payrole_No"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >payroll No</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.payrole_No"
+                #payrole_No="ngModel"
+                name="payrole_No"
+                placeholder="payroll No"
+                id="payrole_No"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="tin"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Tin</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.tin"
+                #tin="ngModel"
+                name="tin"
+                placeholder="Tin"
+                id="tin"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="fName"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >First Name</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.fName"
+                #fName="ngModel"
+                name="fName"
+                placeholder="First Name"
+                id="fName"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="mName"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Middle Name</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.mName"
+                #mName="ngModel"
+                name="mName"
+                placeholder="Middle Name"
+                id="mName"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="lName"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Last Name</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.lName"
+                #lName="ngModel"
+                name="lName"
+                placeholder="Last Name"
+                id="lName"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="address"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Address</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.address"
+                #address="ngModel"
+                name="address"
+                placeholder="Address"
+                id="address"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="email"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Email</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.email"
+                #email="ngModel"
+                name="email"
+                placeholder="Email"
+                id="email"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label
+              for="homePhone"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Home Phone</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.homePhone"
+                #homePhone="ngModel"
+                name="homePhone"
+                placeholder="Home Phone"
+                id="homePhone"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label
+              for="workPhone"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Work Phone</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.workPhone"
+                #workPhone="ngModel"
+                name="workPhone"
+                placeholder="Work Phone"
+                id="workPhone"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label
+              for="idNumber"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Id Number</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.idNumber"
+                #idNumber="ngModel"
+                name="idNumber"
+                placeholder="Id Number"
+                id="idNumber"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label
+              for="bank_Account_NO"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Bank account</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.bank_Account_NO"
+                #bank_Account_NO="ngModel"
+                name="bank_Account_NO"
+                placeholder="Bank account"
+                id="bank_Account_NO"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label
+              for="bank_Name"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Bank Name</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.bank_Name"
+                #bank_Name="ngModel"
+                name="bank_Name"
+                placeholder="Bank Name"
+                id="bank_Name"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label
+              for="birthDate"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Birth Date</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="employee.birthDate"
+                #birthDate="ngModel"
+                name="birthDate"
+                placeholder="Birth Date"
+                id="birthDate"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="marrage_Status"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Marriage Status</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.marrage_Status"
+                #marrage_Status="ngModel"
+                name="marrage_Status"
+                placeholder="Marriage Status"
+                id="marrage_Status"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label
+              for="gender"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >gender</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.gender"
+                #gender="ngModel"
+                name="gender"
+                placeholder="Gender"
+                id="gender"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label
+              for="country"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >country</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="employee.country"
+                #country="ngModel"
+                name="country"
+                placeholder="Country"
+                id="country"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label
+              for="active"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >active</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="checkbox"
+                [(ngModel)]="employee.active"
+                #active="ngModel"
+                name="active"
+                placeholder="active"
+                id="active"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="hired"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Hired</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="employee.hired"
+                #hired="ngModel"
+                name="hired"
+                placeholder="Hired"
+                id="hired"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6 row form-group">
+            <label
+              for="terminated"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Terminated</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="employee.terminated"
+                #terminated="ngModel"
+                name="terminated"
+                placeholder="Terminated"
+                id="terminated"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 row form-group">
+            <label
+              for="rehired"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Rehired</label
+            >
+
+            <div class="col-sm-9">
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="employee.rehired"
+                #rehired="ngModel"
+                name="rehired"
+                placeholder="Rehired"
+                id="rehired"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group row col-6">
+            <label
+              for="picture"
+              class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+              translate
+              >Picture</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="file"
+                id="picture"
+                (change)="handleUpload($event)"
+                name="picture"
+              />
+            </div>
+          </div>
+
+          <div class="text-center col-12">
+            <button
+            type="button"
+            *ngIf="!edit_form"
+              (click)="registerEmployee()"
+              value="Save Item"
+              class="btn btn-primary"
+            >
+              Save Item
+            </button>
+
+            <button
+            type="button"
+              *ngIf="edit_form"
+              (click)="updateEmployee()"
+              value="Save Item"
+              class="btn btn-primary"
+            >
+              Update Item
+            </button>
+
+            <button
+            type="button"
+            *ngIf="edit_form"
+              (click)="deleteEmployee()"
+              class="btn btn-danger mx-3"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

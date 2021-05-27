@@ -1,0 +1,2157 @@
+<div class="m-3">
+  <h3 class="font-weight-bold">General Posting Setup</h3>
+  <div class="row d-flex justify-content-end">
+    <button (click)="showAddnew()" *ngIf="!isnew" class="btn btn-primary m-3">
+      Add New
+    </button>
+    <button
+      type="button"
+      (click)="saveNewGeneralPosting()"
+      *ngIf="isnew"
+      class="btn btn-success m-3"
+    >
+      Save
+    </button>
+    <button
+      (click)="cancelForm()"
+      type="button"
+      *ngIf="isnew"
+      class="btn btn-danger m-3"
+    >
+      Cancel
+    </button>
+  </div>
+  <p-table
+    [value]="GeneralPostingSetupList"
+    [responsive]="true"
+    [style]="{ width: '2000px' }"
+    dataKey="vendor_ID"
+    (onEditComplete)="updateGeneralPosting($event)"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" style="width: 250px" translate>
+          gen Bus Posting Group
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          gen Pord Posting Group
+        </th>
+        <th scope="col" style="width: 250px" translate>sales Account</th>
+        <th scope="col" style="width: 250px" translate>
+          sales Credit Memo Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          sales Line Disc Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          sales Inv Disc Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          sales pmt Disc Debit Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          sales pmt tol debit Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          sales pmt Tol credit Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          sales Prepayment Account
+        </th>
+        <th scope="col" style="width: 250px" translate>purch Account</th>
+        <th scope="col" style="width: 250px" translate>
+          purch credit Memo Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          purch Line Disc Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          purch pmt Disc debit Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          purch FA Disc Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          purch pmt tol debit Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          purch pmt tol Credit Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          purch prepayments Account
+        </th>
+        <th scope="col" style="width: 250px" translate>inV COGS Account</th>
+        <th scope="col" style="width: 250px" translate>
+          inV COGS Account Interim
+        </th>
+        <th scope="col" style="width: 250px" translate>inV Adjmt Account</th>
+        <th scope="col" style="width: 250px" translate>
+          inV Accrual Account Interim
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          direct Cost Applied Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          overhead Applied Account
+        </th>
+        <th scope="col" style="width: 250px" translate>
+          purchase Variance Account
+        </th>
+        <th scope="col" translate></th>
+      </tr>
+      <tr *ngIf="isnew">
+        <th style="width: 250px" scope="col" translate>
+          <p-dropdown
+            id="gen_Bus_Posting_Group"
+            [options]="businessGroupPostings"
+            [(ngModel)]="newGeneralPosting.gen_Bus_Posting_Group"
+            name="gen_Bus_Posting_Group"
+            autofocus
+            filter="true"
+            placeholder="Select general business posting group"
+          >
+            <ng-template let-selectedItem pTemplate="selectedItem">
+              {{ selectedItem.label }}
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              {{ item.label }}
+            </ng-template>
+          </p-dropdown>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-dropdown
+            id="gen_Pord_Posting_Group"
+            [options]="productPostingGroups"
+            [(ngModel)]="newGeneralPosting.gen_Pord_Posting_Group"
+            name="gen_Pord_Posting_Group"
+            autofocus
+            filter="true"
+            placeholder="Select general product posting group"
+          >
+            <ng-template let-selectedItem pTemplate="selectedItem">
+              {{ selectedItem.label }}
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              {{ item.label }}
+            </ng-template>
+          </p-dropdown>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.sales_Account"
+            name="sales_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="sales Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.sales_Credit_Memo_Account"
+            name="sales_Credit_Memo_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="sales Credit Memo Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.sales_Line_Disc_Account"
+            name="sales_Line_Disc_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="sales Line Disc Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.sales_Inv_Disc_Account"
+            name="sales_Inv_Disc_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="sales Inv Disc Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.sales_pmt_Disc_Debit_Account"
+            name="sales_pmt_Disc_Debit_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="sales pmt Disc Debit Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.sales_pmt_tol_debit_Account"
+            name="sales_pmt_tol_debit_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="sales pmt tol debit Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.sales_pmt_Tol_credit_Account"
+            name="sales_pmt_Tol_credit_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="sales pmt Tol credit Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.sales_Prepayment_Account"
+            name="sales_Prepayment_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="sales Prepayment Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.purch_Account"
+            name="purch_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="purch Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.purch_credit_Memo_Account"
+            name="purch_credit_Memo_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="purch credit Memo Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.purch_Line_Disc_Account"
+            name="purch_Line_Disc_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="purch Line Disc Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.purch_pmt_Disc_debit_Account"
+            name="purch_pmt_Disc_debit_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="purch pmt Disc debit Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.purch_FA_Disc_Account"
+            name="purch_FA_Disc_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="purch FA Disc Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.purch_pmt_tol_debit_Account"
+            name="purch_pmt_tol_debit_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="purch pmt tol debit Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.purch_pmt_tol_Credit_Account"
+            name="purch_pmt_tol_Credit_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="purch pmt tol Credit Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.purch_prepayments_Account"
+            name="purch_prepayments_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="purch prepayments Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.inV_COGS_Account"
+            name="inV_COGS_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="inV COGS Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.inV_COGS_Account_Interim"
+            name="inV_COGS_Account_Interim"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="inV COGS Account Interim"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.inV_Adjmt_Account"
+            name="inV_Adjmt_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="inV Adjmt Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.inV_Accrual_Account_Interim"
+            name="inV_Accrual_Account_Interim"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="inV Accrual Account Interim"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.direct_Cost_Applied_Account"
+            name="direct_Cost_Applied_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="direct Cost Applied Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.overhead_Applied_Account"
+            name="overhead_Applied_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="overhead Applied Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+
+        <th
+          style="width: 250px"
+          scope="col"
+          translate
+          style="overflow: visible"
+        >
+          <p-autoComplete
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newGeneralPosting.purchase_Variance_Account"
+            name="purchase_Variance_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="purchase Variance Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-GeneralPosting>
+      <tr>
+        <td style="width: 250px" [pEditableColumn]="GeneralPosting">
+          {{
+            GeneralPosting.gen_Bus_Posting_Group
+              ? GeneralPosting.gen_Bus_Posting_Group.account_ID ||
+                GeneralPosting.gen_Bus_Posting_Group
+              : GeneralPosting.gen_Bus_Posting_Group
+          }}
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown
+                id="gen_Pord_Posting_Group"
+                [options]="productPostingGroups"
+                [(ngModel)]="GeneralPosting.gen_Pord_Posting_Group"
+                name="gen_Pord_Posting_Group"
+                autofocus
+                filter="true"
+                placeholder="Select general product posting group"
+              >
+                <ng-template let-selectedItem pTemplate="selectedItem">
+                  {{ selectedItem.label }}
+                </ng-template>
+                <ng-template let-item pTemplate="item">
+                  {{ item.label }}
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.gen_Pord_Posting_Group)
+                  ? GeneralPosting.gen_Pord_Posting_Group.account_ID
+                  : GeneralPosting.gen_Pord_Posting_Group
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.sales_Account"
+                name="sales_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="sales Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.sales_Account)
+                  ? GeneralPosting.sales_Account.account_ID
+                  : GeneralPosting.sales_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.sales_Credit_Memo_Account"
+                name="sales_Credit_Memo_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="sales Credit Memo Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.sales_Credit_Memo_Account)
+                  ? GeneralPosting.sales_Credit_Memo_Account.account_ID
+                  : GeneralPosting.sales_Credit_Memo_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.sales_Line_Disc_Account"
+                name="sales_Line_Disc_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="sales Lin Disc Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.sales_Line_Disc_Account)
+                  ? GeneralPosting.sales_Line_Disc_Account.account_ID
+                  : GeneralPosting.sales_Line_Disc_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.sales_Inv_Disc_Account"
+                name="sales_Inv_Disc_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="sales Inv Disc Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.sales_Inv_Disc_Account)
+                  ? GeneralPosting.sales_Inv_Disc_Account.account_ID
+                  : GeneralPosting.sales_Inv_Disc_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.sales_pmt_Disc_Debit_Account"
+                name="sales_pmt_Disc_Debit_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="sales pmt Disc Debit Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.sales_pmt_Disc_Debit_Account)
+                  ? GeneralPosting.sales_pmt_Disc_Debit_Account.account_ID
+                  : GeneralPosting.sales_pmt_Disc_Debit_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.sales_pmt_tol_debit_Account"
+                name="sales_pmt_tol_debit_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="sales pmt tol debit Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.sales_pmt_tol_debit_Account)
+                  ? GeneralPosting.sales_pmt_tol_debit_Account.account_ID
+                  : GeneralPosting.sales_pmt_tol_debit_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.sales_pmt_Tol_credit_Account"
+                name="sales_pmt_Tol_credit_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="sales pmt Tol credit Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.sales_pmt_Tol_credit_Account)
+                  ? GeneralPosting.sales_pmt_Tol_credit_Account.account_ID
+                  : GeneralPosting.sales_pmt_Tol_credit_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.sales_Prepayment_Account"
+                name="sales_Prepayment_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="sales Prepayment Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.sales_Prepayment_Account)
+                  ? GeneralPosting.sales_Prepayment_Account.account_ID
+                  : GeneralPosting.sales_Prepayment_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.sales_Prepayment_Account"
+                name="purch_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="purch Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.sales_Prepayment_Account)
+                  ? GeneralPosting.sales_Prepayment_Account.account_ID
+                  : GeneralPosting.sales_Prepayment_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.purch_credit_Memo_Account"
+                name="purch_credit_Memo_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="purch credit Memo Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.sales_Prepayment_Account)
+                  ? GeneralPosting.sales_Prepayment_Account.account_ID
+                  : GeneralPosting.sales_Prepayment_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.purch_Line_Disc_Account"
+                name="purch_Line_Disc_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="purch Line Disc Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.purch_Line_Disc_Account)
+                  ? GeneralPosting.purch_Line_Disc_Account.account_ID
+                  : GeneralPosting.purch_Line_Disc_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.purch_pmt_Disc_debit_Account"
+                name="purch_pmt_Disc_debit_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="purch pmt Disc debit Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.purch_pmt_Disc_debit_Account)
+                  ? GeneralPosting.purch_pmt_Disc_debit_Account.account_ID
+                  : GeneralPosting.purch_pmt_Disc_debit_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.purch_FA_Disc_Account"
+                name="purch_FA_Disc_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="purch_FA_Disc_Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.purch_FA_Disc_Account)
+                  ? GeneralPosting.purch_FA_Disc_Account.account_ID
+                  : GeneralPosting.purch_FA_Disc_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.purch_pmt_tol_debit_Account"
+                name="purch_pmt_tol_debit_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="purch pmt tol debit Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.purch_pmt_tol_debit_Account)
+                  ? GeneralPosting.purch_pmt_tol_debit_Account.account_ID
+                  : GeneralPosting.purch_pmt_tol_debit_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.purch_pmt_tol_Credit_Account"
+                name="purch_pmt_tol_Credit_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="purch pmt tol Credit Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.purch_pmt_tol_Credit_Account)
+                  ? GeneralPosting.purch_pmt_tol_Credit_Account.account_ID
+                  : GeneralPosting.purch_pmt_tol_Credit_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.purch_prepayments_Account"
+                name="purch_prepayments_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="purch prepayments Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.purch_prepayments_Account)
+                  ? GeneralPosting.purch_prepayments_Account.account_ID
+                  : GeneralPosting.purch_prepayments_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.inV_COGS_Account"
+                name="inV_COGS_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="inV COGS Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.inV_COGS_Account)
+                  ? GeneralPosting.inV_COGS_Account.account_ID
+                  : GeneralPosting.inV_COGS_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.inV_COGS_Account_Interim"
+                name="inV_COGS_Account_Interim"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="inV COGS Account Interim"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.inV_COGS_Account_Interim)
+                  ? GeneralPosting.inV_COGS_Account_Interim.account_ID
+                  : GeneralPosting.inV_COGS_Account_Interim
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.inV_Adjmt_Account"
+                name="inV_Adjmt_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="inV Adjmt Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.inV_Adjmt_Account)
+                  ? GeneralPosting.inV_Adjmt_Account.account_ID
+                  : GeneralPosting.inV_Adjmt_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.inV_Accrual_Account_Interim"
+                name="inV_Accrual_Account_Interim"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="inV Accrual Account Interim"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.inV_Accrual_Account_Interim)
+                  ? GeneralPosting.inV_Accrual_Account_Interim.account_ID
+                  : GeneralPosting.inV_Accrual_Account_Interim
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.direct_Cost_Applied_Account"
+                name="direct_Cost_Applied_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="direct Cost Applied Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.direct_Cost_Applied_Account)
+                  ? GeneralPosting.direct_Cost_Applied_Account.account_ID
+                  : GeneralPosting.direct_Cost_Applied_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.overhead_Applied_Account"
+                name="overhead_Applied_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="overhead Applied Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.overhead_Applied_Account)
+                  ? GeneralPosting.overhead_Applied_Account.account_ID
+                  : GeneralPosting.overhead_Applied_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="GeneralPosting.purchase_Variance_Account"
+                name="purchase_Variance_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="purchase Variance Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(GeneralPosting.purchase_Variance_Account)
+                  ? GeneralPosting.purchase_Variance_Account.account_ID
+                  : GeneralPosting.purchase_Variance_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="GeneralPosting">
+          <button
+            type="button"
+            (click)="deleteGeneralPosting(GeneralPosting)"
+            class="btn btn-danger"
+          >
+            delete
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -1,0 +1,265 @@
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-8">
+      <form>
+        <div class="col-md-12 row form-group">
+          <label
+            for="Customer"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Customer</label
+          >
+          <div class="col-sm-9">
+            <p-autoComplete
+              *ngIf="!edit_form"
+              name="customer_ID"
+              filter="true"
+              [(ngModel)]="customer.customer_ID"
+              [suggestions]="customersSearchResult"
+              (completeMethod)="searchCustomers($event)"
+              field="customer_ID"
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.customer_ID
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.customer_ID }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+
+            <input
+              *ngIf="edit_form"
+              type="text"
+              class="form-control"
+              [(ngModel)]="customer.customer_ID"
+              #FullName="ngModel"
+              name="customer_ID"
+              disabled
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="FullName"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Full Name</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="customer.name"
+              #FullName="ngModel"
+              name="FullName"
+              placeholder=" "
+              id="FullName"
+              [ngClass]="{ 'is-invalid': FullName.invalid }"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label
+            for="org_Code"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Organization code</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="customer.org_Code"
+              #org_Code="ngModel"
+              name="org_Code"
+              id="org_Code"
+              placeholder=" "
+              [ngClass]="{ 'is-invalid': org_Code.invalid }"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label
+            for="address"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Address</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="customer.address"
+              #address="ngModel"
+              name="address"
+              id="address"
+              placeholder=" "
+              [ngClass]="{ 'is-invalid': address.invalid }"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label
+            for="website"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Website</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="website"
+              class="form-control"
+              [(ngModel)]="customer.website"
+              #website="ngModel"
+              name="website"
+              id="website"
+              placeholder=" "
+              [ngClass]="{ 'is-invalid': website.invalid }"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label
+            for="sales_Tax_Type"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+          >
+            Tax Type</label
+          >
+          <div class="col-sm-9">
+            <select
+              class="form-control col-md-12"
+              [(ngModel)]="customer.sales_Tax_Type"
+              #sales_Tax_Type="ngModel"
+              name="sales_Tax_Type"
+              id="sales_Tax_Type"
+              #sales_Tax_Type="ngModel"
+              [ngClass]="{ 'is-invalid': sales_Tax_Type.invalid }"
+              required
+            >
+              <option disabled>select</option>
+              <option *ngFor="let tax_type of TaxTypes" [value]="tax_type.code">
+                {{ tax_type.description }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label
+            for="customer_Posting_Group"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+          >
+            Customer posting group</label
+          >
+          <div class="col-sm-9">
+            <select
+              class="form-control col-md-12"
+              [(ngModel)]="customer.customer_Posting_Group"
+              #customer_Posting_Group="ngModel"
+              name="customer_Posting_Group"
+              id="customer_Posting_Group"
+              #customer_Posting_Group="ngModel"
+              [ngClass]="{ 'is-invalid': customer_Posting_Group.invalid }"
+              required
+            >
+              <option disabled>select</option>
+              <option
+                *ngFor="let customer_group of CustomerPostingGroups"
+                [value]="customer_group.code"
+              >
+                {{ customer_group.code }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label
+            for="gen_Bus_Posting_Group"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+          >
+            Bus posting group</label
+          >
+          <div class="col-sm-9">
+            <select
+              class="form-control col-md-12"
+              [(ngModel)]="customer.gen_Bus_Posting_Group"
+              #gen_Bus_Posting_Group="ngModel"
+              name="gen_Bus_Posting_Group"
+              id="gen_Bus_Posting_Group"
+              #gen_Bus_Posting_Group="ngModel"
+              [ngClass]="{ 'is-invalid': gen_Bus_Posting_Group.invalid }"
+              required
+            >
+              <option disabled>select</option>
+              <option
+                *ngFor="let posting_group of BusPostingGroups"
+                [value]="posting_group.code"
+              >
+                {{ posting_group.description }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button
+            type="button"
+            *ngIf="!edit_form"
+            (click)="addCustomer()"
+            value="Save customer"
+            class="btn btn-primary"
+          >
+            Save customer
+          </button>
+
+          <button
+            type="button"
+            *ngIf="edit_form"
+            (click)="updateCustomer()"
+            value="Save customer"
+            class="btn btn-primary"
+          >
+            Update customer
+          </button>
+
+          <button
+            type="button"
+            *ngIf="edit_form"
+            (click)="deleteCustomer()"
+            value="Save customer"
+            class="btn btn-danger mx-3"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-4">
+      Details
+      <a href="/#/" class="row">Customer History</a>
+      <a href="/#/" class="row">Customer Beginning Balance</a>
+      <a href="#/" class="row">Sales Info</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,304 @@
+<p-table [value]="transactionSalesTypes" [paginator]="true" [rows]="2">
+  <ng-template pTemplate="header">
+    <tr>
+      <th scope="col" translate>Code</th>
+      <th scope="col" translate>Description</th>
+      <th scope="col" translate>Starting no</th>
+      <th scope="col" translate>Ending no</th>
+      <th scope="col" translate>Date order</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-_transactionSalesType>
+    <tr>
+      <td>{{ _transactionSalesType.code }}</td>
+      <td>{{ _transactionSalesType.description }}</td>
+      <td>{{ _transactionSalesType.starting_No }}</td>
+      <td>{{ _transactionSalesType.ending_No }}</td>
+      <td>{{ _transactionSalesType.date_Order }}</td>
+
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="initiateEdit(_transactionSalesType)"
+          translate
+        >
+          Edit
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<div class="text-center py-2">
+  <h4>Transaction sales type</h4>
+</div>
+
+<form class="row">
+  <div class="col-md-6 row form-group">
+    <label
+      for="code"
+      class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+      translate
+      >Code</label
+    >
+
+    <div class="col-sm-9">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="transactionSalesType.code"
+        #name="ngModel"
+        name="code"
+        placeholder="Code"
+        id="code"
+        [ngClass]="{ 'is-invalid': name.invalid }"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group">
+    <label
+      for="description"
+      class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+      translate
+      >Description</label
+    >
+
+    <div class="col-sm-9">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="transactionSalesType.description"
+        #name="ngModel"
+        name="description"
+        placeholder="Description"
+        id="description"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group">
+    <label
+      for="starting_No"
+      class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+      translate
+      >Starting No</label
+    >
+
+    <div class="col-sm-9">
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="transactionSalesType.starting_No"
+        #name="ngModel"
+        name="starting_No"
+        placeholder="Starting No"
+        id="starting_No"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group">
+    <label
+      for="ending_No"
+      class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+      translate
+      >Ending No</label
+    >
+
+    <div class="col-sm-9">
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="transactionSalesType.ending_No"
+        #name="ngModel"
+        name="ending_No"
+        placeholder="Ending No"
+        id="ending_No"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group">
+    <label
+      for="last_Date_Used"
+      class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+      translate
+      >Last date used</label
+    >
+
+    <div class="col-sm-9">
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="transactionSalesType.last_Date_Used"
+        #name="ngModel"
+        name="last_Date_Used"
+        placeholder="Last date used"
+        id="last_Date_Used"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group">
+    <label
+      for="last_No_Used"
+      class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+      translate
+      >Last No Used</label
+    >
+
+    <div class="col-sm-9">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="transactionSalesType.last_No_Used"
+        #name="ngModel"
+        name="last_No_Used"
+        placeholder="Last No Used"
+        id="last_No_Used"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group">
+    <label
+      for="default_Nos"
+      class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+      translate
+      >Default Nos</label
+    >
+
+    <div class="col-sm-9">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="transactionSalesType.default_Nos"
+        #name="ngModel"
+        name="default_Nos"
+        placeholder="Default Nos"
+        id="default_Nos"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group">
+    <label
+      for="manual_Nos"
+      class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+      translate
+      >Manual Nos</label
+    >
+
+    <div class="col-sm-9">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="transactionSalesType.manual_Nos"
+        #name="ngModel"
+        name="manual_Nos"
+        placeholder="Manual Nos"
+        id="manual_Nos"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group">
+    <label
+      for="date_Order"
+      class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+      translate
+      >Date order</label
+    >
+
+    <div class="col-sm-9">
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="transactionSalesType.date_Order"
+        #name="ngModel"
+        name="date_Order"
+        placeholder="Date order"
+        id="date_Order"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group">
+    <label
+      for="gen_Bus_Posting_Group"
+      class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+      translate
+      >Gen Bus Posting Group</label
+    >
+
+    <div class="col-sm-9">
+      <select
+        class="form-control"
+        [(ngModel)]="transactionSalesType.gen_Bus_Posting_Group"
+        #name="ngModel"
+        name="gen_Bus_Posting_Group"
+        placeholder="Gen Bus Posting Group"
+        id="gen_Bus_Posting_Group"
+        required
+      >
+        <option
+          *ngFor="let busPostingGroup of busPostingGroups"
+          [(value)]="busPostingGroup.code"
+        >
+          {{ busPostingGroup.description }}
+        </option>
+      </select>
+    </div>
+  </div>
+</form>
+
+<div class="text-center">
+  <button
+  type="button"
+    *ngIf="!edit_form"
+    (click)="registerTransactionSalesType()"
+    value="Save transactionSalesType"
+    class="btn btn-primary"
+  >
+    Save
+  </button>
+
+  <button
+  type="button"
+    *ngIf="edit_form"
+    (click)="clearForm()"
+    class="btn btn-info"
+  >
+    Clear
+  </button>
+
+  <button
+  type="button"
+    *ngIf="edit_form"
+    (click)="updateTransactionSalesType()"
+    class="btn btn-primary"
+  >
+    Update
+  </button>
+
+  <button
+  type="button"
+    *ngIf="edit_form"
+    (click)="deleteTransactionSalesType()"
+    class="btn btn-danger mx-3"
+  >
+    Delete
+  </button>
+</div>

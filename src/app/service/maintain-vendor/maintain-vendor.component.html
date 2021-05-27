@@ -1,0 +1,330 @@
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-8">
+      <form #VendorForm="ngForm">
+        <div class="col-md-12 row form-group">
+          <label
+            for="Vendor"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Vendor Id</label
+          >
+          <div class="col-sm-9">
+            <p-autoComplete
+              *ngIf="!edit_form"
+              name="vendor_ID"
+              filter="true"
+              [(ngModel)]="vendor.vendor_ID"
+              [suggestions]="vendorsSearchResult"
+              (completeMethod)="searchVendors($event)"
+              field="vendor_ID"
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.vendor_ID
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.vendor_ID }} : {{ item.name }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+            <input
+              *ngIf="edit_form"
+              type="text"
+              class="form-control"
+              [(ngModel)]="vendor.vendor_ID"
+              #name="ngModel"
+              name="vendor_id"
+              disabled
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12 row form-group">
+          <label
+            for="name"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Full Name</label
+          >
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="vendor.name"
+              #name="ngModel"
+              name="name"
+              placeholder=" "
+              id="name"
+              [ngClass]="{ 'is-invalid': name.invalid }"
+              required
+            />
+          </div>
+        </div>
+        
+        <div class="form-group row col-md-12">
+          <label
+            for="telephone_Office"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Office Phone Number</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="vendor.telephone_Office"
+              #telephone_Office="ngModel"
+              name="telephone_Office"
+              minlength="10"
+              maxlength="10"
+              required
+              id="telephone_Office"
+              placeholder=" "
+              [ngClass]="{ 'is-invalid': telephone_Office.invalid }"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label
+            for="mobile"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Phone Number</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="tel"
+              class="form-control"
+              [(ngModel)]="vendor.mobile"
+              #mobile="ngModel"
+              name="mobile"
+              minlength="10"
+              maxlength="10"
+              id="mobile"
+              required
+              placeholder="Phone Number"
+              [ngClass]="{ 'is-invalid': mobile.invalid }"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label
+            for="email"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >email</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="email"
+              class="form-control"
+              [(ngModel)]="vendor.email"
+              #email="ngModel"
+              required
+              name="email"
+              id="email"
+              placeholder=" "
+              [ngClass]="{ 'is-invalid': email.invalid }"
+            />
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+          <label
+            for="address"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+          >
+            address</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="vendor.address"
+              #address="ngModel"
+              name="address"
+              id="address"
+              placeholder="  "
+              [ngClass]="{ 'is-invalid': address.invalid }"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label
+            for="website"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Website</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="vendor.website"
+              #website="ngModel"
+              name="website"
+              required
+              id="website"
+              placeholder=" "
+              [ngClass]="{ 'is-invalid': website.invalid }"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label
+            for="sales_Tax_Type"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Sales Tax Type</label
+          >
+          <div class="col-sm-9">
+            <select
+              class="form-control"
+              [(ngModel)]="vendor.sales_Tax_Type"
+              name="sales_Tax_Type"
+              id="sales_Tax_Type"
+              #sales_Tax_Type="ngModel"
+              [ngClass]="{ 'is-invalid': sales_Tax_Type.invalid }"
+              required
+            >
+              <option *ngFor="let tax_type of TaxTypes" [value]="tax_type.code">
+                {{ tax_type.description }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+          <label
+            for="expense_Account"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+            >Account</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="vendor.expense_Account"
+              #expense_Account="ngModel"
+              name="expense_Account"
+              id="expense_Account"
+              placeholder="Account"
+              [ngClass]="{ 'is-invalid': expense_Account.invalid }"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label
+            for="vendor_Posting_Group"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+          >
+            Vendor posting group</label
+          >
+          <div class="col-sm-9">
+            <select
+              class="form-control col-md-12"
+              [(ngModel)]="vendor.vendor_Posting_Group"
+              #vendor_Posting_Group="ngModel"
+              name="vendor_Posting_Group"
+              id="vendor_Posting_Group"
+              #vendor_Posting_Group="ngModel"
+              [ngClass]="{ 'is-invalid': vendor_Posting_Group.invalid }"
+              required
+            >
+              <option disabled>select</option>
+              <option
+                *ngFor="let vendor_group of vendorPostingGroups"
+                [value]="vendor_group.code"
+              >
+                {{ vendor_group.code }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+          <label
+            for="gen_Bus_Posting_Group"
+            class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+            translate
+          >
+            Bus posting group</label
+          >
+          <div class="col-sm-9">
+            <select
+              class="form-control col-md-12"
+              [(ngModel)]="vendor.gen_Bus_Posting_Group"
+              #gen_Bus_Posting_Group="ngModel"
+              name="gen_Bus_Posting_Group"
+              id="gen_Bus_Posting_Group"
+              #gen_Bus_Posting_Group="ngModel"
+              [ngClass]="{ 'is-invalid': gen_Bus_Posting_Group.invalid }"
+              required
+            >
+              <option disabled>select</option>
+              <option
+                *ngFor="let posting_group of BusPostingGroups"
+                [value]="posting_group.code"
+              >
+                {{ posting_group.description }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button
+            type="button"
+            *ngIf="!edit_form"
+            [disabled]="!VendorForm.valid"
+            (click)="addVendor()"
+            value="Save vendor"
+            
+            class="btn btn-primary"
+          >
+            Save vendor
+          </button>
+
+          <button
+            type="button"
+            *ngIf="edit_form"
+            (click)="updateVendor()"
+            [disabled]="!VendorForm.valid"
+            class="btn btn-primary"
+          >
+            Update vendor
+          </button>
+
+          <button
+            type="button"
+            *ngIf="edit_form"
+            (click)="deleteVendor()"
+            class="btn btn-danger mx-3"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4">
+      Details
+      <a href="/#/" class="row"> Vendor History</a>
+      <a href="/#/" class="row"> Vendor Beginning Balance</a>
+    </div>
+  </div>
+</div>

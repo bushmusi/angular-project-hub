@@ -1,0 +1,129 @@
+
+<div class="row mt-4 mb-4">
+  <div class="col"></div>
+  <div class="col-md-12">
+    <div class="container"  >
+      <p-table [value]="unitOfMeasureList" [paginator]="true" [rows]="3">
+        <ng-template pTemplate="header">
+          <tr>
+            <th scope="col" translate>Unit</th>
+            <th scope="col" translate>Description</th>
+            <th scope="col" translate></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>{{ item.unit }}</td>
+            <td>{{ item.description }}</td>
+            <td>
+              <button
+          type="button"
+          class="btn btn-primary"
+                (click)="selectItem(item)"
+                translate
+              >
+                Edit
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div class="col"></div>
+</div>
+
+
+<div class="card MB-4" >
+  <div class="card-body">
+    <h5 class="card-title MB-4">UNIT FORM</h5>
+
+    <form class="row" [formGroup]="unitOfMeasureGroup" novalidate>
+      <div class="col-md-6 row form-group">
+        <label
+          for="code"
+          class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+          translate
+          >Unit</label
+        >
+    
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            name="unit"
+            placeholder="unit"
+            id="unit"
+            formControlName="unit"
+            #unit
+            required
+          />
+          <div *ngIf="unitOfMeasureGroup.controls['unit'].invalid && (unitOfMeasureGroup.controls['unit'].dirty || unitOfMeasureGroup.controls['unit'].touched)" class="alert alert-danger">  
+            <div *ngIf="unitOfMeasureGroup.controls['unit'].errors.required">  
+              This field is required.  
+            </div>  
+          </div> 
+    
+        </div>
+      </div>
+    
+      <div class="col-md-6 row form-group">
+        <label
+          for="code"
+          class="font-weight-bold font-weight-bold col-sm-3 col-form-label"
+          translate
+          >Description</label
+        >
+    
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            placeholder="description"
+            id="description"
+            formControlName="description"
+            #description
+            required
+          />
+          <div *ngIf="unitOfMeasureGroup.controls['description'].invalid && (unitOfMeasureGroup.controls['description'].dirty || unitOfMeasureGroup.controls['description'].touched)" class="alert alert-danger">  
+            <div *ngIf="unitOfMeasureGroup.controls['description'].errors.required">  
+              This field is required.  
+            </div>  
+          </div> 
+        </div>
+      </div>
+    
+      <div class="col-md-6 row form-group">
+        <div class="col-sm-9">
+          <input
+            type="button"
+            class="btn btn-xs btn-info"
+            value="Add"
+            *ngIf="!isEdit"
+            [disabled]="unitOfMeasureGroup.invalid || unitOfMeasureGroup.pristine"
+            (click) = "addUnitMeasure()"
+          />
+          <input
+            type="button"
+            class="btn btn-xs btn-info"
+            value="Save/Update"
+            (click) = "updateUnitMeasure()"
+            [disabled]="unitOfMeasureGroup.invalid "
+            *ngIf="isEdit"
+          />
+          <input
+            type="button"
+            class="btn btn-xs btn-danger"
+            value="Delete"
+            (click) = "deleteUnitMeasureList()"
+            [disabled]="unitOfMeasureGroup.invalid "
+            *ngIf="isEdit"
+          />
+        </div>
+      </div>    
+    </form>
+
+  </div>
+</div>
+

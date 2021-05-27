@@ -1,0 +1,663 @@
+<div class="m-3">
+  <h3 class="font-weight-bold">WithHold Posting Setup</h3>
+  <div class="row d-flex justify-content-end">
+    <button
+      type="button"
+      (click)="showAddnew()"
+      *ngIf="!isnew"
+      class="btn btn-primary m-3"
+    >
+      Add New
+    </button>
+    <button
+      type="button"
+      (click)="saveNewWithHoldPosting()"
+      *ngIf="isnew"
+      class="btn btn-success m-3"
+    >
+      Save
+    </button>
+    <button
+      type="button"
+      (click)="cancelForm()"
+      *ngIf="isnew"
+      class="btn btn-danger m-3"
+    >
+      Cancel
+    </button>
+  </div>
+  <div class="table-container">
+    <p-table
+      class="table-container"
+      [value]="WithHoldPostingSetupList"
+      dataKey="vendor_ID"
+      (onEditComplete)="updateWithHoldPosting($event)"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th scope="col" translate>with Posting Group</th>
+          <th scope="col" translate>bus Posting Group</th>
+          <th scope="col" translate>prod Posting Group</th>
+          <th scope="col" translate>prepaid WHT Acc Code</th>
+          <th scope="col" translate>payable WHT Acc Code</th>
+          <th scope="col" translate>bal Prepaid Account Type</th>
+          <th scope="col" translate>bal Prepaid Acc Code</th>
+          <th scope="col" translate>bal Payable Account Type</th>
+          <th scope="col" translate>bal Payable Acc Code</th>
+          <th scope="col" translate>purch WHT Adj Acc Code</th>
+          <th scope="col" translate>sales WHT Adj Acc Code</th>
+
+          <th scope="col" translate></th>
+        </tr>
+        <tr *ngIf="isnew">
+          <th scope="col" translate>
+            <input
+              placeholder="with Posting Group"
+              style="width: 100%"
+              [(ngModel)]="newWithHoldPosting.with_Posting_Group"
+              name="with_Posting_Group"
+              required
+            />
+          </th>
+
+          <th scope="col" translate>
+            <select
+              class="form-control"
+              [(ngModel)]="newWithHoldPosting.bus_Posting_Group"
+              name="bus_Posting_Group"
+              id="bus_Posting_Group"
+              #bus_Posting_Group="ngModel"
+              [ngClass]="{ 'is-invalid': bus_Posting_Group.invalid }"
+              required
+            >
+              <option
+                *ngFor="let busPostingGroup of busPostingGroups"
+                [value]="busPostingGroup.code"
+              >
+                {{ busPostingGroup.description }}
+              </option>
+            </select>
+          </th>
+
+          <th scope="col" translate>
+            <select
+              class="form-control"
+              [(ngModel)]="newWithHoldPosting.prod_Posting_Group"
+              name="prod_Posting_Group"
+              id="prod_Posting_Group"
+              #prod_Posting_Group="ngModel"
+              [ngClass]="{ 'is-invalid': prod_Posting_Group.invalid }"
+              required
+            >
+              <option
+                *ngFor="let productPostingGroup of productPostingGroups"
+                [value]="productPostingGroup.code"
+              >
+                {{ productPostingGroup.description }}
+              </option>
+            </select>
+          </th>
+
+          <th scope="col" translate>
+            <p-autoComplete
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              class="prime-input p-inputtext-lg"
+              [(ngModel)]="newWithHoldPosting.prepaid_WHT_Acc_Code"
+              name="prepaid_WHT_Acc_Code"
+              field="account_ID"
+              [suggestions]="FilteredChartOfAccounts"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="prepaid WHT Acc Code"
+              [dropdown]="false"
+              required
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </th>
+
+          <th scope="col" translate>
+            <p-autoComplete
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              class="prime-input p-inputtext-lg"
+              [(ngModel)]="newWithHoldPosting.payable_WHT_Acc_Code"
+              name="payable_WHT_Acc_Code"
+              field="account_ID"
+              [suggestions]="FilteredChartOfAccounts"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="payable WHT Acc Code"
+              [dropdown]="false"
+              required
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </th>
+
+          <th scope="col" translate>
+            <p-autoComplete
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              class="prime-input p-inputtext-lg"
+              [(ngModel)]="newWithHoldPosting.bal_Prepaid_Account_Type"
+              name="bal_Prepaid_Account_Type"
+              field="account_ID"
+              [suggestions]="FilteredChartOfAccounts"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="bal Prepaid Account Type"
+              [dropdown]="false"
+              required
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </th>
+
+          <th scope="col" translate>
+            <p-autoComplete
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              class="prime-input p-inputtext-lg"
+              [(ngModel)]="newWithHoldPosting.bal_Prepaid_Acc_Code"
+              name="bal_Prepaid_Acc_Code"
+              field="account_ID"
+              [suggestions]="FilteredChartOfAccounts"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="bal Prepaid Acc Code"
+              [dropdown]="false"
+              required
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </th>
+
+          <th scope="col" translate>
+            <p-autoComplete
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              class="prime-input p-inputtext-lg"
+              [(ngModel)]="newWithHoldPosting.bal_Payable_Account_Type"
+              name="bal_Payable_Account_Type"
+              field="account_ID"
+              [suggestions]="FilteredChartOfAccounts"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="bal Payable Account Type"
+              [dropdown]="false"
+              required
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </th>
+
+          <th scope="col" translate>
+            <p-autoComplete
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              class="prime-input p-inputtext-lg"
+              [(ngModel)]="newWithHoldPosting.bal_Payable_Acc_Code"
+              name="bal_Payable_Acc_Code"
+              field="account_ID"
+              [suggestions]="FilteredChartOfAccounts"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="bal Payable Acc Code"
+              [dropdown]="false"
+              required
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </th>
+
+          <th scope="col" translate>
+            <p-autoComplete
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              class="prime-input p-inputtext-lg"
+              [(ngModel)]="newWithHoldPosting.purch_WHT_Adj_Acc_Code"
+              name="purch_WHT_Adj_Acc_Code"
+              field="account_ID"
+              [suggestions]="FilteredChartOfAccounts"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="purch WHT Adj Acc Code"
+              [dropdown]="false"
+              required
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </th>
+
+          <th scope="col" translate>
+            <p-autoComplete
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              [style]="{ width: '100%' }"
+              [inputStyle]="{ width: '100%' }"
+              class="prime-input p-inputtext-lg"
+              [(ngModel)]="newWithHoldPosting.sales_WHT_Adj_Acc_Code"
+              name="sales_WHT_Adj_Acc_Code"
+              field="account_ID"
+              [suggestions]="FilteredChartOfAccounts"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="sales WHT Adj Acc Code"
+              [dropdown]="false"
+              required
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </th>
+
+          <th scope="col" translate></th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-WithHoldPosting>
+        <tr>
+          <td [pEditableColumn]="WithHoldPosting">
+            {{
+              WithHoldPosting.WithHold_BusPosting_Group
+                ? WithHoldPosting.WithHold_BusPosting_Group.account_ID ||
+                  WithHoldPosting.WithHold_BusPosting_Group
+                : WithHoldPosting.WithHold_BusPosting_Group
+            }}
+          </td>
+
+          <td [pEditableColumn]="WithHoldPosting">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                  class="prime-input p-inputtext-lg"
+                  [(ngModel)]="WithHoldPosting.WithHold_Prod_Psting_Group"
+                  name="WithHold_Prod_Psting_Group"
+                  field="account_ID"
+                  [suggestions]="FilteredChartOfAccounts"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  placeholder="WithHold Prod Posting Group"
+                  [dropdown]="false"
+                  required
+                >
+                  <ng-template let-item pTemplate="selectedItem">
+                    <span style="vertical-align: middle; margin-left: 0.5em">{{
+                      item.description
+                    }}</span>
+                  </ng-template>
+
+                  <ng-template let-item pTemplate="item">
+                    <div
+                      class="ui-helper-clearfix"
+                      style="position: relative; height: 25px"
+                    >
+                      <div style="font-size: 14px; margin-top: 4px">
+                        {{ item.description }}
+                      </div>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+
+              <ng-template pTemplate="output">
+                {{
+                  isNotNull(WithHoldPosting.WithHold_Prod_Psting_Group)
+                    ? WithHoldPosting.WithHold_Prod_Psting_Group.account_ID
+                    : WithHoldPosting.WithHold_Prod_Psting_Group
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td [pEditableColumn]="WithHoldPosting">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                  class="prime-input p-inputtext-lg"
+                  [(ngModel)]="WithHoldPosting.WithHold_Per"
+                  name="WithHold_Per"
+                  field="account_ID"
+                  [suggestions]="FilteredChartOfAccounts"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  placeholder="WithHold Per"
+                  [dropdown]="false"
+                  required
+                >
+                  <ng-template let-item pTemplate="selectedItem">
+                    <span style="vertical-align: middle; margin-left: 0.5em">{{
+                      item.description
+                    }}</span>
+                  </ng-template>
+
+                  <ng-template let-item pTemplate="item">
+                    <div
+                      class="ui-helper-clearfix"
+                      style="position: relative; height: 25px"
+                    >
+                      <div style="font-size: 14px; margin-top: 4px">
+                        {{ item.description }}
+                      </div>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+
+              <ng-template pTemplate="output">
+                {{
+                  isNotNull(WithHoldPosting.WithHold_Per)
+                    ? WithHoldPosting.WithHold_Per.account_ID
+                    : WithHoldPosting.WithHold_Per
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td [pEditableColumn]="WithHoldPosting">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                  class="prime-input p-inputtext-lg"
+                  [(ngModel)]="WithHoldPosting.sales_WithHold_GL_Account"
+                  name="sales_WithHold_GL_Account"
+                  field="account_ID"
+                  [suggestions]="FilteredChartOfAccounts"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  placeholder="sales WithHold GL Account"
+                  [dropdown]="false"
+                  required
+                >
+                  <ng-template let-item pTemplate="selectedItem">
+                    <span style="vertical-align: middle; margin-left: 0.5em">{{
+                      item.description
+                    }}</span>
+                  </ng-template>
+
+                  <ng-template let-item pTemplate="item">
+                    <div
+                      class="ui-helper-clearfix"
+                      style="position: relative; height: 25px"
+                    >
+                      <div style="font-size: 14px; margin-top: 4px">
+                        {{ item.description }}
+                      </div>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+
+              <ng-template pTemplate="output">
+                {{
+                  isNotNull(WithHoldPosting.sales_WithHold_GL_Account)
+                    ? WithHoldPosting.sales_WithHold_GL_Account.account_ID
+                    : WithHoldPosting.sales_WithHold_GL_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td [pEditableColumn]="WithHoldPosting">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                  class="prime-input p-inputtext-lg"
+                  [(ngModel)]="WithHoldPosting.purchase_WithHold_Account"
+                  name="purchase_WithHold_Account"
+                  field="account_ID"
+                  [suggestions]="FilteredChartOfAccounts"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  placeholder="purchase WithHold Account"
+                  [dropdown]="false"
+                  required
+                >
+                  <ng-template let-item pTemplate="selectedItem">
+                    <span style="vertical-align: middle; margin-left: 0.5em">{{
+                      item.description
+                    }}</span>
+                  </ng-template>
+
+                  <ng-template let-item pTemplate="item">
+                    <div
+                      class="ui-helper-clearfix"
+                      style="position: relative; height: 25px"
+                    >
+                      <div style="font-size: 14px; margin-top: 4px">
+                        {{ item.description }}
+                      </div>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+
+              <ng-template pTemplate="output">
+                {{
+                  isNotNull(WithHoldPosting.purchase_WithHold_Account)
+                    ? WithHoldPosting.purchase_WithHold_Account.account_ID
+                    : WithHoldPosting.purchase_WithHold_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td [pEditableColumn]="WithHoldPosting">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                  [style]="{ width: '100%' }"
+                  [inputStyle]="{ width: '100%' }"
+                  class="prime-input p-inputtext-lg"
+                  [(ngModel)]="WithHoldPosting.reverse_Chrg_WithHold_Account"
+                  name="reverse_Chrg_WithHold_Account"
+                  field="account_ID"
+                  [suggestions]="FilteredChartOfAccounts"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  placeholder="reverse Chrg WithHold Account"
+                  [dropdown]="false"
+                  required
+                >
+                  <ng-template let-item pTemplate="selectedItem">
+                    <span style="vertical-align: middle; margin-left: 0.5em">{{
+                      item.description
+                    }}</span>
+                  </ng-template>
+
+                  <ng-template let-item pTemplate="item">
+                    <div
+                      class="ui-helper-clearfix"
+                      style="position: relative; height: 25px"
+                    >
+                      <div style="font-size: 14px; margin-top: 4px">
+                        {{ item.description }}
+                      </div>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+
+              <ng-template pTemplate="output">
+                {{
+                  isNotNull(WithHoldPosting.reverse_Chrg_WithHold_Account)
+                    ? WithHoldPosting.reverse_Chrg_WithHold_Account.account_ID
+                    : WithHoldPosting.reverse_Chrg_WithHold_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td [pEditableColumn]="WithHoldPosting">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <div class="d-flex justify-content-center align-items-center">
+                  <input
+                    class="form-check-input"
+                    [(checked)]="WithHoldPosting.isActive"
+                    (change)="
+                      WithHoldPosting.isActive = !WithHoldPosting.isActive
+                    "
+                    type="checkbox"
+                    style="width: 1.5vw; height: 1.5vh"
+                    id="isActive"
+                  />
+                </div>
+              </ng-template>
+
+              <ng-template pTemplate="output">
+                {{
+                  isNotNull(WithHoldPosting.isActive)
+                    ? WithHoldPosting.isActive.account_ID
+                    : WithHoldPosting.isActive
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td [pEditableColumn]="WithHoldPosting">
+            <button
+              type="button"
+              (click)="deleteWithHoldPosting(WithHoldPosting)"
+              class="btn btn-danger"
+            >
+              delete
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

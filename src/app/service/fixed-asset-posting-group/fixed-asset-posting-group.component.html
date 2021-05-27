@@ -1,0 +1,1188 @@
+<h3 class="font-weight-bold">Fixed asset posting group</h3>
+<div>
+  <div class="m-3">
+    <div class="row">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="registerFixedAssetPostingGroup()"
+        translate
+      >
+        Save
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="clearForm()"
+        translate
+      >
+        Add New
+      </button>
+    </div>
+    <p-table
+      [value]="fixedAssetPostingGroups"
+      [resizableColumns]="true"
+      [style]="{ width: '2000px' }"
+      (onEditComplete)="performUpdate($event)"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn scope="col" translate>Code</th>
+          <th pResizableColumn>name</th>
+          <th pResizableColumn>dep Per</th>
+          <th pResizableColumn>dep Max Year</th>
+          <th pResizableColumn>acquisition Cost Account</th>
+          <th pResizableColumn>dep Expeance GL Account</th>
+          <th pResizableColumn>dep Acc GLAccount</th>
+          <th pResizableColumn>acquisition costs on disposal</th>
+          <th pResizableColumn>accumulated depreciation on disposal</th>
+          <th pResizableColumn>gains on disposal</th>
+          <th pResizableColumn>losses on disposal</th>
+          <th pResizableColumn>maintenance expenses</th>
+          <th pResizableColumn>depreciation expenses</th>
+          <th pResizableColumn>rent Inc GL Account</th>
+          <th pResizableColumn>dep IFRS Per</th>
+          <th pResizableColumn>ifrS Dep Max Year</th>
+          <th pResizableColumn>ifrS Expeance GL Account</th>
+          <th pResizableColumn>ifrS Dep Acc GLAccount</th>
+          <th pResizableColumn>ifrS Acquisition costs on disposal</th>
+          <th pResizableColumn>ifrS Accumulated depreciation on disposal</th>
+          <th pResizableColumn>ifrS Gains on disposal</th>
+          <th pResizableColumn>ifrS Losses on disposal</th>
+          <th pResizableColumn>ifrS Maintenance expenses</th>
+          <th pResizableColumn>ifrS Depreciation expenses</th>
+          <th pResizableColumn>ifrS Rent Inc GL Account</th>
+          <th pResizableColumn>iD Numbering</th>
+          <th pResizableColumn>min Book Value</th>
+          <th pResizableColumn>ifrS Min Book Value</th>
+          <th pResizableColumn>is Active</th>
+          <th pResizableColumn scope="col"></th>
+        </tr>
+
+        <tr *ngIf="IsAddFormVisible">
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="fixedAssetPostingGroup.code"
+              class="form-control"
+              name="code"
+              placeholder="Code"
+              id="code"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="fixedAssetPostingGroup.Name"
+              class="form-control"
+              name="Name"
+              placeholder="Name"
+              id="Name"
+              required
+            />
+          </td>
+
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="fixedAssetPostingGroup.dep_Per"
+              class="form-control"
+              name="dep_Per"
+              placeholder="dep_Per"
+              id="dep_Per"
+              required
+            />
+          </td>
+
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="fixedAssetPostingGroup.dep_Max_Year"
+              class="form-control"
+              name="dep_Max_Year"
+              placeholder="dep_Max_Year"
+              id="dep_Max_Year"
+              required
+            />
+          </td>
+
+          <td class="p-2">
+            <p-autoComplete
+              name="acquisition_Cost_Account"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.acquisition_Cost_Account"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="acquisition_Cost_Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+
+          <td class="p-2">
+            <p-autoComplete
+              name="dep_Expeance_GL_Account"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.dep_Expeance_GL_Account"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+
+          <td class="p-2">
+            <p-autoComplete
+              name="dep_Acc_GLAccount"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.dep_Acc_GLAccount"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="acquisition_costs_on_disposal"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.acquisition_costs_on_disposal"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+
+          <td class="p-2">
+            <p-autoComplete
+              name="accumulated_depreciation_on_disposal"
+              filter="true"
+              [(ngModel)]="
+                fixedAssetPostingGroup.accumulated_depreciation_on_disposal
+              "
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="gains_on_disposal"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.gains_on_disposal"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="losses_on_disposal"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.losses_on_disposal"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="maintenance_expenses"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.maintenance_expenses"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="depreciation_expenses"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.depreciation_expenses"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="rent_Inc_GL_Account"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.rent_Inc_GL_Account"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="fixedAssetPostingGroup.dep_IFRS_Per"
+              class="form-control"
+              name="dep_IFRS_Per"
+              placeholder="dep_IFRS_Per"
+              id="dep_IFRS_Per"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="fixedAssetPostingGroup.ifrS_Dep_Max_Year"
+              class="form-control"
+              name="ifrS_Dep_Max_Year"
+              placeholder="ifrS_Dep_Max_Year"
+              id="ifrS_Dep_Max_Year"
+              required
+            />
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="ifrS_Expeance_GL_Account"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.ifrS_Expeance_GL_Account"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="ifrS_Dep_Acc_GLAccount"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.ifrS_Dep_Acc_GLAccount"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="ifrS_Acquisition_costs_on_disposal"
+              filter="true"
+              [(ngModel)]="
+                fixedAssetPostingGroup.ifrS_Acquisition_costs_on_disposal
+              "
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="ifrS_Accumulated_depreciation_on_disposal"
+              filter="true"
+              [(ngModel)]="
+                fixedAssetPostingGroup.ifrS_Accumulated_depreciation_on_disposal
+              "
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="ifrS_Gains_on_disposal"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.ifrS_Gains_on_disposal"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="ifrS_Losses_on_disposal"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.ifrS_Losses_on_disposal"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="ifrS_Maintenance_expenses"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.ifrS_Maintenance_expenses"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="ifrS_Depreciation_expenses"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.ifrS_Depreciation_expenses"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="ifrS_Rent_Inc_GL_Account"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.ifrS_Rent_Inc_GL_Account"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td class="p-2">
+            <p-autoComplete
+              name="iD_Numbering"
+              filter="true"
+              [(ngModel)]="fixedAssetPostingGroup.iD_Numbering"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.description }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="fixedAssetPostingGroup.min_Book_Value"
+              class="form-control"
+              name="min_Book_Value"
+              placeholder="min_Book_Value"
+              id="min_Book_Value"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="fixedAssetPostingGroup.ifrS_Min_Book_Value"
+              class="form-control"
+              name="ifrS_Min_Book_Value"
+              placeholder="ifrS_Min_Book_Value"
+              id="ifrS_Min_Book_Value"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="checkbox"
+              [(ngModel)]="fixedAssetPostingGroup.is_Active"
+              class="form-control"
+              name="is_Active"
+              placeholder="is_Active"
+              id="is_Active"
+              required
+            />
+          </td>
+
+          <td scope="col" rowspan="2" style="text-align: center"></td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-fixedAssetPostingGroup>
+        <tr>
+          <td>
+            {{ fixedAssetPostingGroup.code }}
+          </td>
+
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="fixedAssetPostingGroup.Name"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ fixedAssetPostingGroup.name }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="fixedAssetPostingGroup.dep_Per"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ fixedAssetPostingGroup.dep_Per }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="fixedAssetPostingGroup.dep_Max_Year"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ fixedAssetPostingGroup.dep_Max_Year }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="acquisition_Cost_Account"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.acquisition_Cost_Account"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="acquisition_Cost_Account"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.acquisition_Cost_Account
+                    ? fixedAssetPostingGroup.acquisition_Cost_Account
+                        .account_ID ||
+                      fixedAssetPostingGroup.acquisition_Cost_Account
+                    : fixedAssetPostingGroup.acquisition_Cost_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="dep_Expeance_GL_Account"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.dep_Expeance_GL_Account"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="dep_Expeance_GL_Account"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.dep_Expeance_GL_Account
+                    ? fixedAssetPostingGroup.dep_Expeance_GL_Account
+                        .account_ID ||
+                      fixedAssetPostingGroup.dep_Expeance_GL_Account
+                    : fixedAssetPostingGroup.dep_Expeance_GL_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="dep_Acc_GLAccount"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.dep_Acc_GLAccount"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="dep_Acc_GLAccount"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.dep_Acc_GLAccount
+                    ? fixedAssetPostingGroup.dep_Acc_GLAccount.account_ID ||
+                      fixedAssetPostingGroup.dep_Acc_GLAccount
+                    : fixedAssetPostingGroup.dep_Acc_GLAccount
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="acquisition_costs_on_disposal"
+                  filter="true"
+                  [(ngModel)]="
+                    fixedAssetPostingGroup.acquisition_costs_on_disposal
+                  "
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="acquisition_costs_on_disposal"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.acquisition_costs_on_disposal
+                    ? fixedAssetPostingGroup.acquisition_costs_on_disposal
+                        .account_ID ||
+                      fixedAssetPostingGroup.acquisition_costs_on_disposal
+                    : fixedAssetPostingGroup.acquisition_costs_on_disposal
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="accumulated_depreciation_on_disposal"
+                  filter="true"
+                  [(ngModel)]="
+                    fixedAssetPostingGroup.accumulated_depreciation_on_disposal
+                  "
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="accumulated_depreciation_on_disposal"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.accumulated_depreciation_on_disposal
+                    ? fixedAssetPostingGroup
+                        .accumulated_depreciation_on_disposal.account_ID ||
+                      fixedAssetPostingGroup.accumulated_depreciation_on_disposal
+                    : fixedAssetPostingGroup.accumulated_depreciation_on_disposal
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="gains_on_disposal"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.gains_on_disposal"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="gains_on_disposal"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.gains_on_disposal
+                    ? fixedAssetPostingGroup.gains_on_disposal.account_ID ||
+                      fixedAssetPostingGroup.gains_on_disposal
+                    : fixedAssetPostingGroup.gains_on_disposal
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="losses_on_disposal"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.losses_on_disposal"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="losses_on_disposal"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.losses_on_disposal
+                    ? fixedAssetPostingGroup.losses_on_disposal.account_ID ||
+                      fixedAssetPostingGroup.losses_on_disposal
+                    : fixedAssetPostingGroup.losses_on_disposal
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="maintenance_expenses"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.maintenance_expenses"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="maintenance_expenses"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.maintenance_expenses
+                    ? fixedAssetPostingGroup.maintenance_expenses.account_ID ||
+                      fixedAssetPostingGroup.maintenance_expenses
+                    : fixedAssetPostingGroup.maintenance_expenses
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="depreciation_expenses"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.depreciation_expenses"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="depreciation_expenses"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.depreciation_expenses
+                    ? fixedAssetPostingGroup.depreciation_expenses.account_ID ||
+                      fixedAssetPostingGroup.depreciation_expenses
+                    : fixedAssetPostingGroup.depreciation_expenses
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="rent_Inc_GL_Account"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.rent_Inc_GL_Account"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="rent_Inc_GL_Account"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.rent_Inc_GL_Account
+                    ? fixedAssetPostingGroup.rent_Inc_GL_Account.account_ID ||
+                      fixedAssetPostingGroup.rent_Inc_GL_Account
+                    : fixedAssetPostingGroup.rent_Inc_GL_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="fixedAssetPostingGroup.dep_IFRS_Per"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ fixedAssetPostingGroup.dep_IFRS_Per }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="fixedAssetPostingGroup.ifrS_Dep_Max_Year"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ fixedAssetPostingGroup.ifrS_Dep_Max_Year }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="ifrS_Expeance_GL_Account"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.ifrS_Expeance_GL_Account"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="ifrS_Expeance_GL_Account"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.ifrS_Expeance_GL_Account
+                    ? fixedAssetPostingGroup.ifrS_Expeance_GL_Account
+                        .account_ID ||
+                      fixedAssetPostingGroup.ifrS_Expeance_GL_Account
+                    : fixedAssetPostingGroup.ifrS_Expeance_GL_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="ifrS_Dep_Acc_GLAccount"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.ifrS_Dep_Acc_GLAccount"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="ifrS_Dep_Acc_GLAccount"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.ifrS_Dep_Acc_GLAccount
+                    ? fixedAssetPostingGroup.ifrS_Dep_Acc_GLAccount
+                        .account_ID ||
+                      fixedAssetPostingGroup.ifrS_Dep_Acc_GLAccount
+                    : fixedAssetPostingGroup.ifrS_Dep_Acc_GLAccount
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="ifrS_Acquisition_costs_on_disposal"
+                  filter="true"
+                  [(ngModel)]="
+                    fixedAssetPostingGroup.ifrS_Acquisition_costs_on_disposal
+                  "
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="ifrS_Acquisition_costs_on_disposal"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.ifrS_Acquisition_costs_on_disposal
+                    ? fixedAssetPostingGroup.ifrS_Acquisition_costs_on_disposal
+                        .account_ID ||
+                      fixedAssetPostingGroup.ifrS_Acquisition_costs_on_disposal
+                    : fixedAssetPostingGroup.ifrS_Acquisition_costs_on_disposal
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="ifrS_Accumulated_depreciation_on_disposal"
+                  filter="true"
+                  [(ngModel)]="
+                    fixedAssetPostingGroup.ifrS_Accumulated_depreciation_on_disposal
+                  "
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="ifrS_Accumulated_depreciation_on_disposal"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.ifrS_Accumulated_depreciation_on_disposal
+                    ? fixedAssetPostingGroup
+                        .ifrS_Accumulated_depreciation_on_disposal.account_ID ||
+                      fixedAssetPostingGroup.ifrS_Accumulated_depreciation_on_disposal
+                    : fixedAssetPostingGroup.ifrS_Accumulated_depreciation_on_disposal
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="ifrS_Gains_on_disposal"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.ifrS_Gains_on_disposal"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="ifrS_Gains_on_disposal"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.ifrS_Gains_on_disposal
+                    ? fixedAssetPostingGroup.ifrS_Gains_on_disposal
+                        .account_ID ||
+                      fixedAssetPostingGroup.ifrS_Gains_on_disposal
+                    : fixedAssetPostingGroup.ifrS_Gains_on_disposal
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="ifrS_Losses_on_disposal"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.ifrS_Losses_on_disposal"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="ifrS_Losses_on_disposal"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.ifrS_Losses_on_disposal
+                    ? fixedAssetPostingGroup.ifrS_Losses_on_disposal
+                        .account_ID ||
+                      fixedAssetPostingGroup.ifrS_Losses_on_disposal
+                    : fixedAssetPostingGroup.ifrS_Losses_on_disposal
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="ifrS_Maintenance_expenses"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.ifrS_Maintenance_expenses"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="ifrS_Maintenance_expenses"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.ifrS_Maintenance_expenses
+                    ? fixedAssetPostingGroup.ifrS_Maintenance_expenses
+                        .account_ID ||
+                      fixedAssetPostingGroup.ifrS_Maintenance_expenses
+                    : fixedAssetPostingGroup.ifrS_Maintenance_expenses
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="ifrS_Depreciation_expenses"
+                  filter="true"
+                  [(ngModel)]="
+                    fixedAssetPostingGroup.ifrS_Depreciation_expenses
+                  "
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="ifrS_Depreciation_expenses"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.ifrS_Depreciation_expenses
+                    ? fixedAssetPostingGroup.ifrS_Depreciation_expenses
+                        .account_ID ||
+                      fixedAssetPostingGroup.ifrS_Depreciation_expenses
+                    : fixedAssetPostingGroup.ifrS_Depreciation_expenses
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="ifrS_Rent_Inc_GL_Account"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.ifrS_Rent_Inc_GL_Account"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="ifrS_Rent_Inc_GL_Account"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.ifrS_Rent_Inc_GL_Account
+                    ? fixedAssetPostingGroup.ifrS_Rent_Inc_GL_Account
+                        .account_ID ||
+                      fixedAssetPostingGroup.ifrS_Rent_Inc_GL_Account
+                    : fixedAssetPostingGroup.ifrS_Rent_Inc_GL_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="iD_Numbering"
+                  filter="true"
+                  [(ngModel)]="fixedAssetPostingGroup.iD_Numbering"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="iD_Numbering"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  fixedAssetPostingGroup.iD_Numbering
+                    ? fixedAssetPostingGroup.iD_Numbering.account_ID ||
+                      fixedAssetPostingGroup.iD_Numbering
+                    : fixedAssetPostingGroup.iD_Numbering
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="fixedAssetPostingGroup.min_Book_Value"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ fixedAssetPostingGroup.min_Book_Value }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="fixedAssetPostingGroup.ifrS_Min_Book_Value"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ fixedAssetPostingGroup.ifrS_Min_Book_Value }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td [pEditableColumn]="fixedAssetPostingGroup">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="checkbox"
+                  [(ngModel)]="fixedAssetPostingGroup.is_Active"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ fixedAssetPostingGroup.is_Active }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <button
+            type="button"
+            class="btn btn-danger"
+              (click)="deleteFixedAssetPostingGroup(fixedAssetPostingGroup)"
+            >
+              <i class="pi pi-trash"></i>
+              Delete
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<tabset #tabset>
+  <tab heading="Maintain Employee Item ">
+    <app-maintain-employee
+      (onclose)="closeup()"
+      [edit_form]="edit_form"
+      [(workingUser)]="workingUser"
+      [employee]="employee"
+    ></app-maintain-employee>
+  </tab>
+
+  <tab heading="List Employee Item ">
+    <div class="m-3 row">
+      <div class="col-md-3">
+        <h4>Employee List</h4>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="addNewEmployee()"
+          translate
+        >
+          New Employee Item
+        </button>
+        <h4>Commands</h4>
+        <a href="/#/" class="row">View Purchase </a>
+        <a href="/#/" class="row">View Item Price</a>
+        <a href="#/" class="row">View Item Sales By Customer</a>
+        <a href="#/" class="row">View Employee Adjustments </a>
+      </div>
+
+      <div class="col-md-9">
+        <p-table [value]="employees" [paginator]="true" [rows]="5">
+          <ng-template pTemplate="header">
+            <tr>
+              <th scope="col" translate>Employee Id</th>
+              <th scope="col" translate>Name</th>
+              <th scope="col" translate>Address</th>
+              <th scope="col" translate>Email</th>
+              <th scope="col" translate>Tin</th>
+              <th scope="col" translate>Payroll No</th>
+              <th scope="col" translate>Phone</th>
+              <th scope="col" translate></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-employee>
+            <tr>
+              <td>{{ employee.employee_Id }}</td>
+              <td>{{ employee.fName + " " + employee.mName + "employee.lName" }}</td>
+              <td>{{ employee.address }}</td>
+              <td>{{ employee.email }}</td>
+              <td>{{ employee.tin }}</td>
+              <td>{{ employee.payrole_No}}</td>
+              <td>{{ employee.homePhone}}</td>
+              <td>
+                <button
+            type="button"
+            class="btn btn-primary"
+                  (click)="selectEmployee($event, employee)"
+                  translate
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </tab>
+
+  <tab heading="Employee Item Default ">
+    <!-- <app-default-inventory></app-default-inventory> -->
+  </tab>
+</tabset>

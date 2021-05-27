@@ -1,0 +1,105 @@
+<h3 class="font-weight-bold">Pay frequency type</h3>
+<div>
+  <div class="m-3">
+    <p-table
+      [value]="payFrequencyTypes"
+      [resizableColumns]="true"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn scope="col" translate>Name</th>
+          <th pResizableColumn>Enable</th>
+          <th pResizableColumn scope="col">
+            <button
+              type="button"
+              *ngIf="!disable"
+              class="btn btn-primary"
+              (click)="clearForm()"
+              translate
+            >
+              Add New
+            </button>
+          </th>
+        </tr>
+
+        <tr *ngIf="IsAddFormVisible">
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="payFrequencyType.name"
+              class="form-control"
+              name="name"
+              placeholder="Name"
+              id="name"
+              required
+            />
+          </td>
+          
+          <td>
+            <input
+              type="checkbox"
+              [(ngModel)]="payFrequencyType.enable"
+              class="form-control"
+              name="enable"
+              placeholder="enable"
+              id="enable"
+              required
+            />
+          </td>
+
+          <td scope="col" rowspan="2" style="text-align: center">
+            <button
+              type="button"
+              *ngIf="!editForm"
+              class="btn btn-primary"
+              (click)="registerPayFrequencyType()"
+              translate
+            >
+              Save
+            </button>
+            
+            <button
+              type="button"
+              *ngIf="editForm"
+              class="btn btn-primary"
+              (click)="updatePayFrequencyType()"
+              translate
+            >
+              Update
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-payFrequencyType>
+        <tr>
+          <td>
+            {{ payFrequencyType.name }}
+          </td>
+          
+          <td>
+            {{ payFrequencyType.enable }}
+          </td>
+          <td>
+            <button
+            type="button"
+            class="btn btn-primary mx-1"
+              (click)="initiateEdit(payFrequencyType)"
+            >
+              <i class="pi pi-trash"></i>
+              Edit
+            </button>
+
+            <button
+            type="button"
+            class="btn btn-danger mx-1"
+              (click)="deletePayFrequencyType(payFrequencyType)"
+            >
+              <i class="pi pi-trash"></i>
+              Delete
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

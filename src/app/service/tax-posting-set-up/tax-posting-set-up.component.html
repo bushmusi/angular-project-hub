@@ -1,0 +1,499 @@
+<div class="m-3">
+  <h3 class="font-weight-bold">Tax Posting Setup</h3>
+  <div class="row d-flex justify-content-end">
+    <button
+      type="button"
+      (click)="showAddnew()"
+      *ngIf="!isnew"
+      class="btn btn-primary m-3"
+    >
+      Add New
+    </button>
+    <button
+      type="button"
+      (click)="saveNewTaxPosting()"
+      *ngIf="isnew"
+      class="btn btn-success m-3"
+    >
+      Save
+    </button>
+    <button
+      type="button"
+      (click)="cancelForm()"
+      *ngIf="isnew"
+      class="btn btn-danger m-3"
+    >
+      Cancel
+    </button>
+  </div>
+  <p-table
+    [value]="TaxPostingSetupList"
+    dataKey="vendor_ID"
+    (onEditComplete)="updateTaxPosting($event)"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" translate>taX BusPosting Group</th>
+        <th scope="col" translate>taX Prod Posting Group</th>
+        <th scope="col" translate>taX Per</th>
+        <th scope="col" translate>sales TAX GL Account</th>
+        <th scope="col" translate>purchase TAX Account</th>
+        <th scope="col" translate>reverse Chrg TAX Account</th>
+        <th scope="col" translate>isActive</th>
+
+        <th scope="col" translate></th>
+      </tr>
+      <tr *ngIf="isnew">
+        <th scope="col" translate>
+          <p-dropdown
+            id="taX_BusPosting_Group"
+            [options]="taxBusPostingGroups"
+            [(ngModel)]="newTaxPosting.taX_BusPosting_Group"
+            name="taX_BusPosting_Group"
+            autofocus
+            filter="true"
+            placeholder="Select tax bus posting group"
+          >
+            <ng-template let-selectedItem pTemplate="selectedItem">
+              {{ selectedItem.label }}
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              {{ item.label }}
+            </ng-template>
+          </p-dropdown>
+        </th>
+
+        <th scope="col" translate>
+          <p-dropdown
+            id="taX_Prod_Psting_Group"
+            [options]="taxProdPostingGroups"
+            [(ngModel)]="newTaxPosting.taX_Prod_Psting_Group"
+            name="taX_Prod_Psting_Group"
+            autofocus
+            filter="true"
+            placeholder="Select tax prod posting group"
+          >
+            <ng-template let-selectedItem pTemplate="selectedItem">
+              {{ selectedItem.label }}
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              {{ item.label }}
+            </ng-template>
+          </p-dropdown>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newTaxPosting.taX_Per"
+            name="taX_Per"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="TaX Per"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newTaxPosting.sales_TAX_GL_Account"
+            name="sales_TAX_GL_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="sales TAX GL Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newTaxPosting.purchase_TAX_Account"
+            name="purchase_TAX_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="purchase TAX Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newTaxPosting.reverse_Chrg_TAX_Account"
+            name="reverse_Chrg_TAX_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="reverse Chrg TAX Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+        <th scope="col" translate>
+          <div class="d-flex justify-content-center align-items-center">
+            <input
+              class="form-check-input"
+              (change)="newTaxPosting.isActive = !newTaxPosting.isActive"
+              type="checkbox"
+              style="width: 1.5vw; height: 1.5vh"
+              id="isActive"
+            />
+          </div>
+        </th>
+        <th scope="col" translate></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-TaxPosting>
+      <tr>
+        <td [pEditableColumn]="TaxPosting">
+          {{
+            TaxPosting.taX_BusPosting_Group
+              ? TaxPosting.taX_BusPosting_Group.account_ID ||
+                TaxPosting.taX_BusPosting_Group
+              : TaxPosting.taX_BusPosting_Group
+          }}
+        </td>
+
+        <td [pEditableColumn]="TaxPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+             
+              <p-dropdown
+                id="taX_Prod_Psting_Group"
+                [options]="taxProdPostingGroups"
+                [(ngModel)]="TaxPosting.taX_Prod_Psting_Group"
+                name="taX_Prod_Psting_Group"
+                autofocus
+                filter="true"
+                placeholder="Select tax prod posting group"
+              >
+                <ng-template let-selectedItem pTemplate="selectedItem">
+                  {{ selectedItem.label }}
+                </ng-template>
+                <ng-template let-item pTemplate="item">
+                  {{ item.label }}
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(TaxPosting.taX_Prod_Psting_Group)
+                  ? TaxPosting.taX_Prod_Psting_Group.account_ID
+                  : TaxPosting.taX_Prod_Psting_Group
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="TaxPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="TaxPosting.taX_Per"
+                name="taX_Per"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="taX Per"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(TaxPosting.taX_Per)
+                  ? TaxPosting.taX_Per.account_ID
+                  : TaxPosting.taX_Per
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="TaxPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="TaxPosting.sales_TAX_GL_Account"
+                name="sales_TAX_GL_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="sales TAX GL Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(TaxPosting.sales_TAX_GL_Account)
+                  ? TaxPosting.sales_TAX_GL_Account.account_ID
+                  : TaxPosting.sales_TAX_GL_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="TaxPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="TaxPosting.purchase_TAX_Account"
+                name="purchase_TAX_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="purchase TAX Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(TaxPosting.purchase_TAX_Account)
+                  ? TaxPosting.purchase_TAX_Account.account_ID
+                  : TaxPosting.purchase_TAX_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="TaxPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="TaxPosting.reverse_Chrg_TAX_Account"
+                name="reverse_Chrg_TAX_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="reverse Chrg TAX Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(TaxPosting.reverse_Chrg_TAX_Account)
+                  ? TaxPosting.reverse_Chrg_TAX_Account.account_ID
+                  : TaxPosting.reverse_Chrg_TAX_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="TaxPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  class="form-check-input"
+                  [(checked)]="TaxPosting.isActive"
+                  (change)="TaxPosting.isActive = !TaxPosting.isActive"
+                  type="checkbox"
+                  style="width: 1.5vw; height: 1.5vh"
+                  id="isActive"
+                />
+              </div>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(TaxPosting.isActive)
+                  ? TaxPosting.isActive.account_ID
+                  : TaxPosting.isActive
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="TaxPosting">
+          <button
+            type="button"
+            (click)="deleteTaxPosting(TaxPosting)"
+            class="btn btn-danger"
+          >
+            delete
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

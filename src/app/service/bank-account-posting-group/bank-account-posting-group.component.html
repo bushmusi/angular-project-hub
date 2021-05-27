@@ -1,0 +1,245 @@
+<h3 class="font-weight-bold">Bank account posting group</h3>
+<div>
+  <div class="m-3">
+    <p-table
+      [value]="bankAccountPostingGroups"
+      [resizableColumns]="true"
+      (onEditComplete)="performUpdate($event)"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn scope="col" translate>Code</th>
+          <th pResizableColumn>Name</th>
+          <th pResizableColumn>Address</th>
+          <th pResizableColumn>Phone</th>
+          <th pResizableColumn>Account id</th>
+          <th pResizableColumn>Branch</th>
+          <th pResizableColumn scope="col">
+            <button
+              type="button"
+              *ngIf="!disable"
+              class="btn btn-primary"
+              (click)="clearForm()"
+              translate
+            >
+              Add New
+            </button>
+          </th>
+        </tr>
+
+        <tr *ngIf="IsAddFormVisible">
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="bankAccountPostingGroup.code"
+              class="form-control"
+              name="code"
+              placeholder="Code"
+              id="code"
+              required
+            />
+          </td>
+
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="bankAccountPostingGroup.name"
+              class="form-control"
+              name="name"
+              placeholder="name"
+              id="name"
+              required
+            />
+          </td>
+
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="bankAccountPostingGroup.address"
+              class="form-control"
+              name="address"
+              placeholder="address"
+              id="address"
+              required
+            />
+          </td>
+
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="bankAccountPostingGroup.phoneNumber"
+              class="form-control"
+              name="phoneNumber"
+              placeholder="phoneNumber"
+              id="phoneNumber"
+              required
+            />
+          </td>
+
+          <td class="p-2">
+            <p-autoComplete
+              name="account_ID"
+              filter="true"
+              [(ngModel)]="bankAccountPostingGroup.account_ID"
+              [suggestions]="chartOfAccountResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              name="account_ID"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="item">
+                {{ item.account_ID }}
+              </ng-template>
+            </p-autoComplete>
+          </td>
+
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="bankAccountPostingGroup.branch"
+              class="form-control"
+              name="branch"
+              placeholder="branch"
+              id="branch"
+              required
+            />
+          </td>
+          <td scope="col" rowspan="2" style="text-align: center">
+            <button
+              type="button"
+              *ngIf="!disable"
+              class="btn btn-primary"
+              (click)="registerBankAccountPostingGroup()"
+              translate
+            >
+              Save
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bankAccountPostingGroup>
+        <tr>
+          <td>
+            {{ bankAccountPostingGroup.code }}
+          </td>
+
+          <td
+            [pEditableColumn]="bankAccountPostingGroup"
+            pEditableColumnField="name"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="bankAccountPostingGroup.name"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ bankAccountPostingGroup.name }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td
+            [pEditableColumn]="bankAccountPostingGroup"
+            pEditableColumnField="address"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="bankAccountPostingGroup.address"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ bankAccountPostingGroup.address }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td
+            [pEditableColumn]="bankAccountPostingGroup"
+            pEditableColumnField="phoneNumber"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="bankAccountPostingGroup.phoneNumber"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ bankAccountPostingGroup.phoneNumber }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td
+            [pEditableColumn]="bankAccountPostingGroup"
+            pEditableColumnField="account_ID"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="account_ID"
+                  filter="true"
+                  [(ngModel)]="bankAccountPostingGroup.account_ID"
+                  [suggestions]="chartOfAccountResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  name="account_ID"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.account_ID }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  bankAccountPostingGroup.account_ID
+                    ? bankAccountPostingGroup.account_ID.account_ID ||
+                      bankAccountPostingGroup.account_ID
+                    : bankAccountPostingGroup.account_ID
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td
+            [pEditableColumn]="bankAccountPostingGroup"
+            pEditableColumnField="branch"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="bankAccountPostingGroup.branch"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ bankAccountPostingGroup.branch }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="deleteBankAccountPostingGroup(bankAccountPostingGroup)"
+            >
+              <i class="pi pi-trash"></i>
+              Delete
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

@@ -1,0 +1,528 @@
+<h3 class="font-weight-bold">Customer posting group</h3>
+<div>
+  <div class="m-3">
+    <p-table
+      [value]="customerPostingGroups"
+      [resizableColumns]="true"
+      (onEditComplete)="performUpdate($event)"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn scope="col" translate>Code</th>
+          <th pResizableColumn>Payables Account</th>
+          <th pResizableColumn>service Charge Account</th>
+          <th pResizableColumn>Debit Account</th>
+          <th pResizableColumn>Credit Account</th>
+          <th pResizableColumn>Interest Account</th>
+          <th pResizableColumn>Tolerance in day</th>
+          <th pResizableColumn>Is Active</th>
+          <th pResizableColumn scope="col">
+            <button
+              type="button"
+              *ngIf="!disable"
+              class="btn btn-primary"
+              (click)="clearForm()"
+              translate
+            >
+              Add New
+            </button>
+          </th>
+        </tr>
+
+        <tr *ngIf="IsAddFormVisible">
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="customerPostingGroup.code"
+              class="form-control"
+              name="code"
+              placeholder="Code"
+              id="code"
+              required
+            />
+          </td>
+          <td>
+            <!-- <input
+              type="text"
+              [(ngModel)]="customerPostingGroup.payables_Account"
+              class="form-control"
+              name="payables_Account"
+              placeholder="Payables Account"
+              id="payables_Account"
+              required
+            />
+             -->
+            <p-autoComplete
+              name="payables_Account"
+              filter="true"
+              [(ngModel)]="customerPostingGroup.payables_Account"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              placeholder="Payables Account"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </td>
+          <td>
+            <!-- <input
+              type="text"
+              [(ngModel)]="customerPostingGroup.service_Charge_Account"
+              class="form-control"
+              name="service_Charge_Account"
+              placeholder="Service charge account"
+              id="service_Charge_Account"
+              required
+            /> -->
+
+            <p-autoComplete
+              name="service_Charge_Account"
+              filter="true"
+              [(ngModel)]="customerPostingGroup.service_Charge_Account"
+              placeholder="Service charge account"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </td>
+
+          <td>
+            <!-- <input
+              type="text"
+              [(ngModel)]="customerPostingGroup.payment_Disc_Debit_Account"
+              class="form-control"
+              name="payment_Disc_Debit_Account"
+              placeholder="payment Disc Debit Account"
+              id="payment_Disc_Debit_Account"
+              required
+            /> -->
+
+            <p-autoComplete
+              name="payment_Disc_Debit_Account"
+              filter="true"
+              [(ngModel)]="customerPostingGroup.payment_Disc_Debit_Account"
+              placeholder="payment Disc Debit Account"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </td>
+
+          <td>
+            <!-- <input
+              type="text"
+              [(ngModel)]="customerPostingGroup.payment_Disc_Credit_Account"
+              class="form-control"
+              name="payment_Disc_Credit_Account"
+              placeholder="payment Credit Debit Account"
+              id="payment_Disc_Credit_Account"
+              required
+            /> -->
+
+            <p-autoComplete
+              name="payment_Disc_Credit_Account"
+              filter="true"
+              [(ngModel)]="customerPostingGroup.payment_Disc_Credit_Account"
+              placeholder="payment Credit Debit Account"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </td>
+
+          <td>
+            <!-- <select
+              class="form-control"
+              [(ngModel)]="customerPostingGroup.interest_Account"
+              name="interest_Account"
+              id="interest_Account"
+              #interest_Account="ngModel"
+              required
+            >
+              <option
+                *ngFor="let interest of interestAccounts"
+                [value]="interest.account_ID"
+              >
+                {{ interest.description }}
+              </option>
+            </select> -->
+
+            <p-autoComplete
+              name="interest_Account"
+              filter="true"
+              [(ngModel)]="customerPostingGroup.interest_Account"
+              placeholder="Interest Account"
+              [suggestions]="chartOfAccountSearchResult"
+              (completeMethod)="searchChartOfAccount($event)"
+              field="account_ID"
+            >
+              <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align: middle; margin-left: 0.5em">{{
+                  item.description
+                }}</span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px"
+                >
+                  <div style="font-size: 14px; margin-top: 4px">
+                    {{ item.description }}
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </td>
+
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="customerPostingGroup.payment_tolerances_InDay"
+              class="form-control"
+              name="payment_tolerances_InDay"
+              placeholder="Payment tolerance in day"
+              id="payment_tolerances_InDay"
+              required
+            />
+          </td>
+
+          <td class="p-2">
+            <input
+              type="checkbox"
+              [(ngModel)]="customerPostingGroup.active"
+              class="form-control"
+              name="active"
+              placeholder="Active"
+              id="active"
+              required
+            />
+          </td>
+          <td scope="col" rowspan="2" style="text-align: center">
+            <button
+              type="button"
+              *ngIf="!disable"
+              class="btn btn-primary"
+              (click)="registerCustomerPostingGroup()"
+              translate
+            >
+              Save
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-customerPostingGroup>
+        <tr>
+          <td>
+            {{ customerPostingGroup.code }}
+          </td>
+
+          <td
+            [pEditableColumn]="customerPostingGroup"
+            pEditableColumnField="payables_Account"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-autoComplete
+                  name="payables_Account"
+                  filter="true"
+                  [(ngModel)]="customerPostingGroup.payables_Account"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  customerPostingGroup.payables_Account
+                    ? customerPostingGroup.payables_Account.account_ID ||
+                      customerPostingGroup.payables_Account
+                    : customerPostingGroup.payables_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td
+            [pEditableColumn]="customerPostingGroup"
+            pEditableColumnField="service_Charge_Account"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <!-- <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="customerPostingGroup.service_Charge_Account"
+                  required
+                /> -->
+
+                <p-autoComplete
+                  name="service_Charge_Account"
+                  filter="true"
+                  [(ngModel)]="customerPostingGroup.service_Charge_Account"
+                  placeholder="Service charge account"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  customerPostingGroup.service_Charge_Account
+                    ? customerPostingGroup.service_Charge_Account.account_ID ||
+                      customerPostingGroup.service_Charge_Account
+                    : customerPostingGroup.service_Charge_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td
+            [pEditableColumn]="customerPostingGroup"
+            pEditableColumnField="payment_Disc_Debit_Account"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <!-- <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="customerPostingGroup.payment_Disc_Debit_Account"
+                  required
+                /> -->
+
+                <p-autoComplete
+                  name="payment_Disc_Debit_Account"
+                  filter="true"
+                  [(ngModel)]="customerPostingGroup.payment_Disc_Debit_Account"
+                  placeholder="Service charge account"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+
+              <ng-template pTemplate="output">
+                {{
+                  customerPostingGroup.payment_Disc_Debit_Account
+                    ? customerPostingGroup.payment_Disc_Debit_Account
+                        .account_ID ||
+                      customerPostingGroup.payment_Disc_Debit_Account
+                    : customerPostingGroup.payment_Disc_Debit_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td
+            [pEditableColumn]="customerPostingGroup"
+            pEditableColumnField="payment_Disc_Credit_Account"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <!-- <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="customerPostingGroup.payment_Disc_Credit_Account"
+                  required
+                /> -->
+
+                <p-autoComplete
+                  name="payment_Disc_Credit_Account"
+                  filter="true"
+                  [(ngModel)]="customerPostingGroup.payment_Disc_Credit_Account"
+                  placeholder="Service charge account"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  customerPostingGroup.payment_Disc_Credit_Account
+                    ? customerPostingGroup.payment_Disc_Credit_Account
+                        .account_ID ||
+                      customerPostingGroup.payment_Disc_Credit_Account
+                    : customerPostingGroup.payment_Disc_Credit_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td
+            [pEditableColumn]="customerPostingGroup"
+            pEditableColumnField="interest_Account"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <!-- <select
+                  class="form-control"
+                  [(ngModel)]="customerPostingGroup.interest_Account"
+                  name="interest_Account"
+                  id="interest_Account"
+                  #interest_Account="ngModel"
+                  required
+                >
+                  <option
+                    *ngFor="let interest of interestAccounts"
+                    [value]="interest.account_ID"
+                  >
+                    {{ interest.description }}
+                  </option>
+                </select>
+                 -->
+                <p-autoComplete
+                  name="interest_Account"
+                  filter="true"
+                  class="form-control"
+                  [(ngModel)]="customerPostingGroup.interest_Account"
+                  placeholder="Service charge account"
+                  [suggestions]="chartOfAccountSearchResult"
+                  (completeMethod)="searchChartOfAccount($event)"
+                  field="account_ID"
+                >
+                  <ng-template let-item pTemplate="item">
+                    {{ item.description }}
+                  </ng-template>
+                </p-autoComplete>
+              </ng-template>
+              
+              <ng-template pTemplate="output">
+                {{
+                  customerPostingGroup.interest_Account
+                    ? customerPostingGroup.interest_Account
+                        .account_ID ||
+                      customerPostingGroup.interest_Account
+                    : customerPostingGroup.interest_Account
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td
+            [pEditableColumn]="customerPostingGroup"
+            pEditableColumnField="payment_tolerances_InDay"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="customerPostingGroup.payment_tolerances_InDay"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ customerPostingGroup.payment_tolerances_InDay }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td
+            [pEditableColumn]="customerPostingGroup"
+            pEditableColumnField="active"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="checkbox"
+                  [(ngModel)]="customerPostingGroup.active"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ customerPostingGroup.isActive }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <button
+            type="button"
+            class="btn btn-primary"
+              (click)="deleteCustomerPostingGroup(customerPostingGroup)"
+            >
+              <i class="pi pi-trash"></i>
+              Delete
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

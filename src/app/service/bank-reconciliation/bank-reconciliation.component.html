@@ -1,0 +1,74 @@
+<tabset #tabset>
+  <tab heading="Maintain BankReconciliation Item ">
+    <app-maintian-bank-reconciliation
+      (onclose)="closeup()"
+      [edit_form]="edit_form"
+      [bankReconciliation]="bankReconciliation"
+    ></app-maintian-bank-reconciliation>
+  </tab>
+
+  <tab heading="List BankReconciliation Item ">
+    <div class="m-3 row">
+      <div class="col-md-3">
+        <h4>BankReconciliation List</h4>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="addNewBankReconciliation()"
+          translate
+        >
+          New BankReconciliation Item
+        </button>
+        <h4>Commands</h4>
+        <a href="/#/" class="row">View Purchase </a>
+        <a href="/#/" class="row">View Item Price</a>
+        <a href="#/" class="row">View Item Sales By Customer</a>
+        <a href="#/" class="row">View BankReconciliation Adjustments </a>
+      </div>
+
+      <div class="col-md-9">
+        <p-table [value]="bankReconciliations" [paginator]="true" [rows]="5">
+          <ng-template pTemplate="header">
+            <tr>
+              <th scope="col" translate>Branch Id</th>
+              <th scope="col" translate>Trans id</th>
+              <th scope="col" translate>Transaction Date</th>
+              <th scope="col" translate>Type_Bank Reconciliation</th>
+              <th scope="col" translate>Description</th>
+              <th scope="col" translate>Statement amount no</th>
+              <th scope="col" translate>Applied amount</th>
+              <th scope="col" translate>difference</th>
+              <th scope="col" translate></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-bankReconciliation>
+            <tr>
+              <td>{{ bankReconciliation.branch_ID }}</td>
+              <td>{{ bankReconciliation.trans_ID }}</td>
+              <td>{{ bankReconciliation.transaction_Date }}</td>
+              <td>{{ bankReconciliation.type_Bank_Reconcilliation }}</td>
+              <td>{{ bankReconciliation.description }}</td>
+              <td>{{ bankReconciliation.statement_Amount }}</td>
+              <td>{{ bankReconciliation.applied_Amount }}</td>
+              <td>{{ bankReconciliation.difference }}</td>
+              <td>
+                <button
+            type="button"
+            class="btn btn-primary"
+                  (click)="selectBankReconciliation($event, bankReconciliation)"
+                  translate
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </tab>
+
+  <tab heading="BankReconciliation Item Default ">
+    <!-- <app-default-inventory></app-default-inventory> -->
+  </tab>
+</tabset>

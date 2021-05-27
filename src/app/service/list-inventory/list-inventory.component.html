@@ -1,0 +1,73 @@
+<tabset #tabset>
+  <tab heading="Maintain Inventory Item ">
+    <app-maintain-InventoryItem
+      (onclose)="closeup()"
+      [edit_form]="edit_form"
+      [(workingUser)]="workingUser"
+      [inventoryItem]="inventoryItem"
+    ></app-maintain-InventoryItem>
+  </tab>
+
+  <tab heading="List Inventory Item ">
+    <div class="m-3 row">
+      <div class="col-md-3">
+        <h4>Inventory List</h4>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="addNewInventory()"
+          translate
+        >
+          New Inventory Item
+        </button>
+        <button type="button" class="btn btn-primary" translate>
+          New Inventory Service
+        </button>
+
+        <h4>Commands</h4>
+        <a href="/#/" class="row">View Purchase </a>
+        <a href="/#/" class="row">View Item Price</a>
+        <a href="#/" class="row">View Item Sales By Customer</a>
+        <a href="#/" class="row">View Inventory Adjustments </a>
+      </div>
+
+      <div class="col-md-9">
+        <p-table [value]="InventoryLists" [paginator]="true" [rows]="5">
+          <ng-template pTemplate="header">
+            <tr>
+              <th scope="col" translate>Inventory Id</th>
+              <th scope="col" translate>Name</th>
+              <th scope="col" translate>Description</th>
+              <th scope="col" translate>Email</th>
+              <th scope="col" translate>Tax Type</th>
+              <th scope="col" translate></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-inventoryItem>
+            <tr>
+              <td>{{ inventoryItem.inv_ID }}</td>
+              <td>{{ inventoryItem.item_Name }}</td>
+              <td>{{ inventoryItem.description }}</td>
+              <td>{{ inventoryItem.item_Class }}</td>
+              <td>{{ inventoryItem.price }}</td>
+              <td>
+                <button
+            type="button"
+            class="btn btn-primary"
+                  (click)="selectInventory($event, inventoryItem)"
+                  translate
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </tab>
+
+  <tab heading="Inventory Item Default ">
+    <!-- <app-default-inventory></app-default-inventory> -->
+  </tab>
+</tabset>

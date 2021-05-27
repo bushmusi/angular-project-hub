@@ -1,0 +1,50 @@
+<div *ngIf="taskList">
+  <div class="m-10" *ngIf="taskList.length > 0">
+    You have {{ taskList.length }} number of active tasks waiting
+  </div>
+
+  <div>
+    <p-table [value]="taskList" [paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th translate>Application</th>
+          <th translate>Date</th>
+          <th translate>Task Description</th>
+          <th translate>Task Status</th>
+          <th translate>Type</th>
+          <th translate>Module</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-task>
+        <tr
+          [class.green]="
+            task.status == 'O' ||
+            task.status == 'A  ' ||
+            task.status == 'R ' ||
+            task.status == 'AS'
+          "
+          [class.yeloww]="
+            task.status == 'S' || task.status == 'P' || task.status == 'B'
+          "
+          [class.red]="task.Minutes_late > 0"
+        >
+          <td *ngIf="task.status == 'O' || task.status == 'A  '">**********</td>
+          <td *ngIf="task.status !== 'O' && task.status !== 'A  '">
+            {{ task.todo_comment }}
+          </td>
+          <td>{{ task.start_date }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.TaskStatus }}</td>
+          <td>{{ task.TaskType }}</td>
+          <td>{{ task.Module }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="go(task)" translate>
+              Pick
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

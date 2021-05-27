@@ -1,0 +1,14 @@
+<div>
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item" (click)="tab='MyTask'" [class.active]="tab=='MyTask'">
+      <a class="nav-link" [routerLink]="['/task/MyTask']" translate>My Task</a>
+    </li>
+    <li class="nav-item" (click)="tab='SupervisorTask'" [class.active]="tab=='SupervisorTask'">
+      <a class="nav-link" [routerLink]="['/task/SupervisorTask']" translate>Supervisor Task</a>
+    </li>
+  </ul>
+  <router-outlet></router-outlet>
+
+
+</div>

@@ -1,0 +1,854 @@
+<div class="m-3">
+  <h3 class="font-weight-bold">Inventory Posting Setup</h3>
+  <div class="row d-flex justify-content-end">
+    <button
+      type="button"
+      (click)="showAddnew()"
+      *ngIf="!isnew"
+      class="btn btn-primary m-3"
+    >
+      Add New
+    </button>
+    <button
+      type="button"
+      (click)="saveNewInventoryPosting()"
+      *ngIf="isnew"
+      class="btn btn-success m-3"
+    >
+      Save
+    </button>
+    <button
+      type="button"
+      (click)="cancelForm()"
+      *ngIf="isnew"
+      class="btn btn-danger m-3"
+    >
+      Cancel
+    </button>
+  </div>
+  <p-table
+    [value]="InventoryPostingSetupList"
+    dataKey="vendor_ID"
+    (onEditComplete)="updateInventoryPosting($event)"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" translate>store Code</th>
+        <th scope="col" translate>invt Posting Group Code</th>
+        <th scope="col" translate>sales Account</th>
+        <th scope="col" translate>cost of Sales Account</th>
+        <th scope="col" translate>cost of good Sold</th>
+        <th scope="col" translate>inventory Account</th>
+        <th scope="col" translate>wiP Account</th>
+        <th scope="col" translate>material Varicance Account</th>
+        <th scope="col" translate>capacity Varicance Account</th>
+        <th scope="col" translate>sub Contractor Varicance Account</th>
+        <th scope="col" translate>cap Overhead Varance Account</th>
+        <th scope="col" translate></th>
+      </tr>
+      <tr *ngIf="isnew">
+        <th scope="col" translate>
+          <input
+            placeholder="store Code"
+            style="width: 100%"
+            [(ngModel)]="newInventoryPosting.store_Code"
+            name="store_Code"
+            required
+          />
+        </th>
+        <th scope="col" translate>
+          <select
+            class="form-control"
+            [(ngModel)]="newInventoryPosting.invt_Posting_Group_Code"
+            name="invt_Posting_Group_Code"
+            id="invt_Posting_Group_Code"
+            #invt_Posting_Group_Code="ngModel"
+            [ngClass]="{ 'is-invalid': invt_Posting_Group_Code.invalid }"
+            required
+          >
+            <option
+              *ngFor="let inventoryPostingGroup of inventoryPostingGroups"
+              [value]="inventoryPostingGroup.code"
+            >
+              {{ inventoryPostingGroup.code }}
+            </option>
+          </select>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newInventoryPosting.sales_Account"
+            name="salesAccount"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="sales Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newInventoryPosting.cost_of_Sales_Account"
+            name="costofSalesAccount"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="cost of Sales Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newInventoryPosting.cost_of_good_Sold"
+            name="cost_of_good_Sold"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="cost of good Sold"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newInventoryPosting.inventory_Account"
+            name="inventory_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="inventory Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newInventoryPosting.wiP_Account"
+            name="wiP_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="wiP Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newInventoryPosting.material_Varicance_Account"
+            name="material_Varicance_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="material Varicance Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newInventoryPosting.capacity_Varicance_Account"
+            name="capacity_Varicance_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="capacity Varicance Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newInventoryPosting.sub_Contractor_Varicance_Account"
+            name="sub_Contractor_Varicance_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="sub Contractor Varicance Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+        <th scope="col" translate>
+          <p-autoComplete
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            class="prime-input p-inputtext-lg"
+            [(ngModel)]="newInventoryPosting.cap_Overhead_Varance_Account"
+            name="cap_Overhead_Varance_Account"
+            field="account_ID"
+            [suggestions]="FilteredChartOfAccounts"
+            (completeMethod)="searchChartOfAccount($event)"
+            placeholder="cap Overhead Varance Account"
+            [dropdown]="false"
+            required
+          >
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em">{{
+                item.description
+              }}</span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="position: relative; height: 25px"
+              >
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ item.description }}
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-inventoryPosting>
+      <tr>
+        <td [pEditableColumn]="inventoryPosting">
+          {{
+            inventoryPosting.store_Code
+              ? inventoryPosting.store_Code.account_ID ||
+                inventoryPosting.store_Code
+              : inventoryPosting.store_Code
+          }}
+        </td>
+
+        <td [pEditableColumn]="inventoryPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <select
+                class="form-control"
+                [(ngModel)]="inventoryPosting.invt_Posting_Group_Code"
+                name="invt_Posting_Group_Code"
+                id="invt_Posting_Group_Code"
+                #invt_Posting_Group_Code="ngModel"
+                [ngClass]="{ 'is-invalid': invt_Posting_Group_Code.invalid }"
+                required
+              >
+                <option
+                  *ngFor="let inventoryPostingGroup of inventoryPostingGroups"
+                  [value]="inventoryPostingGroup.code"
+                >
+                  {{ inventoryPostingGroup.code }}
+                </option>
+              </select>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(inventoryPosting.invt_Posting_Group_Code)
+                  ? inventoryPosting.invt_Posting_Group_Code.account_ID
+                  : inventoryPosting.invt_Posting_Group_Code
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="inventoryPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="inventoryPosting.sales_Account"
+                name="sales_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder=" Sales Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(inventoryPosting.sales_Account)
+                  ? inventoryPosting.sales_Account.account_ID
+                  : inventoryPosting.sales_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="inventoryPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="inventoryPosting.cost_of_Sales_Account"
+                name="cost_of_Sales_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder=" cost of Sales Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(inventoryPosting.cost_of_Sales_Account)
+                  ? inventoryPosting.cost_of_Sales_Account.account_ID
+                  : inventoryPosting.cost_of_Sales_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="inventoryPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="inventoryPosting.cost_of_good_Sold"
+                name="cost_of_Sales_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="cost of good Sold"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(inventoryPosting.cost_of_good_Sold)
+                  ? inventoryPosting.cost_of_good_Sold.account_ID
+                  : inventoryPosting.cost_of_good_Sold
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="inventoryPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="inventoryPosting.inventory_Account"
+                name="inventory_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="inventory Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(inventoryPosting.inventory_Account)
+                  ? inventoryPosting.inventory_Account.account_ID
+                  : inventoryPosting.inventory_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="inventoryPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="inventoryPosting.wiP_Account"
+                name="wiP_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="wiP Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(inventoryPosting.wiP_Account)
+                  ? inventoryPosting.wiP_Account.account_ID
+                  : inventoryPosting.wiP_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="inventoryPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="inventoryPosting.material_Varicance_Account"
+                name="material_Varicance_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="material Varicance Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(inventoryPosting.material_Varicance_Account)
+                  ? inventoryPosting.material_Varicance_Account.account_ID
+                  : inventoryPosting.material_Varicance_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="inventoryPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="inventoryPosting.capacity_Varicance_Account"
+                name="capacity_Varicance_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="capacity Varicance Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(inventoryPosting.capacity_Varicance_Account)
+                  ? inventoryPosting.capacity_Varicance_Account.account_ID
+                  : inventoryPosting.capacity_Varicance_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="inventoryPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="inventoryPosting.sub_Contractor_Varicance_Account"
+                name="sub_Contractor_Varicance_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="sub Contractor Varicance Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(inventoryPosting.sub_Contractor_Varicance_Account)
+                  ? inventoryPosting.sub_Contractor_Varicance_Account.account_ID
+                  : inventoryPosting.sub_Contractor_Varicance_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="inventoryPosting">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-autoComplete
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                class="prime-input p-inputtext-lg"
+                [(ngModel)]="inventoryPosting.cap_Overhead_Varance_Account"
+                name="cap_Overhead_Varance_Account"
+                field="account_ID"
+                [suggestions]="FilteredChartOfAccounts"
+                (completeMethod)="searchChartOfAccount($event)"
+                placeholder="cap Overhead Varance Account"
+                [dropdown]="false"
+                required
+              >
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align: middle; margin-left: 0.5em">{{
+                    item.description
+                  }}</span>
+                </ng-template>
+
+                <ng-template let-item pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px"
+                  >
+                    <div style="font-size: 14px; margin-top: 4px">
+                      {{ item.description }}
+                    </div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </ng-template>
+
+            <ng-template pTemplate="output">
+              {{
+                isNotNull(inventoryPosting.cap_Overhead_Varance_Account)
+                  ? inventoryPosting.cap_Overhead_Varance_Account.account_ID
+                  : inventoryPosting.cap_Overhead_Varance_Account
+              }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+        <td [pEditableColumn]="inventoryPosting">
+          <button
+            type="button"
+            (click)="deleteInventoryPosting(inventoryPosting)"
+            class="btn btn-danger"
+          >
+            delete
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

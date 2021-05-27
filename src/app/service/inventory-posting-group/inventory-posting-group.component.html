@@ -1,0 +1,144 @@
+<h3 class="font-weight-bold">Inventory posting group</h3>
+<div>
+  <div class="m-3">
+    <p-table
+      [value]="inventoryPostingGroups"
+      [resizableColumns]="true"
+      (onEditComplete)="performUpdate($event)"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn scope="col" translate>Code</th>
+          <th pResizableColumn>Description</th>
+          <th pResizableColumn>Is Active</th>
+          <th pResizableColumn scope="col">
+            <button
+              type="button"
+              *ngIf="!disable"
+              class="btn btn-primary"
+              (click)="clearForm()"
+              translate
+            >
+              Add New
+            </button>
+          </th>
+        </tr>
+
+        <tr *ngIf="IsAddFormVisible">
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="inventoryPostingGroup.code"
+              class="form-control"
+              name="code"
+              placeholder="Code"
+              id="code"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="inventoryPostingGroup.description"
+              class="form-control"
+              name="description"
+              placeholder="Description"
+              id="description"
+              required
+            />
+          </td>
+          <td class="p-2">
+            <input
+              type="checkbox"
+              [(ngModel)]="inventoryPostingGroup.active"
+              class="form-control"
+              name="active"
+              placeholder="Active"
+              id="active"
+              required
+            />
+          </td>
+          <td scope="col" rowspan="2" style="text-align: center">
+            <button
+              type="button"
+              *ngIf="!disable"
+              class="btn btn-primary"
+              (click)="registerInventoryPostingGroup()"
+              translate
+            >
+              Save
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-inventoryPostingGroup>
+        <tr>
+          <td
+            [pEditableColumn]="inventoryPostingGroup"
+            pEditableColumnField="code"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="inventoryPostingGroup.code"
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ inventoryPostingGroup.code }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td
+            [pEditableColumn]="inventoryPostingGroup"
+            pEditableColumnField="description"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="inventoryPostingGroup.description"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ inventoryPostingGroup.description }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td
+            [pEditableColumn]="inventoryPostingGroup"
+            pEditableColumnField="active"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  pInputText
+                  type="checkbox"
+                  [(ngModel)]="inventoryPostingGroup.active"
+                  required
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ inventoryPostingGroup.active }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <button
+            type="button"
+            class="btn btn-primary"
+              (click)="deleteInventoryPostingGroup(inventoryPostingGroup)"
+            >
+              <i class="pi pi-trash"></i>
+              Delete
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

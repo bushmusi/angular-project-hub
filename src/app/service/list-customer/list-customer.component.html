@@ -1,0 +1,68 @@
+<tabset #tabset>
+  <tab heading="Maintain Customer">
+    <app-maintain-customer
+      [edit_form]="edit_form"
+      [customer]="customer"
+      (onclose)="closeup()"
+    ></app-maintain-customer>
+  </tab>
+  <tab heading="List Customer ">
+    <div class="m-3 row">
+      <div class="col-md-3">
+        <h3>Customer List</h3>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="addNewCustomer()"
+          translate
+        >
+          New Customer
+        </button>
+
+        <h4>Commands</h4>
+        <a href="/#/" class="row">View Sales Order </a>
+        <a href="/#/" class="row">View Sales Invoice</a>
+        <a href="#/" class="row">View Payment Received </a>
+        <a href="#/" class="row">View Item Sale by Customer </a>
+      </div>
+      <div class="col-md-9">
+        <p-table [value]="CustomerList" [paginator]="true" [rows]="5">
+          <ng-template pTemplate="header">
+            <tr>
+              <th scope="col" translate>Customer Id</th>
+              <th scope="col" translate>Name</th>
+              <th scope="col" translate>Address</th>
+              <th scope="col" translate>Website</th>
+              <th scope="col" translate>Tax Type</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-Customer>
+            <tr>
+              <td>{{ Customer.customer_ID }}</td>
+              <td>{{ Customer.name }}</td>
+              <td>{{ Customer.address }}</td>
+              <td>{{ Customer.website }}</td>
+              <td>{{ Customer.sales_Tax_Type }}</td>
+
+              <td>
+                <button
+            type="button"
+            class="btn btn-primary"
+                  (click)="selectCustomer($event, Customer)"
+                  translate
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </tab>
+
+  <tab heading=" Customer Default ">
+    <!-- <app-customer-default></app-customer-default> -->
+  </tab>
+</tabset>

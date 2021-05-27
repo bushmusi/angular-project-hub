@@ -1,0 +1,8 @@
+th {
+    width: 150px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: scroll;
+}
