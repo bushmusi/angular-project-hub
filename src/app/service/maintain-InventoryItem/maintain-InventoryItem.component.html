@@ -1,0 +1,263 @@
+<div class="m-3">
+  <div class="col-md-6 row    form-group">
+    <button   value="Save InventoryItem" class="btn btn-primary">Save InventoryItem</button>
+    <button   value="List InventoryItem" class="btn btn-primary" (click)="goto(1)">List InventoryItem</button>
+      <button   value="New InventoryItem" class="btn btn-primary" >New InventoryItem</button>
+        <button   value="Delete InventoryItem" class="btn btn-primary" >Delete InventoryItem</button>
+ 
+    </div>
+<div class="row">
+<div class="col-md-12" >
+  <form>
+    
+    <div class="row">
+        <div class="col-md-6 row form-group ">
+          <label for="InventoryItemId" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Inventory Item Id</label>
+          <div class="col-sm-9">
+    
+          <select class="form-control " [(ngModel)]="InventoryItem.InventoryItemId" #InventoryItemId="ngModel" name="InventoryItemId" id="InventoryItemId" [ngClass]="{ 'is-invalid': InventoryItemId.invalid }"
+              required>
+              <option disabled>select</option>
+              <option *ngFor="let InventoryItemId of InventoryItemIds;" [value]="InventoryItemId.InventoryItemIdId">{{InventoryItemId.Name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-6 row form-group ">
+          <label for="ItemClass" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Item Class</label>
+          <div class="col-sm-9">
+    
+          <select class="form-control " [(ngModel)]="InventoryItem.ItemClass" #ItemClass="ngModel" name="ItemClass" id="ItemClass" [ngClass]="{ 'is-invalid': ItemClass.invalid }"
+              required>
+              <option disabled>select</option>
+              <option *ngFor="let ItemClass of ItemClasss;" [value]="ItemClass.ItemClassId">{{ItemClass.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+  
+
+      <div class="row">
+        <div class="col-md-6 row   form-group">
+          <label for="Description" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Description</label>
+  
+          <div class="col-sm-9">
+  
+            <input type="textarea" class="form-control" [(ngModel)]="InventoryItem.Description" #Description="ngModel" name="Description" placeholder=" " id="Description"
+              [ngClass]="{ 'is-invalid': Description.invalid }" required>
+          </div>
+        </div>
+
+
+        <div class="col-md-6 row   form-group">
+          <label for="Price" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Price</label>
+  
+          <div class="col-sm-9">
+  
+            <input type="text" class="form-control" [(ngModel)]="InventoryItem.Price" #Price="ngModel" name="Price" placeholder=" " id="Price"
+              [ngClass]="{ 'is-invalid': Price.invalid }" required>
+          </div>
+        </div>
+      
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-6 row   form-group">
+          <label for="PartNumber" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Part Number</label>
+  
+          <div class="col-sm-9">
+  
+            <input type="text" class="form-control" [(ngModel)]="InventoryItem.PartNumber" #PartNumber="ngModel" name="PartNumber" placeholder=" " id="PartNumber"
+              [ngClass]="{ 'is-invalid': PartNumber.invalid }" required>
+          </div>
+        </div>
+
+        <div class="col-md-6 row form-group ">
+          <label for="CostMethod" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Cost Method</label>
+          <div class="col-sm-9">
+    
+          <select class="form-control " [(ngModel)]="InventoryItem.CostMethod" #CostMethod="ngModel" name="CostMethod" id="CostMethod" [ngClass]="{ 'is-invalid': CostMethod.invalid }"
+              required>
+              <option disabled>select</option>
+              <option *ngFor="let CostMethod of CostMethods;" [value]="CostMethod.CostMethodId">{{CostMethod.Name}}</option>
+            </select>
+          </div>
+        </div>
+      
+      
+      </div>
+
+ 
+      <div class="row">
+        <div class="col-md-6 row   form-group">
+          <label for="ItemWeight" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Weight</label>
+  
+          <div class="col-sm-9">
+  
+            <input type="text" class="form-control" [(ngModel)]="InventoryItem.ItemWeight" #Weight="ngModel" name="ItemWeight" placeholder=" " id="ItemWeight"
+              [ngClass]="{ 'is-invalid': ItemWeight.invalid }" required>
+          </div>
+        </div>
+
+
+      
+
+      
+      </div>
+   
+      <div class="row">
+       
+
+
+        <div class="col-md-6 row form-group ">
+          <label for="ItemType" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Item Type</label>
+          <div class="col-sm-9">
+    
+          <select class="form-control " [(ngModel)]="InventoryItem.ItemType" #ItemType="ngModel" name="ItemType" id="ItemType" [ngClass]="{ 'is-invalid': ItemType.invalid }"
+              required>
+              <option disabled>select</option>
+              <option *ngFor="let ItemType of ItemTypes;" [value]="ItemType.ItemTypeId">{{ItemType.Name}}</option>
+            </select>
+          </div>
+        </div>
+
+      
+      </div>
+
+
+
+
+      <div class="row">
+        <div class="col-md-6 row   form-group">
+          <label for="ItemWeight" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Weight</label>
+  
+          <div class="col-sm-9">
+  
+            <input type="text" class="form-control" [(ngModel)]="InventoryItem.ItemWeight" #ItemWeight="ngModel" name="ItemWeight" placeholder=" " id="ItemWeight"
+              [ngClass]="{ 'is-invalid': ItemWeight.invalid }" required>
+          </div>
+        </div>
+
+
+     
+
+      
+      </div>
+
+<hr/>
+
+<div class="row">
+  <div class="col-md-6 row form-group ">
+    <label for="GLSalesAccount" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>GL Sales Account</label>
+    <div class="col-sm-9">
+
+    <select class="form-control " [(ngModel)]="InventoryItem.GLSalesAccount" #GLSalesAccount="ngModel" name="GLSalesAccount" id="GLSalesAccount" [ngClass]="{ 'is-invalid': GLSalesAccount.invalid }"
+        required>
+        <option disabled>select</option>
+        <option *ngFor="let GLSalesAccount of GLSalesAccounts;" [value]="GLSalesAccount.GLSalesAccountId">{{GLSalesAccount.Name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group ">
+    <label for="GLInventoryAccount" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>GL Inventory Account</label>
+    <div class="col-sm-9">
+
+    <select class="form-control " [(ngModel)]="InventoryItem.GLInventoryAccount" #GLInventoryAccount="ngModel" name="GLInventoryAccount" id="GLInventoryAccount" [ngClass]="{ 'is-invalid': GLInventoryAccount.invalid }"
+        required>
+        <option disabled>select</option>
+        <option *ngFor="let GLInventoryAccount of GLInventoryAccounts;" [value]="GLInventoryAccount.GLInventoryAccountId">{{GLInventoryAccount.Name}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="row">
+  <div class="col-md-6 row form-group ">
+    <label for="GLFreightAccounts" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>GL Freight Account</label>
+    <div class="col-sm-9">
+
+    <select class="form-control " [(ngModel)]="InventoryItem.GLFreightAccounts" #GLFreightAccounts="ngModel" name="GLFreightAccounts" id="GLFreightAccounts" [ngClass]="{ 'is-invalid': GLFreightAccounts.invalid }"
+        required>
+        <option disabled>select</option>
+        <option *ngFor="let GLFreightAccounts of GLFreightAccountss;" [value]="GLFreightAccounts.GLFreightAccountsId">{{GLFreightAccounts.Name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group ">
+    <label for="GLCostofSalesAccount" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>GL Cost of Sales Account</label>
+    <div class="col-sm-9">
+
+    <select class="form-control " [(ngModel)]="InventoryItem.GLCostofSalesAccount" #GLCostofSalesAccount="ngModel" name="GLCostofSalesAccount" id="GLCostofSalesAccount" [ngClass]="{ 'is-invalid': GLCostofSalesAccount.invalid }"
+        required>
+        <option disabled>select</option>
+        <option *ngFor="let GLCostofSalesAccount of GLCostofSalesAccounts;" [value]="GLCostofSalesAccount.GLCostofSalesAccountId">{{GLCostofSalesAccount.Name}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row">
+  <div class="col-md-6 row form-group ">
+    <label for="ItemTaxType" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Item Tax Type</label>
+    <div class="col-sm-9">
+
+    <select class="form-control " [(ngModel)]="InventoryItem.ItemTaxType" #ItemTaxType="ngModel" name="ItemTaxType" id="ItemTaxType" [ngClass]="{ 'is-invalid': ItemTaxType.invalid }"
+        required>
+        <option disabled>select</option>
+        <option *ngFor="let ItemTaxType of ItemTaxTypes;" [value]="ItemTaxType.ItemTaxTypeId">{{ItemTaxType.Name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group ">
+    <label for="MinimumStock" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Minimum Stock</label>
+    <div class="col-sm-9">
+  
+      <input type="text" class="form-control" [(ngModel)]="InventoryItem.MinimumStock" #MinimumStock="ngModel" name="MinimumStock" placeholder=" " id="MinimumStock"
+        [ngClass]="{ 'is-invalid': MinimumStock.invalid }" required>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row">
+  <div class="col-md-6 row form-group ">
+    <label for="PreferedVendor" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Prefered Vendor</label>
+    <div class="col-sm-9">
+
+    <select class="form-control " [(ngModel)]="InventoryItem.PreferedVendor" #PreferedVendor="ngModel" name="PreferedVendor" id="PreferedVendor" [ngClass]="{ 'is-invalid': PreferedVendor.invalid }"
+        required>
+        <option disabled>select</option>
+        <option *ngFor="let PreferedVendor of PreferedVendors;" [value]="PreferedVendor.PreferedVendorId">{{PreferedVendor.Name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="col-md-6 row form-group ">
+    <label for="Buyer" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Buyer</label>
+    <div class="col-sm-9">
+
+    <select class="form-control " [(ngModel)]="InventoryItem.Buyer" #Buyer="ngModel" name="Buyer" id="Buyer" [ngClass]="{ 'is-invalid': Buyer.invalid }"
+        required>
+        <option disabled>select</option>
+        <option *ngFor="let Buyer of Buyers;" [value]="Buyer.BuyerId">{{Buyer.Name}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+        </form>
+    </div>
+
+    
+  </div>
+  </div>

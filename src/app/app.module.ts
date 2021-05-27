@@ -1,0 +1,55 @@
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {MyTaskModule} from './my-task/my-task.module';
+import {ServiceModule} from './service/service.module';
+import {FleetLeaseModule} from './fleet-lease/fleet-lease.module';
+import {APP_BASE_HREF} from '@angular/common';
+import {AngularFontAwesomeModule} from 'angular-font-awesome';
+import {NgxSpinnerModule} from 'ngx-spinner';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {environment} from '../environments/environment';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
+import {ModalModule} from 'ngx-bootstrap';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}),
+    AngularFontAwesomeModule,
+    ServiceModule,
+    MyTaskModule,
+    FleetLeaseModule,
+    ModalModule.forRoot(),
+    AppRoutingModule,
+    NgxSpinnerModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    NgxSmartModalModule.forRoot(),
+  ],
+  providers: [{provide: APP_BASE_HREF, useValue: window['_app_base']}],
+  bootstrap: [AppComponent]
+})
+
+export class AppModule {
+}
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, environment.phisicalPath, '.json');
+}

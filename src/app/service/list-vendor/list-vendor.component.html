@@ -1,0 +1,74 @@
+
+ 
+  <tabset #tabset>
+    
+    <tab
+    heading="Maintain Vendor "
+    >
+  
+<app-maintain-vendor></app-maintain-vendor>
+  </tab>
+    <tab
+      heading="Vendor List"
+      >
+      <div class="m-3 row">
+        <div class="col-md-2">
+          <h3>Vendor List</h3>
+          <button type="button" class="btn btn-primary" (click)="goto(0)" translate>  New Vendor</button>
+          <div class=" ">
+            <h4>Commands</h4> 
+             <a href="/#/" class="row">View Purchase  </a>
+             <a  href="/#/" class="row">View Purchase Order</a>
+             <a  href="#/" class="row">View Payment   </a>
+             <a  href="#/" class="row">View Vendor Credit memos   </a>
+           </div>
+        </div>
+      
+      
+      <div class="col-md-9">
+       
+        <p-table [value]="VendorList" [paginator]="true" [rows]="5">
+          <ng-template pTemplate="header">
+            <tr>
+              <th scope="col" translate>Vendor Id</th>
+              <th scope="col" translate> Name</th>
+              <th scope="col" translate>Contact</th>
+              <th scope="col" translate>Email </th>
+              <th scope="col" translate>Tax Type</th>
+              <th scope="col" translate>Balance</th>
+       
+      
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-Vendor>
+            <tr>
+              <td>{{Vendor.VendorId}}</td>
+              <td>{{Vendor.VendorName}}</td>
+              <td>{{Vendor.Contact}}</td>
+              <td>{{Vendor.Email}}</td>
+              <td>{{Vendor.TaxType}}</td>
+              <td>{{Vendor.Balance}}</td>
+                      
+            </tr>
+          </ng-template>
+        </p-table>
+      
+      </div>
+      </div>
+    </tab>
+  
+    <tab
+      heading="Vendor Default"
+      >
+      
+<app-default-vendor></app-default-vendor>
+    </tab>
+  
+  
+       
+  </tabset> 
+
+      
+ 
+ 
+

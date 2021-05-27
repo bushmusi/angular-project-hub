@@ -1,0 +1,80 @@
+
+<div class="m-3 row">
+ 
+  <div class="col-md-6" >
+    <h4>Vendor Default Settings  </h4>
+    <h4> Terms and Credits  </h4>
+    <form>
+      
+         
+    
+          <div class="col-md-12 row   form-group">
+            <label for="DueOnthenextdays" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Due On the next days</label>
+    
+            <div class="col-sm-9">
+    
+              <input type="text" class="form-control" [(ngModel)]="VendorDefault.DueOnthenextdays" #DueOnthenextdays="ngModel" name="DueOnthenextdays" placeholder=" " id="DueOnthenextdays"
+                [ngClass]="{ 'is-invalid': DueOnthenextdays.invalid }" required>
+            </div>
+          </div>
+        
+     
+          <div class=" form-group row col-md-12">
+            <label for="DueOnthenextmonth" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Due On the next month</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="VendorDefault.DueOnthenextmonth" #DueOnthenextmonth="ngModel" name="DueOnthenextmonth"
+                id="DueOnthenextmonth" placeholder=" " [ngClass]="{ 'is-invalid': DueOnthenextmonth.invalid }">
+    
+            </div>
+          </div>
+    
+          <div class="form-group  row col-md-12">
+            <label for="DiscountIndays" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Discount In days</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="VendorDefault.DiscountIndays" #DiscountIndays="ngModel" name="DiscountIndays" id="DiscountIndays" placeholder=" " [ngClass]="{ 'is-invalid': DiscountIndays.invalid }">
+            </div>
+          </div>
+        
+          <div class="form-group  row col-md-12">
+            <label for="DiscountPercent" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Discount Percent</label>
+            <div class="col-sm-9">
+              <input type="DiscountPercent" class="form-control" [(ngModel)]="VendorDefault.DiscountPercent" #DiscountPercent="ngModel" name="DiscountPercent" id="DiscountPercent" placeholder=" " [ngClass]="{ 'is-invalid': DiscountPercent.invalid }">
+            </div>
+          </div>
+          <div class="form-group row col-md-12">
+            <label for="CreditLimit" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate> Credit Limit</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="VendorDefault.CreditLimit" #CreditLimit="ngModel" name="CreditLimit" id="CreditLimit" placeholder="  "
+                [ngClass]="{ 'is-invalid': CreditLimit.invalid }">
+            </div>
+          </div>
+      
+          <div class="form-group row col-md-12">
+    
+            <label for="GLExpenseAccount" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>GL Expense Account</label>
+            <div class="col-sm-9">
+              <select class="form-control " [(ngModel)]="VendorDefault.GLExpenseAccount" name="GLExpenseAccount" id="GLExpenseAccount" #GLExpenseAccount="ngModel"
+                [ngClass]="{ 'is-invalid': GLExpenseAccount.invalid }" required>
+                <option disabled>select</option>
+                <option *ngFor="let Vendor of GLExpenseAccounts;" [value]="GLExpenseAccount.Id">{{GLExpenseAccount.Name}}</option>
+              </select>
+            </div>
+          </div>
+        
+          <div class="form-group row col-md-12">
+    
+            <label for="DiscountGLAccount" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Discount GL Account</label>
+            <div class="col-sm-9">
+              <select class="form-control " [(ngModel)]="VendorDefault.DiscountGLAccount" name="DiscountGLAccount" id="DiscountGLAccount" #DiscountGLAccount="ngModel"
+                [ngClass]="{ 'is-invalid': DiscountGLAccount.invalid }" required>
+                <option disabled>select</option>
+                <option *ngFor="let Vendor of DiscountGLAccounts;" [value]="DiscountGLAccount.Id">{{DiscountGLAccount.Name}}</option>
+              </select>
+            </div>
+          </div>
+        <button type="submit" class="btn btn-primary">Save Settings</button>
+     
+          </form>
+      </div>
+      
+    </div>

@@ -1,0 +1,94 @@
+<form *ngIf="leaseForm">
+  <div class="form-row">
+    <div class="form-group row col-md-6">
+      <label for="LeaseID" class="col-sm-3 col-form-label" translate>Lease ID</label>
+      <div class="col-sm-9">
+        <input type="number" disabled class="form-control" [(ngModel)]="leaseOwnerShip.ID" name="LeaseID" id="LeaseID"
+               placeholder="LeaseID">
+      </div>
+    </div>
+    <div class="form-group row col-md-6">
+      <label for="FreeHold" class="col-sm-3 col-form-label" translate>Free Hold</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" [(ngModel)]="leaseOwnerShip.Free_Hold_M2" name="FreeHold" id="FreeHold"
+               placeholder="Free Hold">
+      </div>
+    </div>
+    <div class="form-group row col-md-6">
+      <label for="Type" class="col-sm-3 col-form-label" translate>Type</label>
+      <div class="col-sm-9">
+        <select class="form-control" [(ngModel)]="leaseOwnerShip.Type_ID" name="Type" id="Type">
+          <option disabled>select</option>
+          <option *ngFor="let type of serviceComponent.Lease_Type_Lookup;" [value]="type.Lease_Type_ID">{{type.Lease_Type}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row col-md-6">
+      <label for="LandHold" class="col-sm-3 col-form-label" translate>Lease  Hold</label>
+      <div class="col-sm-9">
+        <input type="number" class="form-control" [(ngModel)]="leaseOwnerShip.Lease_Hold_M2" name="LandHold" id="LandHold"
+               placeholder="Land Hold">
+      </div>
+    </div>
+    <div class="form-group row col-md-6">
+      <label for="LeaseContractNo" class="col-sm-3 col-form-label" translate>Lease Contract No</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" [(ngModel)]="leaseOwnerShip.Lease_No" name="LeaseContractNo"
+               id="LeaseContractNo" placeholder="Lease Contract No">
+      </div>
+    </div>
+    <div class="form-group row col-md-6">
+      <label for="Customer" class="col-sm-3 col-form-label" translate>Customer</label>
+      <div class="col-sm-9">
+        <select class="form-control" [(ngModel)]="leaseOwnerShip.Customer_ID" name="Customer"
+                id="Customer">
+          <option disabled>select</option>
+          <option *ngFor="let customer of serviceComponent.CustomerLookUP;" [value]="customer.Customer_ID">{{customer.Applicant_First_Name_EN}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row col-md-6">
+      <label for="LeasePrice" class="col-sm-3 col-form-label" translate>Lease Price</label>
+      <div class="col-sm-9">
+        <input type="number" class="form-control" [(ngModel)]="leaseOwnerShip.Lease_Price" name="LeasePrice"
+               id="LeasePrice" placeholder="Lease Price">
+      </div>
+    </div>
+
+
+  </div>
+  <button type="button" class="btn btn-primary" *ngIf="!addnew" (click)="save()" translate>Save</button>
+  <button type="button" class="btn btn-primary" *ngIf="addnew" (click)="add()" translate>Save</button>
+</form>
+
+
+<p-table [value]="tasks" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="header">
+    <tr>
+      <th scope="col" translate>Lease ID</th>
+      <th scope="col" translate>Plot ID</th>
+      <th scope="col" translate>Type</th>
+      <th scope="col" translate>Lease Contract No</th>
+      <th scope="col" translate>Lease Price</th>
+      <th scope="col" translate>free hold</th>
+      <th scope="col" translate>Lease hold</th>
+      <th scope="col">
+        <button type="button" class="btn btn-primary" (click)=" addLease()" translate>Add New</button>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-lease>
+    <tr>
+      <td>{{lease.ID}}</td>
+      <td>{{lease.Plot_ID}}</td>
+      <td>{{lease.Type_ID}}</td>
+      <td>{{lease.Lease_No}}</td>
+      <td>{{lease.Lease_Price}}</td>
+      <td>{{lease.Free_Hold_M2}}</td>
+      <td>{{lease.Lease_Hold_M2}}</td>
+      <td>
+        <button type="button" class="btn btn-primary" (click)="selectLease(lease)" translate>Edit</button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

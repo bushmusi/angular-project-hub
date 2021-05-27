@@ -1,0 +1,72 @@
+<div class="card">
+  <div class="card-body table-responsive">
+    <p-table [value]="vehicles" dataKey="vehicle_ID"   [paginator]="true" [rows]="2">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width: 3em"></th>
+          <th scope="col">Vehicle ID</th>
+          <th scope="col">Organization ID</th>
+          <th scope="col">Plate Number</th>
+          <th scope="col">Model</th>
+          <th scope="col">Type</th>
+          <th scope="col">Chassis Number</th>
+          <th scope="col">Is Active</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template
+        pTemplate="body"
+        let-data
+        let-expanded="expanded"
+        let-columns="columns"
+      >
+        <tr>
+          <td>
+            <a href="#" [pRowToggler]="data">
+              <i
+                [ngClass]="
+                  expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'
+                "
+              ></i>
+            </a>
+          </td>
+
+          <td>{{ data.vehicle_ID }}</td>
+          <td>{{ data.organization_ID }}</td>
+          <td>{{ data.plate_No }}</td>
+          <td>{{ data.model }}</td>
+          <td>{{ data.type }}</td>
+          <td>{{ data.chassis_Number }}</td>
+          <td>{{ data.is_Active }}</td>
+          <td class="text-center">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="initSelectVehicle(data)"
+            >
+              Select
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="rowexpansion" let-data let-columns="columns">
+        <tr class="dim-yellow">
+          <td [attr.colspan]="9" [ngClass]="{ 'dim-yellow': !data.is_Active }">
+            <div class="row">
+              <span class="mx-4"
+                ><b>Horse power:</b> {{ data.horse_Power }}</span
+              >
+              <span class="mx-4"><b>CO2:</b> {{ data.cO2 }}</span>
+              <span class="mx-4"><b>Maker:</b> {{ data.maker }}</span>
+              <span class="mx-4"><b>Mile Stamp:</b> {{ data.mile_Stamp }}</span>
+              <span class="mx-4"><b>Version:</b> {{ data.version }}</span>
+              <span class="mx-4"
+                ><b>Purchase Value:</b> {{ data.purchase_Value }}</span
+              >
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

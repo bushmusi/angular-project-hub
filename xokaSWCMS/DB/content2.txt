@@ -1,0 +1,50 @@
+﻿
+BD5CE9D8-E6E0-4DD2-89E0-3033ADBF63CE	Application Form - New Service Request Form
+
+F006C633-B405-4F7B-B101-63A2E176FA35	Application Form - Existing Customer's Application Form
+
+B006C844-B405-4F7B-B101-41A2E176FA42	Application Form - Inheritance based Title Deed Transfer
+
+97885E2D-5360-4584-902D-4DE404308F18	Technical Team Leader Validation Form
+
+EC52101A-F679-46EE-A16C-601BC03E6BE9	Legal Validation  Form - for Parcel Merging
+
+AF02021B-F679-46EE-A16C-601BC03E9BE6	Legal Validation  Form - for Service Change
+
+AB52101A-F679-46EE-A16C-601BC03E2AC0	Legal Validation  Form - for Parcel Splitting
+
+BA31081A-F679-46EE-A16C-601BC03E7AF0	Legal Validation  Form - for Title Deed Transfer Sale/Gift
+
+CA31081A-F679-46EE-A16C-601BC03E7AF0	Legal Validation  Form - for Title Deed Transfer Condominium 
+
+DA31081A-F679-46EE-A16C-601BC03E7AF0	Legal Validation  Form - for Title Deed Transfer Members Replacement
+
+EA31081A-F679-46EE-A16C-601BC03E7AF0	Legal Validation  Form - for Title Deed Transfer Inheritance
+
+FF00441A-F679-46EE-A16C-601BC03E1AA1	Legal Validation  Form - for Debt Suspension
+
+DD00441A-F679-46EE-A16C-601BC03E1AA1	Legal Validation  Form - for Existing Holding
+
+EE00881A-F679-46EE-A16C-601BC03E1AA1	Legal Validation  Form - for New Requests
+
+BC52101A-F679-46EE-A16C-601BC04E6BE9	Information Manager Validation Form - general
+
+CDA6C633-B966-4F7B-B101-63A2E176FA35	Project Office Manager Validation Form
+
+B0B741AA-81B5-4E8E-AC36-A60305AF3C06	Sub City Desk Manager Validation Form
+
+CC52101A-F584-46EE-A16C-601BC03E6CE5	Information Manager Validation Form for Lost Service
+
+A052101A-F674-46EE-A16C-601BC03E6CA5	Application Form - for Transfer of Title Deed
+
+CE03101A-F584-46EE-A16C-601BC03E6CE5	Application Form - for Parcels Merging
+
+F8B6C603-B505-4F1B-B131-83A2E176FA34	Base Map Management and Validation Form
+
+D007C633-B405-4F7B-B101-63A2E176FA43	Confirmation of Measurement Form
+
+A220D502-B405-4F7B-B101-63A2E176FA43	Technical Team Leader Survey and Property Data Approval Form
+
+B333D616-B405-4F7B-B101-63A2E176FA21	Upload Renewed Lease Contract
+
+60025E2D-5360-4584-902D-4DE404308J48	Evaluate Customer Complaint Form

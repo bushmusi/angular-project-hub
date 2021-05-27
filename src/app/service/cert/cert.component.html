@@ -1,0 +1,79 @@
+
+<div class="row">
+
+  <div class="col-md-10">
+
+    <div style="margin: 10px">
+
+      <p-table [value]="DeedTable" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="header">
+          <tr>
+            <th scope="col" translate>Ownership ID</th>
+            <th scope="col" translate>Property ID</th>
+            <th scope="col" translate>Transferred From</th>
+            <th scope="col" translate>Transferred To</th>
+            <th scope="col" translate>Parent Deed ID</th>
+            <th scope="col" translate>Transfer Type</th>
+            <th scope="col"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-Deed>
+          <tr>
+            <td>{{Deed.Ownership_ID}}</td>
+            <td>{{Deed.Property_ID}}</td>
+            <td>{{Deed.Transfer_From_Customer}}</td>
+            <td>{{Deed.Transfer_To_Customer}}</td>
+            <td>{{Deed.Parent_Deed_ID}}</td>
+            <td>{{Deed.Transfer_Type}}</td>
+            <td>
+              <button type="button" class="btn btn-primary" (click)="SelectDeed(Deed)" translate>Select
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div *ngIf="certverForm">
+
+
+      <tabset #staticTabs>
+        <tab heading="Certificate Version">
+          <div class="mt-3">
+            <app-certificate-version [Selectedcert]='Selectedcert'></app-certificate-version>
+          </div>
+        </tab>
+        <tab heading="Them">
+          <div class="mt-3">
+            <app-them [Selectedcert]='Selectedcert'></app-them>
+          </div>
+        </tab>
+        <tab heading="Debt/SuspensionRecord">
+          <div class="mt-3">
+            <app-dept-suspension-record [Selectedcert]='Selectedcert'></app-dept-suspension-record>
+          </div>
+        </tab>
+      </tabset>
+
+    </div>
+  </div>
+
+  <div class="col-md-2 m-10" *ngIf="certForm">
+    <div class="p-3 mb-2 bg-primary text-white h-100">
+
+      <p class="text-center" translate>certificate Version</p>
+      <div class="text-center">
+        <div>
+          <tabset [vertical]="true">
+            <tab *ngFor="let version of CertificateVersion;" (select)="SelectcertVer(version)">
+              <ng-template tabHeading class="bg-primary">
+                                <span class="text-black-50"
+                                      (click)="SelectcertVer(version)">{{version.Version_No}}</span>
+              </ng-template>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

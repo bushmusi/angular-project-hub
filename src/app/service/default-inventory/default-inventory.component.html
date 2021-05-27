@@ -1,0 +1,121 @@
+<div class="m-3 row">
+  
+  <div class="col-md-12" >
+    <h4>Inventory General Defaults    </h4>
+
+    <form>
+      
+         
+    
+          <div class="col-md-12 row   form-group">
+            <label for="UPCSKUAllowDuplication" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>UPC / SKU Allow Duplication</label>
+    
+            <div class="col-sm-6">
+    
+              <input type="checkbox" class="form-control" [(ngModel)]="InventoryItemDefault.UPCSKUAllowDuplication" #UPCSKUAllowDuplication="ngModel" name="UPCSKUAllowDuplication" placeholder=" " id="UPCSKUAllowDuplication"
+                [ngClass]="{ 'is-invalid': UPCSKUAllowDuplication.invalid }" required>
+            </div>
+          </div>
+        
+     
+          <div class=" form-group row col-md-12">
+            <label for="PartNumberAllowDuplication" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Part Number Allow Duplication</label>
+            <div class="col-sm-9">
+              <input type="checkbox" class="form-control" [(ngModel)]="InventoryItemDefault.PartNumberAllowDuplication" #PartNumberAllowDuplication="ngModel" name="PartNumberAllowDuplication"
+                id="PartNumberAllowDuplication" placeholder=" " [ngClass]="{ 'is-invalid': PartNumberAllowDuplication.invalid }">
+    
+            </div>
+          </div>
+    
+          <div class="form-group  row col-md-12">
+            <label for="EnableMultiPacks" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Enable Multi Packs</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [(ngModel)]="InventoryItemDefault.EnableMultiPacks" #EnableMultiPacks="ngModel" name="EnableMultiPacks" id="EnableMultiPacks" placeholder=" " [ngClass]="{ 'is-invalid': EnableMultiPacks.invalid }">
+            </div>
+          </div>
+        
+        
+      
+          <div class="form-group row col-md-12">
+    
+            <label for="DefaultItemClass" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Default Item Class</label>
+            <div class="col-sm-9">
+              <select class="form-control " [(ngModel)]="InventoryItemDefault.DefaultItemClass" name="DefaultItemClass" id="DefaultItemClass" #DefaultItemClass="ngModel"
+                [ngClass]="{ 'is-invalid': DefaultItemClass.invalid }" required>
+                <option disabled>select</option>
+                <option *ngFor="let Customer of DefaultItemClasss;" [value]="DefaultItemClass.Id">{{DefaultItemClass.Name}}</option>
+              </select>
+            </div>
+          </div>
+        
+          <div class="form-group row col-md-12">
+    
+            <label for="GLFreightAccount" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>GL Freight Account     </label>
+            <div class="col-sm-9">
+              <select class="form-control " [(ngModel)]="InventoryItemDefault.GLFreightAccount" name="GLFreightAccount" id="GLFreightAccount" #GLFreightAccount="ngModel"
+                [ngClass]="{ 'is-invalid': GLFreightAccount.invalid }" required>
+                <option disabled>select</option>
+                <option *ngFor="let Customer of GLFreightAccounts;" [value]="GLFreightAccount.Id">{{GLFreightAccount.Name}}</option>
+              </select>
+            </div>
+          </div>
+        <button type="submit" class="btn btn-primary">Save Settings</button>
+     
+          </form>
+      </div>
+   
+    
+  <div class="col-md-12 " >
+    <h4>Manage Item Classes  </h4>
+    <div class="col-sm-6">
+   
+      <p-table [value]="ItemClassList" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="header">
+          <tr>
+            <th scope="col" translate>ItemClass Name</th>
+            <th scope="col" translate> Status</th>
+            <th scope="col" translate>Action</th>
+           
+    
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ItemClass>
+          <tr>
+           
+            <td>{{ItemClass.ItemClassName}}</td>
+            <td>{{ItemClass.Status}}</td>
+            <td><button mat-button>Edit</button></td>
+            
+          </tr>
+        </ng-template>
+      </p-table>
+        </div>
+        
+    <div class="form-group row col-md-12 ">
+    <button type="button" class="btn btn-primary"  translate>  Save Item Class</button>
+    <button type="button" class="btn btn-primary"  translate>  Edit Item Class</button>
+    <button type="button" class="btn btn-primary"   translate> Delete Item Class</button>
+  </div>
+  <div class="form-group row col-md-12">
+    <label for="ItemClassName" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate> Item Class Name    </label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" [(ngModel)]="InventoryItemDefault.ItemClassName" #ItemClassName="ngModel" name="ItemClassName" id="ItemClassName" placeholder="  "
+        [ngClass]="{ 'is-invalid': ItemClassName.invalid }">
+    </div>
+  </div>
+
+  <div class="form-group row col-md-12">
+    <label for="ItemClassStatus" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate> Status    </label>
+    <div class="col-sm-9">
+      <input type="checkbox" class="form-control" [(ngModel)]="InventoryItemDefault.ItemClassStatus" #ItemClassStatus="ngModel" name="ItemClassStatus" id="ItemClassStatus" placeholder="  "
+        [ngClass]="{ 'is-invalid': ItemClassStatus.invalid }">
+    </div>
+  </div>
+
+  <div class="form-group row col-md-12">
+    
+   
+  </div>
+
+        </div>
+    </div>

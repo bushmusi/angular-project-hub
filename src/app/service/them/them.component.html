@@ -1,0 +1,80 @@
+<form *ngIf="themform">
+  <div class="form-row">
+
+    <div class="form-group row col-md-7">
+      <label for="CertificateVersionID" class="col-sm-3 col-form-label" translate>Certificate Version ID</label>
+      <div class="col-sm-9">
+        <input disabled type="text" class="form-control" [(ngModel)]="themCertificateVersion.Certificate_Version_ID" name="CertificateVersionID"  id="CertificateVersionID" placeholder="Certificate Version ID">
+      </div>
+    </div>
+
+
+    <div class="form-group row col-md-7">
+      <label for="ThemCustomerID" class="col-sm-3 col-form-label" translate>Them Customer ID</label>
+      <div class="col-sm-9">
+        <select class="form-control" [(ngModel)]="themCertificateVersion.Them_Customer_ID" name="ThemCustomerID"  id="ThemCustomerID">
+          <option disabled translate>select</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row col-md-7">
+      <label for="Remark" class="col-sm-3 col-form-label" translate>Remark</label>
+      <div class="col-sm-9">
+        <textarea class="form-control" [(ngModel)]="themCertificateVersion.Remark" name="Remark"  id="Remark" placeholder="Remark"></textarea>
+      </div>
+    </div>
+    <div class="form-group row col-md-7">
+      <label for="Date" class="col-sm-3 col-form-label" translate>Date</label>
+      <div class="col-sm-9">
+        <input type="Date" class="form-control" [(ngModel)]="themCertificateVersion.Date" name="Date"  id="Date" placeholder="Date">
+      </div>
+    </div>
+
+    <div class="form-group row col-md-7">
+      <label for="IsActive" class="col-sm-3 col-form-label" translate>Is Active</label>
+
+      <div class="col-sm-9">
+        <p-checkbox [(ngModel)]="themCertificateVersion.Is_Ative" name="IsActive" id="IsActive" binary="true"></p-checkbox>
+      </div>
+    </div>
+   <!-- <div class="form-group row col-md-7">
+      <label for="IsDeleted" class="col-sm-3 col-form-label" translate>Is Deleted</label>
+      <div class="col-sm-9">
+        <p-checkbox [(ngModel)]="themCertificateVersion.Is_Deleted" name="IsDeleted" id="IsDeleted" binary="true"></p-checkbox>
+      </div>
+    </div>-->
+
+
+
+
+
+  </div>
+  <button type="button" class="btn btn-primary" (click)="save()" translate>Save</button>
+</form>
+
+
+
+
+<p-table [value]="themCertificateVersionList" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="header">
+    <tr>
+      <th scope="col" translate>Them Customer ID</th>
+      <th scope="col" translate>Date</th>
+      <th scope="col" translate>Is Active</th>
+      <th scope="col">
+        <button type="button" class="btn btn-primary" (click)=" addThem()" translate>Add New</button>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-them>
+    <tr>
+      <td>{{them.Them_Customer_ID}}</td>
+      <td>{{them.Date}}</td>
+      <td>{{them.Is_Ative}}</td>
+      <td>
+        <button type="button" class="btn btn-primary" (click)="selectThem(them)" translate>Edit</button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

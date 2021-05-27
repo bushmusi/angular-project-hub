@@ -1,0 +1,208 @@
+<app-list-vehicle (selectVehicle)="onSelectVehicle($event)"></app-list-vehicle>
+
+<p>Lease From</p>
+<div>
+  <div class="col-md-10 offset-md-1">
+    <form>
+      <!-- Vehicle ID -->
+      <div class="form-group row">
+        <label for="VehicleID" class="col-sm-4 col-form-label col-form-label-sm"
+          >Vehicle ID</label
+        >
+        <div class="col-sm-8">
+          <input
+            type="text"
+            disabled
+            name="vehicle_ID"
+            [(ngModel)]="leaseFrom.vehicle_ID"
+            class="form-control form-control-sm"
+            id="Mileage"
+          />
+        </div>
+      </div>
+
+      <!-- Vehicle Lease ID -->
+      <div class="form-group row">
+        <label
+          for="VehicleLeaseID"
+          class="col-sm-4 col-form-label col-form-label-sm"
+          >Vehicle Lease ID</label
+        >
+        <div class="col-sm-8">
+          <input
+            type="text"
+            disabled
+            name="vehicle_LeaseID"
+            [(ngModel)]="leaseFrom.vehicle_LeaseID"
+            class="form-control form-control-sm"
+            id="VehicleLeaseID"
+          />
+        </div>
+      </div>
+
+      <!-- Fleet Contract ID -->
+      <div class="form-group row">
+        <label
+          for="FleetContractID"
+          class="col-sm-4 col-form-label col-form-label-sm"
+          >Fleet Contract ID</label
+        >
+        <div class="col-sm-8">
+          <select
+            class="custom-select custom-select-sm"
+            name="fleet_ContractID"
+            [(ngModel)]="leaseFrom.fleet_ContractID"
+            id="FleetContractID"
+          >
+            <option
+              *ngFor="let contract of fleetContracts"
+              (value)="(contract.contract_ID)"
+            >
+              {{ contract.contract_Title }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Vendor ID -->
+      <div class="form-group row">
+        <label for="VendorID" class="col-sm-4 col-form-label col-form-label-sm"
+          >Vendor ID</label
+        >
+        <div class="col-sm-8">
+          <select
+            class="custom-select custom-select-sm"
+            name="vendor_ID"
+            [(ngModel)]="leaseFrom.vendor_ID"
+            id="VendorID"
+          >
+            <option *ngFor="let vendor of vendors" [ngValue]="vendor.vendor_ID">
+              {{ vendor.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Mileage -->
+      <div class="form-group row">
+        <label for="Mileage" class="col-sm-4 col-form-label col-form-label-sm"
+          >Mileage</label
+        >
+        <div class="col-sm-8">
+          <input
+            type="number"
+            name="millage"
+            [(ngModel)]="leaseFrom.millage"
+            class="form-control form-control-sm"
+            id="Mileage"
+          />
+        </div>
+      </div>
+
+      <!-- Remark -->
+      <div class="form-group row">
+        <label for="Remark" class="col-sm-4 col-form-label col-form-label-sm"
+          >Remark</label
+        >
+        <div class="col-sm-8">
+          <textarea
+            class="form-control"
+            name="remark"
+            [(ngModel)]="leaseFrom.remark"
+            id="Remark"
+            rows="3"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="my-3 text-center">
+        <button
+          type="button"
+          (click)="newLease()"
+          *ngIf="editForm"
+          class="mx-2 btn btn-primary"
+        >
+          New
+        </button>
+        <button
+          type="button"
+          *ngIf="editForm"
+          (click)="saveData()"
+          class="mx-2 btn btn-secondary"
+        >
+          Update
+        </button>
+        <button
+          type="button"
+          *ngIf="!editForm"
+          (click)="saveData()"
+          class="mx-2 btn btn-secondary"
+        >
+          Save
+        </button>
+        <button
+          type="button"
+          *ngIf="editForm"
+          (click)="deleteLeaseFrom()"
+          class="mx-2 btn btn-warning"
+        >
+          Delete
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <div class="table-responsive">
+    <p-table [value]="leases" [paginator]="true" [rows]="5">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th scope="col">Lease ID</th>
+          <th scope="col">Vehicle ID</th>
+          <th scope="col">Vendor ID</th>
+          <th scope="col">Contract ID</th>
+          <th scope="col">Mileage</th>
+          <th scope="col">remark</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-lease let-columns="columns">
+        <tr
+          [ngClass]="{
+            active: lease.vehicle_LeaseID == leaseFrom.vehicle_LeaseID
+          }"
+        >
+          <td>
+            {{ lease.vehicle_LeaseID }}
+          </td>
+
+          <td>
+            {{ lease.vehicle_ID }}
+          </td>
+
+          <td>
+            {{ lease.vendor_ID }}
+          </td>
+
+          <td>
+            {{ lease.fleet_ContractID }}
+          </td>
+
+          <td>
+            {{ lease.millage }}
+          </td>
+
+          <td>
+            {{ lease.remark }}
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary" (click)="initEdit(lease)">
+              Edit
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

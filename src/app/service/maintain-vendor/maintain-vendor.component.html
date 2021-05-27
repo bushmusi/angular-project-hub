@@ -1,0 +1,97 @@
+<div class="m-3">
+
+ 
+  <div class="col-md-6 row    form-group">
+    <button   value="Save Vendor" class="btn btn-primary"  >Save Vendor</button>
+    <button   value="List Vendor" class="btn btn-primary" (click)="goto(1)">List Vendor</button>
+      <button   value="New Vendor" class="btn btn-primary"  >New Vendor</button>
+        <button   value="Delete Vendor" class="btn btn-primary"  >Delete Vendor</button>
+ 
+    </div>
+     
+
+<div class="row">
+<div class="col-md-6" >
+  <form>
+    
+        <div class="col-md-12 row form-group ">
+          <label for="Vendor" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Vendor Id</label>
+          <div class="col-sm-9 ">
+            <select class="form-control" [(ngModel)]="Vendor.Vendor" #Vendor="ngModel" name="Vendor" id="Vendor" [ngClass]="{ 'is-invalid': Vendor.invalid }"
+              required>
+              <option disabled>select</option>
+              <option *ngFor="let Vendor of Vendors;" [value]="Vendor.VendorId">{{Vendor.Name}}</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="col-md-12 row   form-group">
+          <label for="FullName" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Full Name</label>
+  
+          <div class="col-sm-9">
+  
+            <input type="text" class="form-control" [(ngModel)]="Vendor.FullName" #FullName="ngModel" name="FullName" placeholder=" " id="FullName"
+              [ngClass]="{ 'is-invalid': FullName.invalid }" required>
+          </div>
+        </div>
+      
+   
+        <div class=" form-group row col-md-12">
+          <label for="OfficePhoneNumber" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Office Phone Number</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" [(ngModel)]="Vendor.OfficePhoneNumber" #OfficePhoneNumber="ngModel" name="OfficePhoneNumber"
+              id="OfficePhoneNumber" placeholder=" " [ngClass]="{ 'is-invalid': OfficePhoneNumber.invalid }">
+  
+          </div>
+        </div>
+  
+        <div class="form-group  row col-md-12">
+          <label for="PhoneNumber" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Phone Number</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" [(ngModel)]="Vendor.PhoneNumber" #PhoneNumber="ngModel" name="PhoneNumber" id="PhoneNumber" placeholder="Phone Number" [ngClass]="{ 'is-invalid': PhoneNumber.invalid }">
+          </div>
+        </div>
+      
+        <div class="form-group  row col-md-12">
+          <label for="Email" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Email</label>
+          <div class="col-sm-9">
+            <input type="email" class="form-control" [(ngModel)]="Vendor.Email" #Email="ngModel" name="Email" id="Email" placeholder=" " [ngClass]="{ 'is-invalid': Email.invalid }">
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+          <label for="Address" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate> Address</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" [(ngModel)]="Vendor.Address" #Address="ngModel" name="Address" id="Address" placeholder="  "
+              [ngClass]="{ 'is-invalid': Address.invalid }">
+          </div>
+        </div>
+    
+        <div class="form-group row col-md-12">
+  
+          <label for="SalesTaxType" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Sales Tax Type</label>
+          <div class="col-sm-9">
+            <select class="form-control " [(ngModel)]="Vendor.SalesTaxType" name="SalesTaxType" id="SalesTaxType" #SalesTaxType="ngModel"
+              [ngClass]="{ 'is-invalid': SalesTaxType.invalid }" required>
+              <option disabled>select</option>
+              <option *ngFor="let Vendor of SalesTaxTypes;" [value]="SalesTaxType.Id">{{SalesTaxType.Name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+          <label for="ExpenseAccount" class="font-weight-bold font-weight-bold col-sm-3 col-form-label" translate>Expense Account</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" [(ngModel)]="Vendor.ExpenseAccount" #ExpenseAccount="ngModel" name="ExpenseAccount" id="ExpenseAccount"
+              placeholder="" [ngClass]="{ 'is-invalid': ExpenseAccount.invalid }">
+          </div>
+        </div>
+  
+   
+        </form>
+    </div>
+    <div class="col-md-6">
+      Details
+      <a href="/#/" class="row"> Vendor History</a>
+      <a href="/#/" class="row"> Vendor Beginning Balance</a> 
+    </div>
+  </div>
+</div>
