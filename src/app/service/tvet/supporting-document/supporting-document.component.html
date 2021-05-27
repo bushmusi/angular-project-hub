@@ -1,0 +1,32 @@
+<div class="row bordered-container">
+  <div class="col-5">
+    <h6>Vital event form</h6>
+    <div class="bordered-container">
+      <p>Upload Attachment</p>
+      <div class="bordered-content">
+        <button type="button" class="btn-primary btn btn-block">Document 1</button>
+        <button type="button" class="btn-primary btn btn-block">Document 2</button>
+        <button type="button" class="btn-primary btn btn-block">ID</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-7">
+    List of documents attached
+    <div class="pl-3">
+      <div class="card" *ngFor="let document of Documents">
+        {{ document.name }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer row py-3">
+  <div class="col-5 text-right">
+    <button type="button" class="btn-primary btn">Save(Draft)</button>
+  </div>
+
+  <div class="col-7">
+    <button type="button" class="btn-primary btn">Submit application</button>
+  </div>
+</div>

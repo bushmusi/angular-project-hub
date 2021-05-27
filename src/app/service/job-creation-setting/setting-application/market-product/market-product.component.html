@@ -1,0 +1,126 @@
+<form class="row py-4">
+  <div class="col-6">
+    <div class="form-group row">
+      <label for="ID" class="col-sm-2 col-form-label">ID</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="ID" placeholder="ID" />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="ProductID" class="col-sm-2 col-form-label"> Product ID</label>
+      <div class="col-sm-10">
+        <select class="form-control" Unit="ProductID" id="ProductID" required>
+          <option disabled>select</option>
+          <option disabled>select</option>
+          <option disabled>select</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="MarketOpportunityID" class="col-sm-4 col-form-label"
+        >Market Opportunity ID</label
+      >
+      <div class="col-sm-8">
+        <input
+          type="text"
+          class="form-control"
+          id="MarketOpportunityID"
+          placeholder="Market Opportunity ID"
+        />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="Unit" class="col-sm-2 col-form-label"> Unit</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="Unit" placeholder=" Unit" />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="Input" class="col-sm-2 col-form-label">Input</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control"
+          id="Input"
+          placeholder="Input"
+        />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="MinimumTaxWithoutTax" class="col-sm-4 col-form-label"
+        >Minimum Tax Without Tax</label
+      >
+      <div class="col-sm-8">
+        <input
+          type="text"
+          class="form-control"
+          id="MinimumTaxWithoutTax"
+          placeholder="Minimum Tax Without Tax"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6">
+    <div class="form-group row">
+      <label for="Period" class="col-sm-2 col-form-label">type</label>
+      <div class="col-sm-9">
+        <p-listbox id="Period" [options]="Periods"></p-listbox>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="Input" class="col-sm-2 col-form-label">Input</label>
+      <div class="col-sm-9 pt-1">
+        <input type="checkbox" id="Input" />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="Output" class="col-sm-2 col-form-label">Output</label>
+      <div class="col-sm-9 pt-1">
+        <input type="checkbox" id="Output" />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="Input" class="col-sm-4 col-form-label"
+        >Maximum Price Without Tax</label
+      >
+      <div class="col-sm-8">
+        <input
+          type="text"
+          class="form-control"
+          id="Input"
+          placeholder="Input"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <div style="margin-top: 50px"></div>
+    <div class="d-flex justify-content-end mr-4 mb-2">
+      <button type="button" class="btn btn-success">New</button>
+      <button type="button" class="btn btn-primary ml-2">Save/Update</button>
+      <button type="button" class="btn btn-danger ml-2">Delete</button>
+      <button type="button" class="btn btn-info ml-2">Next</button>
+    </div>
+  </div>
+</form>
+
+<p-table [value]="BusinessProducts" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="header">
+    <tr>
+      <th scope="col" translate>ID</th>
+      <th scope="col" translate>Product ID</th>
+      <th scope="col" translate>Market Opportunity ID</th>
+      <th scope="col" translate>Period</th>
+      <th scope="col" translate></th>
+    </tr>
+  </ng-template>
+</p-table>

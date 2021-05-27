@@ -1,0 +1,54 @@
+<div class="row mt-3">
+  <div class="col-3">
+    <p-card>
+      <button type="button"
+        class="btn btn-block p-2 mb-2"
+        [ngClass]="{
+          'btn-primary': ApplicationTabActive,
+          'btn-secondary': !ApplicationTabActive
+        }"
+        (click)="SupportTabActive = false; ApplicationTabActive = true"
+      >
+        Application
+      </button>
+      <button type="button"
+        class="btn btn-block p-2"
+        [ngClass]="{
+          'btn-primary': SupportTabActive,
+          'btn-secondary': !SupportTabActive
+        }"
+        (click)="ApplicationTabActive = false; SupportTabActive = true"
+      >
+        Supporting Docs
+      </button>
+    </p-card>
+
+    <div>
+      <h1 style="margin-bottom: 20px !important"></h1>
+    </div>
+
+    <p-tabView orientation="left">
+      <p-tabPanel header="Vital">
+        <ul>
+          <li>Residential ID:Bole/09/1000</li>
+          <li>Gender: Male</li>
+          <li>Status: New</li>
+          <li>Blood Group: A+</li>
+        </ul>
+      </p-tabPanel>
+      <p-tabPanel header="Info">
+        <ul class="ml-2">
+          <li>Residential ID:Bole/10/2000</li>
+          <li>Gender: FeMale</li>
+          <li>Status: Old</li>
+          <li>Blood Group: B+</li>
+        </ul>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+
+  <div class="col-9">
+    <app-tvet-application *ngIf="ApplicationTabActive"></app-tvet-application>
+    <app-supporting-document *ngIf="SupportTabActive"></app-supporting-document>
+  </div>
+</div>

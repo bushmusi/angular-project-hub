@@ -1,0 +1,224 @@
+<form class="row py-4" [formGroup]="locationFormGroup" method="POST" action="">
+
+  <div class="form-group row col-6">
+    <label for="Region" class="col-sm-2 col-form-label"> Region</label>
+    <div class="col-sm-10">
+      <input type="text" name="" id="" class="form-control" value="Addis Ababa" readonly> 
+    </div>
+  </div>
+
+
+  <div class="form-group row col-6">
+    <label for="Zone" class="col-sm-2 col-form-label"> Sub City</label>
+    <div class="col-sm-10">
+      <select formControlName="zone" #zone class="form-control">
+        <option value="" [selected]>Select sub city</option>
+        <option *ngFor="let item of subCityList" [value]="item.lkdetail_code">{{item.english_description}}</option>
+      </select>
+
+      <div
+        *ngIf="
+            locationFormGroup.controls['zone'].invalid &&
+            (locationFormGroup.controls['zone'].dirty ||
+            locationFormGroup.controls['zone'].touched)
+        "
+        class="alert alert-danger ml-4 mt-2"
+        >
+        <div *ngIf="locationFormGroup.controls['zone'].errors.required">
+          This field is required.
+        </div>
+      
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <div class="form-group row col-6">
+    <label for="Woreda" class="col-sm-2 col-form-label"> Woreda</label>
+    <div class="col-sm-10">
+      <select formControlName="woreda" #woreda class="form-control">
+        <option value="" [selected]>Select Woreda</option>
+        <option *ngFor="let item of subCityList" [value]="item.lkdetail_code">{{item.english_description}}</option>
+      </select>
+
+      <div
+        *ngIf="
+            locationFormGroup.controls['woreda'].invalid &&
+            (locationFormGroup.controls['woreda'].dirty ||
+            locationFormGroup.controls['woreda'].touched)
+        "
+        class="alert alert-danger ml-4 mt-2"
+        >
+        <div *ngIf="locationFormGroup.controls['woreda'].errors.required">
+          This field is required.
+        </div>
+      
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <div class="form-group row col-6">
+    <label for="job_Open_For_Job_Seeker" class="col-sm-4 col-form-label"
+      >Job Opportunity job seekers</label
+    >
+    <div class="col-sm-8">
+      <input
+        type="number"
+        class="form-control"
+        formControlName="job_Open_For_Job_Seeker"
+        name="job_Open_For_Job_Seeker"
+        id="job_Open_For_Job_Seeker"
+        placeholder="Job Opportunity"
+      />
+
+      <div
+        *ngIf="
+            locationFormGroup.controls['job_Open_For_Job_Seeker'].invalid &&
+            (locationFormGroup.controls['job_Open_For_Job_Seeker'].dirty ||
+            locationFormGroup.controls['job_Open_For_Job_Seeker'].touched)
+        "
+        class="alert alert-danger ml-4 mt-2"
+        >
+        <div *ngIf="locationFormGroup.controls['job_Open_For_Job_Seeker'].errors.required">
+          This field is required.
+        </div>
+      
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="form-group row col-6">
+    <label for="No. of jobs left" class="col-sm-3 col-form-label"
+      >Job open for ent</label
+    >
+    <div class="col-sm-9">
+      <input
+        type="number"
+        class="form-control"
+        id="jobOpen_For_ENT"
+        formControlName="jobOpen_For_ENT"
+        name="jobOpen_For_ENT"
+        placeholder="Job open for ent"
+      />
+      <div
+        *ngIf="
+            locationFormGroup.controls['jobOpen_For_ENT'].invalid &&
+            (locationFormGroup.controls['jobOpen_For_ENT'].dirty ||
+            locationFormGroup.controls['jobOpen_For_ENT'].touched)
+        "
+        class="alert alert-danger ml-4 mt-2"
+        >
+        <div *ngIf="locationFormGroup.controls['jobOpen_For_ENT'].errors.required">
+          This field is required.
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="form-group row col-6">
+    <label for="No. of jobs left" class="col-sm-3 col-form-label">Remark</label>
+    <div class="col-sm-9">
+      <textarea
+        name="remark"
+        id="remark"
+        rows="2"
+        class="form-control"
+        id="remark"
+        formControlName="remark"
+        name="remark"
+        placeholder="Remark"
+      ></textarea>
+
+      <div
+        *ngIf="
+            locationFormGroup.controls['remark'].invalid &&
+            (locationFormGroup.controls['remark'].dirty ||
+            locationFormGroup.controls['remark'].touched)
+        "
+        class="alert alert-danger ml-4 mt-2"
+        >
+        <div *ngIf="locationFormGroup.controls['remark'].errors.required">
+          This field is required.
+        </div>
+    
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+
+  <div class="col-12">
+    <div style="margin-top: 50px"></div>
+    <div class="d-flex justify-content-end mr-4 mb-2">
+      <button type="button" class="btn btn-success" (click)="clearForm()">Clear</button>
+      <button type="button"
+        class="btn btn-primary ml-2"
+        *ngIf="editForm"
+        (click)="updateLocationForBusOpp()"
+        [disabled] = "locationFormGroup.invalid || locationFormGroup.pristine"
+      >
+        Update
+      </button>
+      <button type="button"
+        class="btn btn-primary ml-2"
+        *ngIf="!editForm"
+        (click)="registerLocationForBusOpp()"
+        [disabled] ="locationFormGroup.invalid || locationFormGroup.pristine"
+      >
+        Add
+      </button>
+      <button type="button"
+        class="btn btn-danger ml-2"
+        *ngIf="editForm"
+        (click)="deleteLocationForBusOpp()"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</form>
+
+<p-table [value]="locationForBusOpps" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="header">
+    <tr>
+      <th scope="col" translate>ID</th>
+      <th scope="col" translate>Business Job ID</th>
+      <th scope="col" translate>No.of job Opportunity</th>
+      <th scope="col" translate>No.of job left</th>
+      <th scope="col" translate></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-program>
+    <tr>
+      <td>{{ program.buS_OPP_Loc_Code }}</td>
+      <td>{{ program.buS_OPP_ID }}</td>
+      <td>{{ program.jobOpen_For_ENT }}</td>
+      <td>{{ program.job_Open_For_Job_Seeker }}</td>
+      <td>
+        <button type="button"
+          type="button"
+          class="btn btn-primary"
+          (click)="initiateEdit(program)"
+          translate
+        >
+          edit
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

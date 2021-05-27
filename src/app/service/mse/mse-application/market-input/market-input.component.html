@@ -1,0 +1,221 @@
+<div class="row mt-3">
+  <p-tabView>
+    <p-tabPanel header="Business Relation Market Input">
+      <form class="row py-4">
+        <div class="form-group row col-6">
+          <label for="ID" class="col-sm-4 col-form-label">ID</label>
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control"
+              id="ID"
+              placeholder="ID"
+              [ngModel]="marketInput.id"
+              disabled
+              name="id"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-6">
+          <label for="buyer_id" class="col-sm-4 col-form-label">Buyer ID</label>
+          <div class="col-sm-8">
+            <p-dropdown
+              id="buyer_id"
+              [options]="marketOpportunities"
+              [(ngModel)]="marketInput.buyer_ID"
+              name="buyer_ID"
+              autofocus
+              filter="true"
+              placeholder="Select buyer id"
+            >
+              <ng-template let-selectedItem pTemplate="selectedItem">
+                {{ selectedItem.label }}
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                {{ item.label }}
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </div>
+
+        <div class="form-group row col-6">
+          <label for="supplier" class="col-sm-4 col-form-label">Supplier</label>
+          <div class="col-sm-8">
+            <p-dropdown
+              id="supplier"
+              [options]="marketOpportunities"
+              [(ngModel)]="marketInput.supplier"
+              name="supplier"
+              autofocus
+              filter="true"
+              placeholder="Select supplier"
+            >
+              <ng-template let-selectedItem pTemplate="selectedItem">
+                {{ selectedItem.label }}
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                {{ item.label }}
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </div>
+
+        <div class="form-group row col-6">
+          <label for="contract_DOC" class="col-sm-4 col-form-label"
+            >contract DOC</label
+          >
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control"
+              id="contract_DOC"
+              [(ngModel)]="marketInput.contract_DOC"
+              name="contract_DOC"
+              placeholder="contract DOC"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-6">
+          <label for="amount_Contract_Birr" class="col-sm-4 col-form-label"
+            >Contract Amount
+          </label>
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control"
+              id="amount_Contract_Birr"
+              [(ngModel)]="marketInput.amount_Contract_Birr"
+              name="amount_Contract_Birr"
+              placeholder="Contract Amount"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-6">
+          <label for="RegisterDate" class="col-sm-4 col-form-label">Date</label>
+          <div class="col-sm-8">
+            <input
+              type="date"
+              [(ngModel)]="marketInput.date"
+              name="date"
+              class="form-control"
+              id="RegisterDate"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-6">
+          <label for="ExpireDate" class="col-sm-4 col-form-label"
+            >Expire Date</label
+          >
+          <div class="col-sm-8">
+            <input
+              type="date"
+              [(ngModel)]="marketInput.expire_Date"
+              name="expire_Date"
+              class="form-control"
+              id="ExpireDate"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row col-6">
+          <label for="remark" class="col-sm-4 col-form-label">remark</label>
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control"
+              id="remark"
+              [(ngModel)]="marketInput.remark"
+              name="remark"
+              placeholder="remark"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-auto my-1">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                [(ngModel)]="marketInput.is_Active"
+                name="is_Active"
+                type="checkbox"
+                id="IsActive"
+              />
+              <label class="form-check-label" for="IsActive">Is Active</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div style="margin-top: 50px"></div>
+          <div class="d-flex justify-content-end mr-4 mb-2">
+            <button type="button" class="btn btn-success" (click)="clearForm()">
+              New
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary ml-2"
+              *ngIf="editForm"
+              (click)="updateMarketInput()"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary ml-2"
+              *ngIf="!editForm"
+              (click)="registerMarketInput()"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger ml-2"
+              *ngIf="editForm"
+              (click)="deleteMarketInput()"
+            >
+              Delete
+            </button>
+            <button type="button" class="btn btn-info ml-2">Next</button>
+          </div>
+        </div>
+      </form>
+
+      <p-table [value]="marketInputs" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="header">
+          <tr>
+            <th scope="col" translate>ID</th>
+            <th scope="col" translate>Supplier</th>
+            <th scope="col" translate>Buyer ID</th>
+            <th scope="col" translate>IS Active</th>
+            <th scope="col" translate></th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-marketInput>
+          <tr>
+            <td>{{ marketInput.id }}</td>
+            <td>{{ marketInput.supplier }}</td>
+            <td>{{ marketInput.buyer_ID }}</td>
+            <td>{{ marketInput.is_Active }}</td>
+            <td>
+              <button
+                type="button"
+                type="button"
+                class="btn btn-primary"
+                (click)="initiateEdit(marketInput)"
+                translate
+              >
+                edit
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+  </p-tabView>
+</div>

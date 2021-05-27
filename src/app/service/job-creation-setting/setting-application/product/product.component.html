@@ -1,0 +1,169 @@
+<form class="py-4 m-auto col-8">
+  <div class="col-12">
+    <div class="form-group row">
+      <label for="ID" class="col-sm-2 col-form-label">ID</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          [(ngModel)]="product.id"
+          name="id"
+          class="form-control"
+          disabled
+          id="ID"
+          placeholder="ID"
+        />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="Name" class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          [(ngModel)]="product.name"
+          name="name"
+          class="form-control"
+          id="Name"
+          placeholder="Name"
+        />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="Sector" class="col-sm-2 col-form-label"> Sector</label>
+      <div class="col-sm-10">
+        <p-dropdown
+          id="Sector"
+          [options]="sectors"
+          [(ngModel)]="product.sector"
+          name="sector"
+          autofocus
+          filter="true"
+          placeholder="Select Sector"
+        >
+          <ng-template let-selectedItem pTemplate="selectedItem">
+            {{ selectedItem.label }}
+          </ng-template>
+          <ng-template let-item pTemplate="item">
+            {{ item.label }}
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
+    
+    <div class="form-group row">
+      <label for="Sector" class="col-sm-2 col-form-label">Sub Sector</label>
+      <div class="col-sm-10">
+        <p-dropdown
+          id="Sector"
+          [options]="subSectors"
+          [(ngModel)]="product.sub_Sector"
+          name="sub_Sector"
+          autofocus
+          filter="true"
+          placeholder="Select Sub Sector"
+        >
+          <ng-template let-selectedItem pTemplate="selectedItem">
+            {{ selectedItem.label }}
+          </ng-template>
+          <ng-template let-item pTemplate="item">
+            {{ item.label }}
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="Product" class="col-sm-2 col-form-label"> Parent</label>
+      <div class="col-sm-10">
+        <p-dropdown
+          id="Product"
+          [options]="productDropdown"
+          [(ngModel)]="product.parent"
+          name="parent"
+          autofocus
+          filter="true"
+          placeholder="Select Product"
+        >
+          <ng-template let-selectedItem pTemplate="selectedItem">
+            {{ selectedItem.label }}
+          </ng-template>
+          <ng-template let-item pTemplate="item">
+            {{ item.label }}
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="Output" class="col-sm-2 col-form-label">Is active</label>
+      <div class="col-sm-9 pt-2">
+        <input
+          type="checkbox"
+          [(ngModel)]="product.iS_Active"
+          name="iS_Active"
+          id="Output"
+          checked
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div style="margin-top: 50px"></div>
+    <div class="d-flex justify-content-end mr-4 mb-2">
+      <button type="button" class="btn btn-success" (click)="clearForm()">Clear</button>
+      <button type="button"
+        class="btn btn-primary ml-2"
+        *ngIf="editForm"
+        (click)="updateProduct()"
+      >
+        Update
+      </button>
+      <button type="button"
+        class="btn btn-primary ml-2"
+        *ngIf="!editForm"
+        (click)="registerProduct()"
+      >
+        Save
+      </button>
+      <button type="button"
+        class="btn btn-danger ml-2"
+        *ngIf="editForm"
+        (click)="deleteProduct()"
+      >
+        Delete
+      </button>
+      <!-- <button type="button" class="btn btn-info ml-2">Next</button> -->
+    </div>
+  </div>
+</form>
+
+<p-table [value]="products" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="header">
+    <tr>
+      <th scope="col" translate>ID</th>
+      <th scope="col" translate>Name</th>
+      <th scope="col" translate>Parent</th>
+      <th scope="col" translate></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.parent }}</td>
+      <td>
+        <button type="button"
+          type="button"
+          class="btn btn-primary"
+          (click)="initiateEdit(product)"
+          translate
+        >
+          edit
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

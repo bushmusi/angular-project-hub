@@ -1,0 +1,327 @@
+<form class="row py-4">
+
+  <div class="form-group row col-6">
+    <label for="Tin" class="col-sm-4 col-form-label">Employee TIN</label>
+    <div class="col-sm-8">
+      <select [(ngModel)]="marketOpportunity.tin" name="tin" id="tin" class="form-control">
+        <option value="" selected>Select tin number</option>
+        <option *ngFor="let item of ercaTinNos" [value]="item.tin">{{item.tin}}</option>
+      </select>
+      <!-- <p-dropdown
+        id="Tin"
+        [options]="ercaTinNos"
+        [(ngModel)]="marketOpportunity.tin"
+        name="tin"
+        autofocus
+        filter="true"
+        placeholder="Select Tin no"
+      >
+        <ng-template let-selectedItem pTemplate="selectedItem">
+          {{ selectedItem.label }}
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+          {{ item.label }}
+        </ng-template>
+      </p-dropdown> -->
+    </div>
+  </div>
+
+  <div class="form-group row col-6">
+    <label for="operationType" class="col-sm-4 col-form-label">
+      Operation types</label
+    >
+    <div class="col-sm-8">
+      <select [(ngModel)]="marketOpportunity.opp_Type" name="opp_Type" class="form-control">
+        <option value="" [selected]="true">Select Opertion type</option>
+        <option *ngFor="let item of operationTypes" [value]="item.lkdetail_code">{{item.english_description}}</option>
+      </select>
+      <!-- <p-dropdown
+        id="operationType"
+        [options]="operationTypes"
+        [(ngModel)]="marketOpportunity.opp_Type"
+        name="opp_Type"
+        autofocus
+        filter="true"
+        placeholder="Select operation type"
+      >
+        <ng-template let-selectedItem pTemplate="selectedItem">
+          {{ selectedItem.label }}
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+          {{ item.label }}
+        </ng-template>
+      </p-dropdown> -->
+    </div>
+  </div>
+
+  <div class="form-group row col-6">
+    <label for="Name" class="col-sm-4 col-form-label"> Name</label>
+    <div class="col-sm-8">
+      <input
+        type="text"
+        [(ngModel)]="marketOpportunity.name"
+        name="name"
+        class="form-control"
+        id="Name"
+        placeholder=" Name"
+      />
+    </div>
+  </div>
+
+  <div class="form-group row col-6">
+    <label for="Name" class="col-sm-4 col-form-label"> Address</label>
+    <div class="col-sm-8">
+      <input
+        type="text"
+        [(ngModel)]="marketOpportunity.address"
+        name="address"
+        class="form-control"
+        id="Name"
+        placeholder=" Name"
+      />
+    </div>
+  </div>
+
+  <div class="form-group row col-6">
+    <label for="phone" class="col-sm-4 col-form-label"> Phone</label>
+    <div class="col-sm-8">
+      <input
+        type="text"
+        [(ngModel)]="marketOpportunity.phone"
+        name="phone"
+        class="form-control"
+        id="phone"
+        placeholder=" phone"
+      />
+    </div>
+  </div>
+
+  <div class="form-group row col-6">
+    <label for="email" class="col-sm-4 col-form-label"> Email</label>
+    <div class="col-sm-8">
+      <input
+        type="text"
+        [(ngModel)]="marketOpportunity.email"
+        name="email"
+        class="form-control"
+        id="email"
+        placeholder=" email"
+      />
+    </div>
+  </div>
+
+  <div class="form-group row col-6">
+    <label for="contact_Person" class="col-sm-4 col-form-label">
+      Contact person</label
+    >
+    <div class="col-sm-8">
+      <input
+        type="text"
+        [(ngModel)]="marketOpportunity.contact_Person"
+        name="contact_Person"
+        class="form-control"
+        id="contact_Person"
+        placeholder=" Contact person"
+      />
+    </div>
+  </div>
+
+  <div class="form-group row col-6">
+    <label for="region" class="col-sm-4 col-form-label"> Region</label>
+    <div class="col-sm-8">
+      <select [(ngModel)]="marketOpportunity.region" name="region" class="form-control">
+        <option value="4269AE66-A1F1-42E4-B0E6-75C34B798028" [selected]=true>Addis Ababa</option>
+        <!-- <option *ngFor="let item of regions" [value]="item.lkdetail_code">{{item.english_description}}</option> -->
+      </select>
+      <!-- <p-dropdown
+        id="region"
+        [options]="regions"
+        [(ngModel)]="marketOpportunity.region"
+        name="region"
+        autofocus
+        filter="true"
+        placeholder="Select region"
+      >
+        <ng-template let-selectedItem pTemplate="selectedItem">
+          {{ selectedItem.label }}
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+          {{ item.label }}
+        </ng-template>
+      </p-dropdown> -->
+    </div>
+  </div>
+
+  <div class="form-group row col-6">
+    <label for="zone" class="col-sm-4 col-form-label"> Sub City</label>
+    <div class="col-sm-8">
+
+      <select [(ngModel)]="marketOpportunity.zone" name="zone" class="form-control">
+        <option value="" [selected]=true>Select Subcity</option>
+        <option *ngFor="let item of zones" [value]="item.lkdetail_code">{{item.english_description}}</option>
+      </select>
+      <!-- <p-dropdown
+        id="zone"
+        [options]="zones"
+        [(ngModel)]="marketOpportunity.zone"
+        name="zone"
+        autofocus
+        filter="true"
+        placeholder="Select zone"
+      >
+        <ng-template let-selectedItem pTemplate="selectedItem">
+          {{ selectedItem.label }}
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+          {{ item.label }}
+        </ng-template>
+      </p-dropdown> -->
+    </div>
+  </div>
+
+  <div class="form-group row col-6">
+    <label for="woreda" class="col-sm-4 col-form-label"> Woredas</label>
+    <div class="col-sm-8">
+
+      <!-- <input type="number" class="form-control" name="woreda" id="woreda"  [(ngModel)]="marketOpportunity.woreda" > -->
+      <select [(ngModel)]="marketOpportunity.woreda" name="woreda" class="form-control">
+        <option value="" [selected]=true>Select Woreda</option>
+        <option *ngFor="let item of woredas" [value]="item.lkdetail_code">{{item.english_description}}</option>
+      </select>
+      <!-- <p-dropdown
+        id="woreda"
+        [options]="woredas"
+        [(ngModel)]="marketOpportunity.woreda"
+        name="woreda"
+        autofocus
+        filter="true"
+        placeholder="Select woreda"
+      >
+        <ng-template let-selectedItem pTemplate="selectedItem">
+          {{ selectedItem.label }}
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+          {{ item.label }}
+        </ng-template>
+      </p-dropdown> -->
+    </div>
+  </div>
+  
+  <div class="form-group row col-6">
+    <label for="ContactPerson" class="col-sm-4 col-form-label"
+      >Contact Person</label
+    >
+    <div class="col-sm-8">
+      <input
+        type="text"
+        class="form-control"
+        id="ContactPerson"
+        placeholder="Contact Person"
+      />
+    </div>
+  </div>
+
+  <div class="form-group row col-6">
+    <label for="hous_No" class="col-sm-4 col-form-label"> House No</label>
+    <div class="col-sm-8">
+      <input
+        type="number"
+        [(ngModel)]="marketOpportunity.hous_No"
+        name="hous_No"
+        class="form-control"
+        id="hous_No"
+        placeholder=" House No"
+      />
+    </div>
+  </div>
+
+  <div class="form-group row col-6">
+    <label for="jobOpen_For_ENT" class="col-sm-4 col-form-label">
+      No of job left for Entrprise</label
+    >
+    <div class="col-sm-8">
+      <input
+        type="number"
+        [(ngModel)]="marketOpportunity.jobOpen_For_ENT"
+        name="jobOpen_For_ENT"
+        class="form-control"
+        id="jobOpen_For_ENT"
+        placeholder="Job open for ENT"
+      />
+    </div>
+  </div>
+
+  <div class="form-group row col-6">
+    <label for="job_Open_For_Job_Seeker" class="col-sm-4 col-form-label">
+      Job for job seekers</label
+    >
+    <div class="col-sm-8">
+      <input
+        type="number"
+        [(ngModel)]="marketOpportunity.job_Open_For_Job_Seeker"
+        name="job_Open_For_Job_Seeker"
+        class="form-control"
+        id="job_Open_For_Job_Seeker"
+        placeholder="Job open for job seeker"
+      />
+    </div> 
+  </div>
+  
+  <div class="col-12">
+    <div class="d-flex justify-content-end mr-4 mb-2">
+      <button type="button" class="btn btn-success" (click)="clearForm()">Clear</button>
+      <button type="button"
+        class="btn btn-primary ml-2"
+        *ngIf="editForm"
+        (click)="updateMarketOpportunity()"
+      >
+        Update
+      </button>
+      <button type="button"
+        class="btn btn-primary ml-2"
+        *ngIf="!editForm"
+        (click)="registerMarketOpportunity()"
+      >
+        Save
+      </button>
+      <button type="button"
+        class="btn btn-danger ml-2"
+        *ngIf="editForm"
+        (click)="deleteMarketOpportunity()"
+      >
+        Delete
+      </button>
+      <!-- <button type="button" class="btn btn-info ml-2">Next</button> -->
+    </div>
+  </div>
+</form>
+
+<p-table [value]="marketOpportunities" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="header">
+    <tr>
+      <th scope="col" translate>ID</th>
+      <th scope="col" translate>TIN</th>
+      <th scope="col" translate>Name</th>
+      <th scope="col" translate>No.of job Open For Job Seeker</th>
+      <th scope="col" translate></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-marketOpportunity>
+    <tr>
+      <td>{{ marketOpportunity.opP_ID }}</td>
+      <td>{{ marketOpportunity.tin }}</td>
+      <td>{{ marketOpportunity.name }}</td>
+      <td>{{ marketOpportunity.job_Open_For_Job_Seeker }}</td>
+      <td>
+        <button type="button"
+          type="button"
+          class="btn btn-primary"
+          (click)="initiateEdit(marketOpportunity)"
+          translate
+        >
+          edit
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -1,0 +1,21 @@
+<p-tabView>
+  <p-tabPanel header="Job Creation" [selected]="job">
+    <app-job-creation [(currentJobID)]="currentJobID" [(job)]="job" (sendCompleted)= "sendCompleted($event)"></app-job-creation>
+  </p-tabPanel>
+
+  <p-tabPanel header="Location for business opportunity" [selected]="location">
+    <app-location [(currentJobID)]="currentJobID"></app-location>
+  </p-tabPanel>
+
+  <p-tabPanel header="Market opportunity"  >
+    <app-market-opportunity></app-market-opportunity>
+  </p-tabPanel>
+
+  <!-- <p-tabPanel header="Market product link">
+    <app-market-product></app-market-product>
+  </p-tabPanel> -->
+
+  <p-tabPanel header="Product">
+    <app-product></app-product>
+  </p-tabPanel>
+</p-tabView>

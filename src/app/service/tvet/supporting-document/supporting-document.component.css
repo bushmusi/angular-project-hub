@@ -1,0 +1,8 @@
+.bordered-container {
+    border: 1px solid salmon;
+    padding: 2px 5px;
+}
+
+.bordered-content {
+    border: 1px solid black;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Job creation</title>
+    <base href="/" />
+    <script>
+      (function () {
+        window["_UserName"] = "@HttpContext.Current.User.Identity.Name";
+        window["rootApiPath"] = "http://197.156.93.110/xoka.jobapi/api/";
+        window["rootPath"] = "http://197.156.93.110/XOKA.eoffice.bpel_job/api/";
+        window["rootLookupApiPath"] =
+          "http://197.156.93.110/xoka.eoffice.bpel_Job/api/BPEL/";
+        window["rootPath2"] = "http://197.156.93.110/xoka.ERP.API/api/";
+        window["lang"] = window.location.pathname.split("/")[2];
+        window["phisicalPath"] =
+          "/" +
+          window.location.pathname.split("/")[1] +
+          "/DesktopModules/MVC/XOKA_SW_DNNModuleMyTask/Views/Item/assets/assets/i18n/";
+        window["formPath"] = "http://197.156.93.110/xokaerp/assets/db/";
+        window["certReportPath"] =
+          "http://localhost:4200/services/3/930d1c20-9e0e-4a50-9eb2-e542fafbad68-1492018535/c800fb16-f961-e111-95d6-00e04c05559b/1d5c730d-50f6-4e54-a853-7b0d635a8f39/2ff8ecb9-b0d3-46e2-8b3e-2085882003b7/698fab1b-07fb-4e63-a2da-096c8847019f/bc52101a-f679-46ee-a16c-601bc04e6be9";
+        window["LetterReportPath"] = "";
+        window["PaymentReportPath"] = "";
+        window["ValidateReportPath"] = "";
+        window["GISURL"] = "https://js.arcgis.com/4.9/";
+        //console.log("window['_UserName']", window['_UserName']);
+        //console.log(window.location.pathname);
+        if (window.location.pathname !== "/")
+          if (
+            window.location.pathname.split("/")[1] !== "task" &&
+            window.location.pathname.split("/")[1] !== "service" &&
+            window.location.pathname.split("/")[1] !== "services" &&
+            window.location.pathname.split("/")[2] == "language"
+          ) {
+            // console.log(window.location.pathname.split('/')[1]);
+            window["_app_base"] =
+              "/" +
+              window.location.pathname.split("/")[1] +
+              "/" +
+              window.location.pathname.split("/")[2] +
+              "/" +
+              window.location.pathname.split("/")[3] +
+              "/" +
+              window.location.pathname.split("/")[4] +
+              "/" +
+              window.location.pathname.split("/")[5] +
+              "/" +
+              window.location.pathname.split("/")[6];
+          } else if (
+            window.location.pathname.split("/")[1] !== "task" &&
+            window.location.pathname.split("/")[1] !== "service" &&
+            window.location.pathname.split("/")[1] !== "services"
+          ) {
+            //console.log(window.location.pathname.split('/')[1]);
+            window["_app_base"] =
+              "/" +
+              window.location.pathname.split("/")[1] +
+              "/" +
+              window.location.pathname.split("/")[2] +
+              "/" +
+              window.location.pathname.split("/")[3] +
+              "/" +
+              window.location.pathname.split("/")[4];
+          }
+      })();
+      console.log("window['_app_base']  =>  " + window["_app_base"]);
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

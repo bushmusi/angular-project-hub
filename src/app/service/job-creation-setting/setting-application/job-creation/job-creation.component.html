@@ -1,0 +1,329 @@
+<form class="row py-4" [formGroup]="jobCreationFormGroup">
+  <div class="col-6">
+    <div class="form-group row">
+      <label for="Name" class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control"
+          id="Name"
+          placeholder="Name"
+          formControlName="name"
+          #name
+        />
+      </div>
+    </div>
+
+    <div
+    *ngIf="
+      jobCreationFormGroup.controls['name'].invalid &&
+      (jobCreationFormGroup.controls['name'].dirty ||
+        jobCreationFormGroup.controls['name'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="jobCreationFormGroup.controls['name'].errors.required">
+      Status Type is required.
+    </div>
+  </div>
+
+    <div class="form-group row">
+      <label for="Code" class="col-sm-2 col-form-label">Code</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control"
+          id="Code"
+          placeholder="Code"
+          formControlName="code"
+          #code
+        />
+      </div>
+    </div>
+
+    <div
+    *ngIf="
+      jobCreationFormGroup.controls['code'].invalid &&
+      (jobCreationFormGroup.controls['code'].dirty ||
+        jobCreationFormGroup.controls['code'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="jobCreationFormGroup.controls['code'].errors.required">
+      Status Type is required.
+    </div>
+  </div>
+
+    <div class="form-group row">
+      <label for="Category" class="col-sm-2 col-form-label"> Sector</label>
+      <div class="col-sm-10">
+        <select formControlName="sector" #sector class="form-control" >
+          <option value="" [selected]>Select Sector</option>
+          <option *ngFor="let item of sectorList" [value]="item.lkdetail_code">{{item.english_description}}</option>
+        </select>
+      </div>
+    </div>
+
+    
+    <div
+    *ngIf="
+      jobCreationFormGroup.controls['sector'].invalid &&
+      (jobCreationFormGroup.controls['sector'].dirty ||
+        jobCreationFormGroup.controls['sector'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="jobCreationFormGroup.controls['sector'].errors.required">
+      Sector is required.
+    </div>
+  </div>
+
+    <div class="form-group row">
+      <label for="Category" class="col-sm-2 col-form-label">Sub Sector</label>
+      <div class="col-sm-10">
+        <select formControlName="sub_Sector" #sub_Sector class="form-control" >
+          <option value="" [selected]>Select Sub-sector</option>
+          <option *ngFor="let item of subSectorList" [value]="item.lkdetail_code">{{item.english_description}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div
+    *ngIf="
+      jobCreationFormGroup.controls['sub_Sector'].invalid &&
+      (jobCreationFormGroup.controls['sub_Sector'].dirty ||
+        jobCreationFormGroup.controls['sub_Sector'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="jobCreationFormGroup.controls['sub_Sector'].errors.required">
+      Sub Sector is required.
+    </div>
+  </div>
+
+    <div class="form-group row">
+      <label for="Category" class="col-sm-2 col-form-label">
+        Other Sector</label
+      >
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name=""
+          id=""
+          class="form-control"
+          formControlName="other_Sector"
+          #other_Sector
+        />
+      </div>
+    </div>
+
+    <div
+    *ngIf="
+      jobCreationFormGroup.controls['other_Sector'].invalid &&
+      (jobCreationFormGroup.controls['other_Sector'].dirty ||
+        jobCreationFormGroup.controls['other_Sector'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="jobCreationFormGroup.controls['other_Sector'].errors.required">
+      Other Sector is required.
+    </div>
+  </div>
+
+
+
+
+  </div>
+
+  <div class="col-6">
+
+    <div class="form-group row">
+      <label for="Objective" class="col-sm-2 col-form-label">Objective</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control"
+          id="Objective"
+          placeholder="Objective"
+          formControlName="objective"
+          #objective
+        />
+      </div>
+    </div>
+
+    <div
+    *ngIf="
+      jobCreationFormGroup.controls['objective'].invalid &&
+      (jobCreationFormGroup.controls['objective'].dirty ||
+        jobCreationFormGroup.controls['objective'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="jobCreationFormGroup.controls['objective'].errors.required">
+      Objective is required.
+    </div>
+  </div>
+
+    <div class="form-group row">
+      <label for="No. of jobs left" class="col-sm-3 col-form-label"
+        >No. of jobs for Enterprise</label
+      >
+      <div class="col-sm-9">
+        <input
+          type="number"
+          class="form-control"
+          id="JobsLeft"
+          placeholder="JobsLeft"
+          formControlName="jobOpen_For_ENT"
+          #jobOpen_For_ENT
+        />
+      </div>
+    </div>
+
+    <div
+    *ngIf="
+      jobCreationFormGroup.controls['jobOpen_For_ENT'].invalid &&
+      (jobCreationFormGroup.controls['jobOpen_For_ENT'].dirty ||
+        jobCreationFormGroup.controls['jobOpen_For_ENT'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="jobCreationFormGroup.controls['jobOpen_For_ENT'].errors.required">
+      This field is required.
+    </div>
+  </div>
+
+    <div class="form-group row">
+      <label for="ProfitablePercent" class="col-sm-2 col-form-label"
+        >Profitable Percent</label
+      >
+      <div class="col-sm-10">
+        <div class="input-group mb-3">
+            <input
+            type="number"
+            class="form-control"
+            id="ProfitablePercent"
+            placeholder="Profitable Percent"
+            formControlName="profitable_Percent"
+            #profitable_Percent
+          />
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">%</span>
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+    <div
+    *ngIf="
+      jobCreationFormGroup.controls['profitable_Percent'].invalid &&
+      (jobCreationFormGroup.controls['profitable_Percent'].dirty ||
+        jobCreationFormGroup.controls['profitable_Percent'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="jobCreationFormGroup.controls['profitable_Percent'].errors.required">
+      This field is required.
+    </div>
+  </div>
+
+    <div class="form-group row">
+      <label for="JobOpportunity" class="col-sm-4 col-form-label"
+        >No.of Job for job seeker</label
+      >
+      <div class="col-sm-8">
+        <input
+          type="number"
+          class="form-control"
+          id="JobOpportunity"
+          placeholder="No.of Job Opportunity"
+          formControlName="job_Open_For_Job_Seeker"
+          #job_Open_For_Job_Seeker
+        />
+      </div>
+    </div>
+
+    <div
+    *ngIf="
+      jobCreationFormGroup.controls['job_Open_For_Job_Seeker'].invalid &&
+      (jobCreationFormGroup.controls['job_Open_For_Job_Seeker'].dirty ||
+        jobCreationFormGroup.controls['job_Open_For_Job_Seeker'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="jobCreationFormGroup.controls['job_Open_For_Job_Seeker'].errors.required">
+      This field is required.
+    </div>
+  </div>
+
+    <div class="form-group">
+      <label for="inputEmail3">Business Plan</label>
+      <p-fileUpload 
+      id="File"
+      name="demo[]"
+      customUpload="true"
+      (uploadHandler)="upload($event)"
+      accept="application/pdf,image/*"
+      ></p-fileUpload>
+    </div>
+
+
+  </div>
+  <div class="col-12">
+    <div style="margin-top: 50px"></div>
+    <div class="d-flex justify-content-end mr-4 mb-2">
+      <div *ngIf="isToEdit">
+        <button type="button" 
+          [disabled] = "jobCreationFormGroup.invalid"
+          class="btn btn-primary ml-2" 
+          (click)="updateJob()" >
+          Save/Update
+        </button>
+        <button type="button" class="btn btn-danger ml-2" (click)="deleteJob()" [disabled]="jobCreationFormGroup.invalid">
+          Delete
+        </button>
+      </div>
+      <div *ngIf="!isToEdit">
+        <button type="button" class="btn btn-success" (click)="addJob()" [disabled]="jobCreationFormGroup.invalid || jobCreationFormGroup.pristine">
+          New
+        </button>
+  
+        <button type="button" class="btn btn-info ml-2" (click)="nextTask()" [disabled]="nextDisabled ">
+          Next
+        </button>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<p-table [value]="jobList" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="header">
+    <tr>
+      <th scope="col" translate>Business Job ID</th>
+      <th scope="col" translate>Name</th>
+      <th scope="col" translate>Job open for job seeker</th>
+      <th scope="col" translate>Job open for job enterprise</th>
+      <th scope="col" translate></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item>
+    <tr >
+      <td>{{ item.buS_OPP_ID }}</td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.job_Open_For_Job_Seeker }}</td>
+      <td>{{ item.jobOpen_For_ENT }}</td>
+      <td>
+        <button
+          class="btn btn-xs btn-info"
+          type="button"
+          (click)="selectJob(item)"
+          translate
+        >
+          Select
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

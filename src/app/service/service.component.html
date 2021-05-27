@@ -1,0 +1,300 @@
+<div class="m-3" *ngIf="!loading">
+  <div class="p-3 bg-success text-white ">
+    <table class="table table-bordered table-responsive header-table ">
+      <thead>
+        <tr *ngIf="licenceData">
+          <th>Licence id</th>
+          <th>Customer code</th>
+          <th>Customer name</th>
+          <th>Customer phone</th>
+          <th>Unemployed ID</th>
+          <th>ID No.</th>
+          <th>TIN</th>
+          <th>Vat</th>
+          <th>MSE code</th>
+          <th>Dar no</th>
+          <th>CU no</th>
+          <th>AC no</th>
+        </tr>
+        <tr *ngIf="licenceData && singleWin">
+          <td>{{ singleWin.licence_Id }}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{ singleWin.unEmploued_ID }}</td>
+          <td>{{ singleWin.iD_No }}</td>
+          <td>{{ singleWin.tin }}</td>
+          <td>{{ singleWin.vat }}</td>
+          <td>{{ singleWin.msE_Cdoe }}</td>
+          <td>{{ singleWin.daR_NO }}</td>
+          <td>{{ singleWin.cU_NO }}</td>
+          <td>{{ singleWin.aC_No }}</td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  <div class="m-3 row">
+    <div class="col-md-12">
+      <ng-sidebar-container style="height: 100vh">
+        <ng-sidebar
+          [(opened)]="_opened"
+          [mode]="'push'"
+          [closeOnClickOutside]="true"
+        >
+          <div>
+            <div class="form-row mt-5">
+              <div class="col-md-12">
+                <div *ngIf="RequerdDocs">
+                  <div
+                    class="form-group row col-md-12"
+                    *ngFor="let RequiredDoc of RequerdDocs; let i = index"
+                  >
+                    <label for="File" class="col-md-4 col-form-label">{{
+                      RequiredDoc.description_en
+                    }}</label>
+                    <div class="col-md-10">
+                      <p-fileUpload
+                        id="File"
+                        name="demo[]"
+                        customUpload="true"
+                        (uploadHandler)="upload($event, RequiredDoc)"
+                        accept="application/pdf,image/*"
+                      >
+                        <ng-template pTemplate="content">
+                          <!-- <ul *ngIf="uploadedFiles.length">
+                             <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                           </ul>-->
+                        </ng-template>
+                      </p-fileUpload>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="demo-control" (click)="_toggleOpened()">
+            Close Upload
+          </button>
+          <div></div>
+        </ng-sidebar>
+
+        <div ng-sidebar-content>
+          <header class="demo-header">
+            <button type="button"
+              (click)="_toggleOpened()"
+              type="button"
+              class="demo-header__toggle"
+            >
+              Toggle sidebar
+            </button>
+            <span>Upload File</span>
+          </header>
+
+          <section class="demo-contents">
+            <div [ngSwitch]="ID">
+              <app-servy
+                *ngSwitchCase="1"
+                (completed)="saveForm($event)"
+                [formcode]="formcode"
+                [formData]="FormData"
+              ></app-servy>
+
+              <!-- ONLY FOR DEBUG -->
+              <div *ngSwitchCase="2">
+                <app-mse
+                  [(singleWin)]="singleWin"
+                  [(licenceData)]="licenceData"
+                  (saveDataCompleted)="saveDataCompleted($event)"
+                ></app-mse>
+              </div>
+
+              <div *ngSwitchCase="3">
+                <app-job-creation-setting></app-job-creation-setting>
+              </div>
+
+              <div *ngSwitchCase="4">
+                <app-market-input></app-market-input>
+              </div>
+
+              <div *ngSwitchCase="5">
+                <app-market-output></app-market-output>
+              </div>
+              <h3 class="not-fond-panel" *ngSwitchDefault>Form not found</h3>
+            </div>
+            <!-- ONLY FOR DEBUG -->
+          </section>
+        </div>
+      </ng-sidebar-container>
+    </div>
+  </div>
+
+  <div
+    class="p-3 border-secondary border-5 bg-secondary text-white h-100 text-center m-10 mt-10"
+  >
+    <button type="button"
+      type="button"
+      class="btn btn-primary mr-2"
+      (click)="openModal(template)"
+    >
+      Review
+    </button>
+    <span class="dropdown">
+      <button type="button"
+        [disabled]="disablefins"
+        type="button"
+        class="btn btn-primary dropdown-toggle mr-2"
+        data-toggle="dropdown"
+        translate
+      >
+        Required Action
+      </button>
+      <span class="dropdown-menu">
+        <a
+          class="dropdown-item"
+          *ngIf="tskTyp != 'c800fb16-f961-e111-95d6-00e04c05559b'"
+          (click)="Submit('00000000-0000-0000-0000-000000000000')"
+          >Submit/ላከው</a
+        >
+        <span *ngIf="tskTyp == 'c800fb16-f961-e111-95d6-00e04c05559b'">
+          <span *ngFor="let DropDownLists of DropDownList">
+            <a
+              class="dropdown-item"
+              (click)="SubmitAR(DropDownLists.task_rules_code)"
+              >{{ DropDownLists.decision_rule_en }}</a
+            >
+            <li class="divider dropdown-divider"></li>
+          </span>
+        </span>
+      </span>
+    </span>
+
+    <button type="button"
+      type="button"
+      class="btn btn-primary mr-2"
+      (click)="Close()"
+      translate
+    >
+      Pend & close
+    </button>
+  </div>
+</div>
+
+<div *ngIf="loading">
+  <app-loading></app-loading>
+</div>
+
+<simple-notifications></simple-notifications>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left" translate>Review</h4>
+    <button type="button"
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      <div>
+        <select
+          *ngIf="ifAppNo"
+          class="form-control"
+          [(ngModel)]="AppN"
+          (change)="getAppData(AppN)"
+          name="CustomerType"
+          id="ApplicationLIst"
+        >
+          <option disabled>select</option>
+          <option
+            *ngFor="let AppNo of AppNoList"
+            [value]="AppNo.Application_No"
+          >
+            {{ AppNo.Application_No }}
+          </option>
+        </select>
+        <select
+          *ngIf="ifTask"
+          class="form-control"
+          [(ngModel)]="TaskN"
+          (change)="getTaskData(TaskN)"
+          name="CustomerType"
+          id="TaskList"
+        >
+          <option disabled>select</option>
+          <option
+            *ngFor="let Task of PreAppData"
+            [value]="Task.tasks_task_code"
+          >
+            {{ Task.description_en }}
+          </option>
+        </select>
+
+        <p-table
+          *ngIf="TaskN"
+          [value]="PreTaskData"
+          [paginator]="true"
+          [rows]="5"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th scope="col" translate>Status</th>
+              <th scope="col" translate>Start Date</th>
+              <th scope="col" translate>End Date</th>
+              <th scope="col" translate>Level</th>
+              <th scope="col" translate></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-task>
+            <tr>
+              <td>{{ task.status }}</td>
+              <td>{{ task.start_date }}</td>
+              <td>{{ task.end_date }}</td>
+              <td>{{ task.level }}</td>
+              <td>
+                <button type="button"
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="SelectTask(task)"
+                  translate
+                >
+                  Select
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <div *ngIf="ifTaskDetail">
+          <div *ngIf="preAppID == 1">
+            <!-- <app-form-display [formcode]="selectedTask.form_code" [formData]="selectedTask.JsonData" [Mode]="'display'"></app-form-display> -->
+          </div>
+          <div *ngIf="preAppID == 2">
+            <!-- <app-vehicle-information></app-vehicle-information> -->
+          </div>
+          <div *ngIf="preAppID == 3">
+            <!-- <app-active-vehicle></app-active-vehicle> -->
+          </div>
+          <div *ngIf="preAppID == 4">
+            <!-- <app-request-schedule></app-request-schedule> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+      type="button"
+      class="btn btn-primary"
+      (click)="closeModal()"
+      translate
+    >
+      Done
+    </button>
+  </div>
+</ng-template>

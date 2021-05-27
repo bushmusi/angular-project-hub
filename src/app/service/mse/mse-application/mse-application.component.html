@@ -1,0 +1,17 @@
+<p-tabView>
+  <p-tabPanel header="MSE Registration">
+    <app-mse-registration
+      [(singleWin)]="singleWin"
+      [(licenceData)]="licenceData"
+      (saveDataCompleted)="captureSaveDataEvent($event)"
+    ></app-mse-registration>
+  </p-tabPanel>
+
+  <p-tabPanel header="MSE Balance sheet">
+    <app-mse-balance-sheet [(singleWin)]="singleWin"></app-mse-balance-sheet>
+  </p-tabPanel>
+
+  <p-tabPanel header="MSE Employees">
+    <app-mse-employees [(singleWin)]="singleWin"></app-mse-employees>
+  </p-tabPanel>
+</p-tabView>
