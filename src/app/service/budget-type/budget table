@@ -1,0 +1,47 @@
+           <div class="CRUD-buttons-container-1 d-flex justify-content-end mb-3">
+            <input type="button" (click)="openModal(editProfileModal)" value="New" class="btn btn-xs-2 btn-info">
+
+          </div>
+          <div *ngIf="budgetss" class="table-responsive">
+            <p-table [paginator]="true" [value]="budgetss" [rows]="10" [resizableColumns]="true"
+              [tableStyle]="{'table-layout':'auto'}">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th translate> Budget ID </th>
+                  <th translate>Organization Code</th>
+                  <th translate>Year</th>
+                  <th translate>Total Budget Amount In Birr</th>
+                  <th translate>Status Type </th>
+                  <th></th>
+                  <!-- <td >
+                        <div class="CRUD-buttons-container-1">
+                          <input type="button" (click)="openModal(editProfileModal)" value="New">
+                          <input type="button"   (click)= "createBudgetType(budgeTypeForm)" value="Save/Update">
+                          <input type="button"    value="Delete">
+                        </div>
+                      </td> -->
+
+                </tr>
+
+              </ng-template>
+
+              <ng-template pTemplate="body" let-budget>
+                <tr>
+                  <td>{{budget.budget_ID}}</td>
+                  <td>{{budget.organization_code}}</td>
+                  <td>{{budget.year}}</td>
+                  <td>{{budget.total_Budget_Amount_In_Birr}}</td>
+                  <td>{{budget.statusType}}</td>
+                  <td>
+                    <!-- <button class="btn btn-primary" type="button" (click)="selectBudget(budget)"  translate>Select</button> -->
+                    <input type="button" (click)="createBudgetType(budgeTypeForm)" value="Edit"
+                      class="btn btn-xs btn-info">
+                    <input type="button" value="Delete" class="btn btn-xs btn-danger">
+                  </td>
+
+                </tr>
+
+              </ng-template>
+            </p-table>
+
+          </div>

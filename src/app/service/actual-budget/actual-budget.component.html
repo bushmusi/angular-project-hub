@@ -1,0 +1,170 @@
+<div class="container">
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-title">Actual Budget</h5>
+      <form action="" method="post" [formGroup]="actualBudgetFormGroup" novalidate>
+        <div class="form-group">
+          <label class="col-md-4">Budget Actual ID</label>
+          <input
+            type="text"
+            class="form-control col-md-4"
+            formControlName="budget_ActualID"
+            #budget_ActualID
+            placeholder = "It is automatically assignable"
+            disabled
+          />
+        </div>
+        <div
+            *ngIf="
+                actualBudgetFormGroup.controls['budget_ActualID'].invalid &&
+                (actualBudgetFormGroup.controls['budget_ActualID'].dirty ||
+                actualBudgetFormGroup.controls['budget_ActualID'].touched)
+            "
+            class="alert alert-danger col-md-4"
+            >
+          <div *ngIf="actualBudgetFormGroup.controls['budget_ActualID'].errors.required">
+            Budget Actual is required
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4">Budget Detail ID</label>
+            <select class="form-control col-md-4" formControlName="budget_DetailID" #budget_DetailID>
+                
+                <option value="" [selected]>Select Budget Detail ID</option>
+                <option *ngFor="let item of listBudgetDetail" [value]="item.budget_DetailID">{{item.budget_DetailID}}</option>
+                
+            </select>
+            <!-- <input
+              type="text"
+              class="form-control col-md-4"
+              formControlName="budget_DetailID"
+              #budget_DetailID
+            /> -->
+          </div>
+          <div
+              *ngIf="
+                  actualBudgetFormGroup.controls['budget_DetailID'].invalid &&
+                  (actualBudgetFormGroup.controls['budget_DetailID'].dirty ||
+                  actualBudgetFormGroup.controls['budget_DetailID'].touched)
+              "
+              class="alert alert-danger col-md-4"
+              >
+            <div *ngIf="actualBudgetFormGroup.controls['budget_DetailID'].errors.required">
+              Budget Detail ID is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4">Account ID</label>
+            <input
+              type="text"
+              class="form-control col-md-4"
+              formControlName="account_ID"
+              #account_ID
+            />
+          </div>
+          <div
+              *ngIf="
+                  actualBudgetFormGroup.controls['account_ID'].invalid &&
+                  (actualBudgetFormGroup.controls['account_ID'].dirty ||
+                  actualBudgetFormGroup.controls['account_ID'].touched)
+              "
+              class="alert alert-danger col-md-4"
+              >
+            <div *ngIf="actualBudgetFormGroup.controls['account_ID'].errors.required">
+              Account ID is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4">Actual cost </label>
+            <input
+              type="number"
+              class="form-control col-md-4"
+              formControlName="actual_Cost"
+              #actual_Cost
+            />
+          </div>
+          <div
+              *ngIf="
+                  actualBudgetFormGroup.controls['actual_Cost'].invalid &&
+                  (actualBudgetFormGroup.controls['actual_Cost'].dirty ||
+                  actualBudgetFormGroup.controls['actual_Cost'].touched)
+              "
+              class="alert alert-danger col-md-4"
+              >
+            <div *ngIf="actualBudgetFormGroup.controls['actual_Cost'].errors.required">
+              Actual cost is required.
+            </div>
+          </div>
+
+
+        <div class="form-group">  
+            <button type="submit" class="btn btn-primary"  
+            *ngIf="!isSelected"
+            [disabled]="actualBudgetFormGroup.pristine || actualBudgetFormGroup.invalid" 
+             (click) = "addActualBudget(actualBudgetFormGroup)">  
+              Add
+            </button> 
+
+            <button type="submit" class="btn btn-primary"  
+            *ngIf="isSelected"
+            [disabled]="actualBudgetFormGroup.invalid" 
+             (click) = "updateActualBudget(actualBudgetFormGroup)">  
+              Save/Update
+            </button> 
+
+            <button type="submit" class="btn btn-danger"  
+            *ngIf="isSelected"
+            [disabled]="actualBudgetFormGroup.invalid" 
+             (click) = "deleteActualBudget(actualBudgetFormGroup)">  
+              Delete
+            </button> 
+          </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div *ngIf="listItems" class="table-responsive">
+      <p-table
+        class="p-5 mb-5"
+        [paginator]="true"
+        [rows]="2"
+        [value]="listItems"
+        [resizableColumns]="true"
+        [tableStyle]="{ 'table-layout': 'auto' }"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th translate>Actual Budget ID</th>
+            <th translate>Budget Detail ID</th>
+            <th translate>Account ID</th>
+            <th translate>Actual Cost</th>
+            <th></th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>{{ item.budget_ActualID }}</td>
+            <td>{{ item.budget_DetailID }}</td>
+            <td>{{ item.account_ID }}</td>
+            <td>{{ item.actual_Cost }}</td>
+            <td>
+              <button
+                class="btn btn-xs btn-info"
+                type="button"
+                (click)="selectActualBudget(item)"
+                translate
+              >
+                Select
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

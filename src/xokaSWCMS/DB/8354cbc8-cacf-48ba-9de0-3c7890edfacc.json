@@ -1,0 +1,49 @@
+{
+ "pages": [
+  {
+   "name": "page1",
+   "elements": [
+    {
+     "type": "text",
+     "name": "Reference No ",
+     "isRequired": true,
+     "inputType": "number"
+    },
+    {
+     "type": "text",
+     "name": "Employee ID ",
+     "title": "Employee ID",
+     "isRequired": true,
+     "inputType": "number"
+    },
+    {
+     "type": "text",
+     "name": "Transfer From GL Account",
+     "title": "Transfer From GL account",
+     "isRequired": true,
+     "inputType": "number"
+    },
+    {
+     "type": "text",
+     "name": "Transfer To GL Account ",
+     "title": "Transfer To GL Account",
+     "isRequired": true,
+     "inputType": "number"
+    },
+    {
+     "type": "text",
+     "name": "Transfer Budget Amount ",
+     "isRequired": true,
+     "inputType": "number"
+    },
+    {
+     "type": "comment",
+     "name": "Reason for budget ",
+     "title": "Reason For Transfer Budget ",
+     "isRequired": true
+    }
+   ]
+  }
+ ],
+ "completeText": "Save "
+}

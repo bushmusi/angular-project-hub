@@ -1,0 +1,30 @@
+{
+ "pages": [
+  {
+   "name": "commenting Form on Budget Transfer Availability",
+   "elements": [
+    {
+     "type": "checkbox",
+     "name": "Is the Transfer budget available for the request?",
+     "isRequired": true,
+     "choices": [
+      {
+       "value": "1",
+       "text": "Available "
+      },
+      {
+       "value": "2",
+       "text": "Unavailable "
+      }
+     ]
+    },
+    {
+     "type": "comment",
+     "name": "Remark On Transfer Budget Request"
+    }
+   ],
+   "title": "commenting Form on Budget Availability"
+  }
+ ],
+ "completeText": "Save"
+}

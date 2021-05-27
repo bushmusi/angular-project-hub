@@ -1,0 +1,52 @@
+<ng-template #loading>
+  <div class="container">
+    <div class="row">
+      <div></div>
+      <div><h1>Loading task list...</h1></div>
+      <div></div>
+    </div>
+  </div>
+</ng-template>
+
+
+<div *ngIf="taskList;else loading" class="table-responsive">
+  <div class="m-10" *ngIf="taskList.length>0">You have {{taskList.length}} number of active tasks waiting</div>
+
+  <div>
+
+    <p-table class="mr-2 ml-2" [value]="taskList" [paginator]="true" [rows]="10" [resizableColumns]="true" [tableStyle]="{'table-layout':'auto'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th width="15%" translate>Application</th>
+          <th translate>Date</th>
+          <th translate>Description</th>
+          <th translate>Status</th>
+          <th translate>Minutes late</th>
+          <th translate>Type</th>
+          <th translate>Estimated minute To Finish This Tasks</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-task>
+        <tr [class.green]="task.status == 'O' ||task.status == 'A  ' ||task.status == 'R ' ||task.status == 'AS'"
+        [class.yeloww]="task.status == 'S' ||task.status == 'P' ||task.status == 'B'"
+        [class.red]="task.Minutes_late >0" >
+        <td *ngIf="task.status=='O' || task.status=='A  ' ">**********</td>
+        <td *ngIf="task.status!=='O' && task.status!=='A  ' ">{{task.todo_comment}}</td>
+          <td>{{task.start_date}}</td>
+          <td>{{task.description}}</td>
+          <td>{{task.status}}</td>
+          <td>{{task.Minutes_late}}</td>
+          <td>{{task.TaskType}}</td>
+          <td>{{task.Estimated_minute_To_Finsh_This_Tasks}}</td>
+          <td>
+            <button class="btn btn-primary" type="button"  (click)="pickTask(task)" translate>Pick</button>
+           
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+ 

@@ -1,0 +1,345 @@
+<div class="container-fluid h-100 d-flex flex-column">
+  <div class="row mb-5">
+    <div class="col-md-4 ml-auto">
+      <!-- sidenavbar -->
+      <app-side-navbar 
+      #child
+      [(currentType)]="currentType"
+      (saveDataCompleted)="saveDataCompleted($event)"
+      ></app-side-navbar>
+    </div>
+    <div class="col-md-8 ml-auto">
+      <div class="row mt-4">
+        <p-card
+          class="container-fluid mb-4 ml-4"
+          header="Budget Type Form"
+          [style]="{ width: 'auto' }"
+          styleClass="p-card-shadow"
+        >
+          <form action="" method="post" [formGroup]="budgetTypeFormGroup">
+            <div class="form-group row mt-4">
+              <label
+                for="expenditure"
+                class="control-label col-sm-2 text-secondary font"
+              >
+                Expendture</label
+              >
+              <div>
+                <select
+                  class="form-control col-md-12"
+                  id="expenditure"
+                  name="expenditure"
+                  formControlName="expenditure"
+                  #expenditure
+                >
+                  <option value = "" [selected]>
+                    Select Expendture
+                  </option>
+                  <option *ngFor="let budgettypee of budgettypess" [ngValue]="budgettypee.expenditure">
+                    {{ budgettypee.expenditure }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div
+                *ngIf="
+                    budgetTypeFormGroup.controls['expenditure'].invalid &&
+                    (budgetTypeFormGroup.controls['expenditure'].dirty ||
+                    budgetTypeFormGroup.controls['expenditure'].touched)
+                "
+                class="alert alert-danger "
+                >
+              <div *ngIf="budgetTypeFormGroup.controls['expenditure'].errors.required">
+                Expenditure is is required.
+              </div>
+            </div>
+
+
+            <div class="row mt-4">
+              <!-- Start of right col -->
+
+              <div class="col">
+                <div class="form-group row">
+                  <label
+                    for="code"
+                    class="control-label col-md-4 col-sm-2 text-secondary fon"
+                    >Code</label
+                  >
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="code"
+                      name="code"
+                      [readonly]="codeIsReadOnly"
+                      formControlName="code"
+                      #code
+                    />
+                  </div>
+                </div>
+                <div
+                    *ngIf="
+                        budgetTypeFormGroup.controls['code'].invalid &&
+                        (budgetTypeFormGroup.controls['code'].dirty ||
+                        budgetTypeFormGroup.controls['code'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetTypeFormGroup.controls['code'].errors.required">
+                    Code is is required.
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="accountCode"
+                    class="control-label col-md-4 text-secondary fon"
+                  >
+                    Account Code</label
+                  >
+                  <div>
+                    <!-- 
+                    <select
+                    class="form-control col-md-12"
+                    id="accountCode"
+                    name="accountCode"
+                    [(ngModel)]="budgetTypeForm.accountCode"
+                    #accountCode="ngModel"
+                    disabled
+                  >
+                    <option value="" ng-selected="selected">
+                      Select Parent
+                    </option>
+                    <option *ngFor="let item of chartOfAccountList" [ngValue]="item.account_ID">
+                      {{ item.description }}
+                    </option>
+                  </select> -->
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="accountCode"
+                      name="accountCode"
+                      formControlName="accountCode"
+                      #accountCode
+                    />
+                  </div>
+                </div>
+                <div
+                    *ngIf="
+                        budgetTypeFormGroup.controls['accountCode'].invalid &&
+                        (budgetTypeFormGroup.controls['accountCode'].dirty ||
+                        budgetTypeFormGroup.controls['accountCode'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetTypeFormGroup.controls['accountCode'].errors.required">
+                    Account Code is required.
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="description"
+                    class="control-label col-md-4 text-secondary fon"
+                  >
+                    Description</label
+                  >
+                  <div>
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      id="description"
+                      name="description"
+                      formControlName="description"
+                      #description
+                      rows="10"
+                      cols="20"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        budgetTypeFormGroup.controls['description'].invalid &&
+                        (budgetTypeFormGroup.controls['description'].dirty ||
+                        budgetTypeFormGroup.controls['description'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetTypeFormGroup.controls['description'].errors.required">
+                    Description is required.
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="parent"
+                    class="control-label col-md-4 text-secondary fon"
+                  >
+                    Parent</label
+                  >
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [readonly] = "true"
+                      id="parent"
+                      name="parent"
+                      formControlName="parent"
+                      #parent
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- End of right col -->
+
+              <!-- Start of left col -->
+              <div class="col">
+                <div class="form-group row">
+                  <label
+                    for="for_organization"
+                    class="control-label col-md-4 text-secondary fon"
+                  >
+                    For Organization
+                  </label>
+                  <div>
+                    <select
+                      class="form-control col-md-12"
+                      id="for_organization"
+                      name="for_organization"
+                      formControlName="for_organization"
+                      #for_organization
+                    >
+                      <option value=""  [selected]>
+                        Select Organization
+                      </option>
+                      <option
+                        *ngFor="let orgList of listOfOrganization"
+                        [ngValue]="orgList.organizations_Organization_Code"
+                      >
+                        {{ orgList.registration_Code }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        budgetTypeFormGroup.controls['for_organization'].invalid &&
+                        (budgetTypeFormGroup.controls['for_organization'].dirty ||
+                        budgetTypeFormGroup.controls['for_organization'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetTypeFormGroup.controls['for_organization'].errors.required">
+                    For Organization is required.
+                  </div>
+                </div>
+
+
+                <div class="form-check row">
+                  <label
+                    class="form-check-label col-sm-4 text-secondary font"
+                    for="is_Account"
+                    >Is Account</label
+                  >
+
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="is_Account"
+                    name="is_Account"
+                    formControlName="is_Account"
+                    #is_Account
+                  />
+                </div>
+
+                <div class="form-group row float-center mt-4 ml-4">
+                  <input
+                    type="button"
+                    *ngIf="!codeIsReadOnly"
+                    [disabled]="budgetTypeFormGroup.pristine || budgetTypeFormGroup.invalid" 
+                    (click)="createBudgetType()"
+                    value="New"
+                    class="btn btn-xs btn-info"
+                  />
+                  <input
+                    type="button"
+                    *ngIf="codeIsReadOnly"
+                    [disabled]="budgetTypeFormGroup.invalid" 
+                    (click)="updateBudgetType()"
+                    value="Update"
+                    class="btn btn-xs btn-info"
+                  />
+                </div>
+              </div>
+              <!-- End of left col -->
+            </div>
+            <!-- End of row grid -->
+          </form>
+        </p-card>
+
+        <!-- end of budget type form -->
+
+        <!-- budget Type table -->
+
+        <div class="container-fluid">
+          <div *ngIf="budgettypess" class="table-responsive">
+            <p-table
+              class="p-5 mb-5"
+              [paginator]="true"
+              [rows]="4"
+              [value]="budgettypess"
+              [resizableColumns]="true"
+              [tableStyle]="{ 'table-layout': 'auto' }"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th translate>Code</th>
+                  <th translate>Expendture</th>
+                  <th translate>Description</th>
+                  <th translate>Account code</th>
+                  <th translate>Parent</th>
+                  <th translate>For organization</th>
+                  <th translate>Is Account</th>
+                  <th></th></tr
+              ></ng-template>
+
+              <ng-template pTemplate="body" let-budget>
+                <tr>
+                  <td>{{ budget.code }}</td>
+                  <td>{{ budget.expenditure }}</td>
+                  <td>{{ budget.description }}</td>
+                  <td>{{ budget.accountCode }}</td>
+                  <td>{{ budget.parent }}</td>
+                  <td>{{ budget.for_organization }}</td>
+                  <td>{{ budget.is_Account }}</td>
+                  <td>
+                    <!-- <button class="btn btn-primary" type="button" (click)=" selectBudgetType(budget)"
+                          translate>Select</button> -->
+                    <button
+                      type="button"
+                      class="btn btn-xs btn-info"
+                      (click)="editBudgetType(budget)"
+                    >
+                      Edit
+                    </button>
+                    <input
+                      type="button"
+                      value="Delete"
+                      class="btn btn-xs btn-danger"
+                      (click)="deleteBudgetType(budget)"
+                    />
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+
+        <!-- end of budget type table  -->
+      </div>
+    </div>
+  </div>
+</div>

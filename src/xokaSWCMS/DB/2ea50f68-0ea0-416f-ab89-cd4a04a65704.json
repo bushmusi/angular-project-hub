@@ -1,0 +1,30 @@
+{
+ "pages": [
+  {
+   "name": "Decision For Additional Budget Availability",
+   "elements": [
+    {
+     "type": "checkbox",
+     "name": "Is the additional budget Can be accepted?",
+     "isRequired": true,
+     "choices": [
+      {
+       "value": "1",
+       "text": "Can be "
+      },
+      {
+       "value": "2",
+       "text": "Can Not be "
+      }
+     ]
+    },
+    {
+     "type": "comment",
+     "name": "Remark On Additional Budget Request"
+    }
+   ],
+   "title": "Decision For Additional Budget Availability"
+  }
+ ],
+ "completeText": "Save"
+}

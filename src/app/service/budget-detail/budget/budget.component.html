@@ -1,0 +1,257 @@
+<p-dialog
+  header="Budget Form"
+  [(visible)]="isBudgetFormDialog"
+  [style]="{ width: '75vw', height: '105vw' }"
+  [baseZIndex]="10000"
+>
+  <div class="card">
+    <div class="row" style="margin: 30px">
+      <form action="" method="post" [formGroup]="budgetFormGroup">
+        <div class="col">
+          <!-- col one -->
+
+          <div class="form-group row">
+            <label
+              for="organization_code"
+              class="control-label col-sm-4 text-secondary font"
+              >Organization Code:</label
+            >
+            <div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Organization Code"
+                name="organization_code"
+                formControlName="organization_code"
+                #organization_code
+                [readonly]=true
+              />
+            </div>
+          </div>
+          <div
+            *ngIf="
+              budgetFormGroup.controls['organization_code'].invalid &&
+              (budgetFormGroup.controls['organization_code'].dirty ||
+                budgetFormGroup.controls['organization_code'].touched)
+            "
+            class="alert alert-danger"
+          >
+            <div
+              *ngIf="
+                budgetFormGroup.controls['organization_code'].errors.required
+              "
+            >
+              Organization Code is required.
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="year" class="control-label col-sm-4 text-secondary font"
+              >Year:</label
+            >
+            <div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Year"
+                name="year"
+                formControlName="year"
+                #year
+              />
+            </div>
+          </div>
+
+          <div
+            *ngIf="
+              budgetFormGroup.controls['year'].invalid &&
+              (budgetFormGroup.controls['year'].dirty ||
+                budgetFormGroup.controls['year'].touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="budgetFormGroup.controls['year'].errors.required">
+              Year Code is required.
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label
+              for="total_Budget_Amount_In_Birr"
+              class="control-label col-sm-4 text-secondary font"
+              >Total Budget(Birr):</label
+            >
+            <div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Total Budget(Birr)"
+                name="total_Budget_Amount_In_Birr"
+                formControlName="total_Budget_Amount_In_Birr"
+                #total_Budget_Amount_In_Birr
+              />
+            </div>
+          </div>
+
+          <div
+                *ngIf="
+                    budgetFormGroup.controls['total_Budget_Amount_In_Birr'].invalid &&
+                    (budgetFormGroup.controls['total_Budget_Amount_In_Birr'].dirty ||
+                    budgetFormGroup.controls['total_Budget_Amount_In_Birr'].touched)
+                "
+                class="alert alert-danger "
+                >
+              <div *ngIf="budgetFormGroup.controls['total_Budget_Amount_In_Birr'].errors.required">
+                Budget Amount Code is required.
+              </div>
+
+          </div>
+        </div>
+
+        <div class="col">
+          <!-- Col two -->
+
+          <div class="form-group row">
+            <label
+              for="statusType"
+              class="control-label col-sm-4 text-secondary font"
+              >Status Type:</label
+            >
+            <div>
+              <select formControlName="statusType" #statusType class="form-control">
+                <option value=null [selected]>Select Status Type</option>
+                <option *ngFor="let item of statusTypeList" [value]="item.lkdetail_code">{{item.english_description}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div
+              *ngIf="
+                  budgetFormGroup.controls['statusType'].invalid &&
+                  (budgetFormGroup.controls['statusType'].dirty ||
+                  budgetFormGroup.controls['statusType'].touched)
+              "
+              class="alert alert-danger "
+              >
+            <div *ngIf="budgetFormGroup.controls['statusType'].errors.required">
+              Status Type is required.
+            </div>
+
+          </div>
+
+          <div class="form-group row">
+            <label for="log" class="control-label col-sm-4 text-secondary font"
+              >Doc Number:</label
+            >
+            <div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Doc"
+                name="docNo"
+                formControlName="docNo"
+                #docNo
+              />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label
+              for="log"
+              class="control-label col-sm-4 text-secondary font"
+            ></label>
+            <div *ngIf="!isEditBtn">
+              <input
+                type="button"
+                class="btn btn-xs btn-info"
+                value="Add"
+                [disabled] = "budgetFormGroup.pristine || budgetFormGroup.invalid"
+                (click)="saveBudgetData()"
+              />
+            </div>
+
+            <div *ngIf="isEditBtn">
+              <input
+                type="button"
+                class="btn btn-xs btn-info"
+                value="Save"
+                [disabled] = "budgetFormGroup.invalid"
+                (click)="updateBudgetData()"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      label="Ok"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+
+<div *ngIf="budgetss" class="table-responsive">
+  <div class="form-group row ml-3" style="text-align: right">
+    <input
+      type="button"
+      class="btn btn-xs btn-info"
+      (click)="showBudgetFormDialog()"
+      value="New"
+    />
+  </div>
+  <br />
+
+  <p-table
+    [paginator]="true"
+    [value]="budgetss"
+    [rows]="2"
+    [resizableColumns]="true"
+    [tableStyle]="{ 'table-layout': 'auto' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th translate>Budget ID</th>
+        <th translate>Organization Code</th>
+        <th translate>Year</th>
+        <th translate>Total Budget Amount In Birr</th>
+        <th translate>Status Type</th>
+        <th translate>Log</th>
+        <th translate>Doc No</th>
+        <th translate></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-budget>
+      <tr (click)="selectBudget(budget.budget_ID,budget.year)">
+        <td>{{ budget.budget_ID }}</td>
+        <td>{{ budget.organization_code }}</td>
+        <td>{{ budget.year }}</td>
+        <td>{{ budget.total_Budget_Amount_In_Birr }}</td>
+        <td>{{ budget.statusType }}</td>
+        <td>{{ budget.log }}</td>
+        <td>{{ budget.docNo }}</td>
+        <td>
+          <button
+            class="btn btn-xs btn-info"
+            type="button"
+            (click)="editBudget(budget)"
+            translate
+          >
+            Edit
+          </button>
+
+          <button
+            class="btn btn-xs btn-danger"
+            type="button"
+            (click)="deleteBudget(budget.budget_ID)"
+            translate
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

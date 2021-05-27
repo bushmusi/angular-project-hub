@@ -1,0 +1,30 @@
+{
+ "pages": [
+  {
+   "name": "Decision For Transfer Budget Availability",
+   "elements": [
+    {
+     "type": "checkbox",
+     "name": "Is the Transfer budget Can be accepted?",
+     "isRequired": true,
+     "choices": [
+      {
+       "value": "1",
+       "text": "Can be "
+      },
+      {
+       "value": "2",
+       "text": "Can Not be "
+      }
+     ]
+    },
+    {
+     "type": "comment",
+     "name": "Remark On Transfer Budget Request"
+    }
+   ],
+   "title": "Decision For Transfer Budget Availability"
+  }
+ ],
+ "completeText": "Save"
+}

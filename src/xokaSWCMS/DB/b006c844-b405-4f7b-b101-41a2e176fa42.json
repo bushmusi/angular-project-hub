@@ -1,0 +1,30 @@
+{
+ "pages": [
+  {
+   "name": "Management board decision for Transfer Budget ",
+   "elements": [
+    {
+     "type": "checkbox",
+     "name": "Is the Transfer budget Can be accepted?",
+     "isRequired": true,
+     "choices": [
+      {
+       "value": "1",
+       "text": "Accepted"
+      },
+      {
+       "value": "2",
+       "text": "Rejected"
+      }
+     ]
+    },
+    {
+     "type": "comment",
+     "name": "Remark On Transfer Budget Request"
+    }
+   ],
+   "title": "Management board decision for Transfer Budget "
+  }
+ ],
+ "completeText": "Save"
+}

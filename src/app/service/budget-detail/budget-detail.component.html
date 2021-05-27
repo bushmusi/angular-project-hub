@@ -1,0 +1,483 @@
+<div class="container-fluid h-100 d-flex flex-column">
+  <div class="row mt-4">
+    <div class="col-md-4 ml-auto">
+      <!-- sidenavbar -->
+      <app-org-side-navbar
+        [(currentType)]="currentType"
+        (sendClickCompleted)="sendClickCompleted($event)"
+      ></app-org-side-navbar>
+      <div>
+        <app-proc-side-navbar
+          [(currentOrgType)]="currentType"
+          (sendDeptClickCompleted) ="sendDeptClickCompleted($event)"
+          ></app-proc-side-navbar>
+      </div>
+    </div>
+    <div class="col-md-8 ml-auto">
+      <!-- budget Table  -->
+      <app-budget [(currentOrg)]="currentOrg" (sendCurrentBudget)="sendCurrentBudget($event)"></app-budget>
+      <!-- budget Table  -->
+
+      <div class="row mt-4">
+        <!-- budget detail form -->
+        <p-card
+          class="mb-4 ml-4"
+          header="Budget Detail Form"
+          [style]="{ width: 'auto' }"
+          styleClass="p-card-shadow"
+        >
+          <form action="" method="post" [formGroup]="budgetDetailFormGroup">
+            <div class="row mt-4">
+              <!-- col one -->
+              <div class="col">
+                <div class="form-group row">
+                  <label
+                    for="budget_ID"
+                    class="control-label col-sm-4 text-secondary font"
+                    >Budget ID:</label
+                  >
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="budget_ID"
+                      name="budget_ID"
+                      formControlName="budget_ID"
+                      #budget_ID
+                      [readonly]=true
+                    />
+                  </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        budgetDetailFormGroup.controls['budget_ID'].invalid &&
+                        (budgetDetailFormGroup.controls['budget_ID'].dirty ||
+                        budgetDetailFormGroup.controls['budget_ID'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetDetailFormGroup.controls['budget_ID'].errors.required">
+                    Budget ID is required.
+                  </div>
+
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="budget_Type"
+                    class="control-label col-sm-4 text-secondary font"
+                    >Budgt Type:</label
+                  >
+                  <div>
+                    <select
+                      id="budget_Type"
+                      name="budget_Type"
+                      formControlName="budget_Type"
+                      class="form-control"
+                      #budget_Type
+                    >
+                      <option value="" selected>Select Type</option>
+                      <option
+                        *ngFor="let item of budgetType"
+                        [value]="item.code"
+                      >
+                        {{ item.code }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        budgetDetailFormGroup.controls['budget_Type'].invalid &&
+                        (budgetDetailFormGroup.controls['budget_Type'].dirty ||
+                        budgetDetailFormGroup.controls['budget_Type'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetDetailFormGroup.controls['budget_Type'].errors.required">
+                    Budget Type is required.
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="diV_code"
+                    class="control-label col-sm-4 text-secondary font"
+                    >Division Code:</label
+                  >
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="diV_code"
+                      name="diV_code"
+                      formControlName="diV_code"
+                      #diV_code
+                      [readonly]=true
+                    />
+                  </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        budgetDetailFormGroup.controls['diV_code'].invalid &&
+                        (budgetDetailFormGroup.controls['diV_code'].dirty ||
+                        budgetDetailFormGroup.controls['diV_code'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetDetailFormGroup.controls['diV_code'].errors.required">
+                    Division code is required.
+                  </div>
+
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="unit"
+                    class="control-label col-sm-4 text-secondary font"
+                    >Unit:</label
+                  >
+                  <div>
+                    <select
+                      class="form-control col-sm-8 ml-auto"
+                      formControlName="unit"
+                      id="unit"
+                      name="unit"
+                      #unit
+                    >
+                      <option value="" selected>Select Unit</option>
+                      <option *ngFor="let item of unitList" [value]="item.unit">
+                        {{ item.unit }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        budgetDetailFormGroup.controls['unit'].invalid &&
+                        (budgetDetailFormGroup.controls['unit'].dirty ||
+                        budgetDetailFormGroup.controls['unit'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetDetailFormGroup.controls['unit'].errors.required">
+                    Unit is required.
+                  </div>
+
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="description"
+                    class="control-label col-sm-4 text-secondary font"
+                    >Description:</label
+                  >
+                  <div>
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      id="description"
+                      name="description"
+                      formControlName="description"
+                      #description
+                      cols='22'
+                      rows='5'
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="parentBuget_Detail_ID"
+                    class="control-label col-sm-8 text-secondary font"
+                    >Parent Budgt Detail ID:</label
+                  >
+
+                  <div class="form-group row ml-2">
+                    <input type="text" id="parentBuget_Detail_ID"
+                    formControlName="parentBuget_Detail_ID"
+                    #parentBuget_Detail_ID
+                    class="form-control col-md-6"
+                    readonly
+                    >
+                    <input class="btn btn-xs btn-info" type="button" value="Select item" (click) = "selectParent()">
+                  </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        budgetDetailFormGroup.controls['parentBuget_Detail_ID'].invalid &&
+                        (budgetDetailFormGroup.controls['parentBuget_Detail_ID'].dirty ||
+                        budgetDetailFormGroup.controls['parentBuget_Detail_ID'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetDetailFormGroup.controls['parentBuget_Detail_ID'].errors.required">
+                    Parent ID is required.
+                  </div>
+
+                </div>
+              </div>
+              <!-- col two -->
+              <div class="col">
+                <div class="form-group row">
+                  <label
+                    for="budget_Ammount_Birr"
+                    class="control-label col-sm-4 text-secondary font"
+                    >Budget Ammount Birr:</label
+                  >
+                  <div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="budget_Ammount_Birr"
+                      name="budget_Ammount_Birr"
+                      formControlName="budget_Ammount_Birr"
+                      #budget_Ammount_Birr
+                    />
+                  </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        budgetDetailFormGroup.controls['budget_Ammount_Birr'].invalid &&
+                        (budgetDetailFormGroup.controls['budget_Ammount_Birr'].dirty ||
+                        budgetDetailFormGroup.controls['budget_Ammount_Birr'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetDetailFormGroup.controls['budget_Ammount_Birr'].errors.required">
+                    Budget Amount is required.
+                  </div>
+
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="docNo"
+                    class="control-label col-sm-4 text-secondary font"
+                    >Document No:</label
+                  >
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="docNo"
+                      name="docNo"
+                      formControlName="docNo"
+                      #docNo
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="innitiative_ID"
+                    class="control-label col-sm-4 text-secondary font"
+                    >Innitiative ID:</label
+                  >
+                  <div>
+                    <select formControlName="innitiative_ID" #innitiative_ID class="form-control">
+                      <option value="" selected>Select Innitiative ID</option>
+                      <option *ngFor="let item of initiativeList" [value]="item.innitiative_ID">{{item.innitiative_ID}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        budgetDetailFormGroup.controls['innitiative_ID'].invalid &&
+                        (budgetDetailFormGroup.controls['innitiative_ID'].dirty ||
+                        budgetDetailFormGroup.controls['innitiative_ID'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetDetailFormGroup.controls['innitiative_ID'].errors.required">
+                    Initiative ID is required.
+                  </div>
+
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="budget_Allocation_Type"
+                    class="control-label col-sm-4 text-secondary font"
+                    >Budget Allocation Type:</label
+                  >
+                  <div>
+                    <select class="form-control" formControlName="budget_Allocation_Type" #budget_Allocation_Type>
+                      <option value="" selected>Select allocation</option>
+                      <option *ngFor="let item of allocationTypeList" [value]="item.lkdetail_code">{{item.english_description}}</option>
+                    </select>
+                  </div>
+                </div>
+
+
+
+
+                <div class="form-check row">
+                  <label
+                    class="form-check-label col-sm-4 text-secondary font"
+                    for="Check1"
+                    >Is Approved</label
+                  >
+
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="is_Approved"
+                    name="is_Approved"
+                    formControlName="is_Approved"
+                    #is_Approved
+                  />
+                </div>
+
+                <div class="form-group row float-right mt-4 mr-2">
+                  <div *ngIf="isSelected">
+                    <input
+                      type="button"
+                      class="btn btn-xs btn-info"
+                      (click)="updateBudgetDetail(budgetDetailForm)"
+                      [disabled] = "budgetDetailFormGroup.invalid"
+                      value="Save/Update"
+                    />
+                    <input
+                      type="button"
+                      class="btn btn-xs btn-danger"
+                      (click)="deleteBudgetDetail(budgetDetailForm)"
+                      value="Delete"
+                    />
+                  </div>
+                  <div *ngIf="!isSelected">
+                    <input
+                      type="button"
+                      class="btn btn-xs btn-success"
+                      [disabled] = "budgetDetailFormGroup.pristine || budgetDetailFormGroup.invalid"
+                      (click)="saveBudgetDetail()"
+                      value="New"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </p-card>
+
+        <!-- end of budget detail form -->
+
+        <!-- budget detail table -->
+
+        <div class="container-fluid">
+          <div *ngIf="budgedetailss" class="table-responsive">
+            <p-table
+              class="p-5 mb-5"
+              [paginator]="true"
+              [rows]="2"
+              [value]="budgedetailss"
+              [resizableColumns]="true"
+              [tableStyle]="{ 'table-layout': 'auto' }"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th translate>Budget Detail ID</th>
+                  <th translate>Budget ID</th>
+                  <th translate>Budget Type</th>
+                  <th translate>DIV code</th>
+                  <th translate>Unit</th>
+                  <th translate>Parent Budget Detail ID</th>
+                  <th translate>Is Approved</th>
+                  <th translate>Budget Amount Birr</th>
+                  <th translate>DocNo</th>
+                  <th></th></tr
+              ></ng-template>
+
+              <ng-template pTemplate="body" let-budget>
+                <tr>
+                  <td>{{ budget.budget_DetailID }}</td>
+                  <td>{{ budget.budget_ID }}</td>
+                  <td>{{ budget.budget_Type }}</td>
+                  <td>{{ budget.diV_code }}</td>
+                  <td>{{ budget.unit }}</td>
+                  <td>{{ budget.parentBuget_Detail_ID }}</td>
+                  <td>{{ budget.is_Approved }}</td>
+                  <td>{{ budget.budget_Ammount_Birr }}</td>
+                  <td>{{ budget.docNo }}</td>
+
+                  <td>
+                    <button
+                      class="btn btn-primary"
+                      type="button"
+                      (click)="selectBudgetDetail(budget)"
+                      translate
+                    >
+                      Select
+                    </button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+        <!-- end of budget detail table  -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  header="Select parent budget detail ID"
+  [(visible)]="isParantBudgetDetail"
+  [style]="{ width: '75vw', height: '105vw' }"
+  [baseZIndex]="10000"
+>
+
+
+    <p-table
+    [paginator]="true"
+    [value]="budgedetailss"
+    [rows]="5"
+    [resizableColumns]="true"
+    [tableStyle]="{ 'table-layout': 'auto' }"
+    >
+    <ng-template pTemplate="header">
+      <tr>
+        <th translate>Budget ID</th>
+        <th translate>Unit</th>
+        <th translate>Description</th>
+        <th translate></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td>{{ item.budget_ID }}</td>
+        <td>{{ item.unit }}</td>
+        <td>{{ item.description }}</td>
+        <td>
+          <button
+            class="btn btn-xs btn-info"
+            type="button"
+            (click)="getParent(item.budget_DetailID)"
+            translate
+          >
+            Select
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    </p-table>
+
+
+<ng-template pTemplate="footer">
+  <p-button
+    icon="pi pi-check"
+    label="Ok"
+    styleClass="p-button-text"
+  ></p-button>
+</ng-template>
+
+</p-dialog>

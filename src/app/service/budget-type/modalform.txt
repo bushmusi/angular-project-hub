@@ -1,0 +1,76 @@
+            <ng-template #editProfileModal let-modal class="modal-content">
+              <div class="modal-body ">
+                <div class="modal-content animate  container">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editBudgetLabel">Budget</h5>
+                    <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div class="container">
+                    <form novalidate [formGroup]="budgetForm">
+                      <div class="container mt-5">
+                        <div class="col-md-7">
+                          <div class="form-group row">
+                            <label for="bId" class="control-label col-md-4 col-sm-2  ">Budget ID</label>
+                            <div>
+                              <input type="text" class="form-control font" id="bId" placeholder="text"
+                                formControlName="budgetID"
+                                [ngClass]="{'is-invalid':(budgeTypeForm.get('code').touched || budgeTypeForm.get('code').dirty) && !budgeTypeForm.get('code').valid}">
+                              <span class="invalid-feedback">
+                                <span *ngIf="budgeTypeForm.get('code').errors?.required">
+                                  please enter code
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-7 mt-4">
+                          <div class="form-group row">
+                            <label for="oCode" class="control-label col-md-4 col-sm-2  "> Organization Code </label>
+                            <div>
+                              <input type="text" class="form-control font" id="oCode" placeholder="text"
+                                formControlName="organizationcode">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-7 mt-4">
+                          <div class="form-group row">
+                            <label for="year" class="control-label col-md-4 col-sm-2  "> Year </label>
+                            <div>
+                              <input type="text" class="form-control font" id="year" placeholder="text"
+                                formControlName="year">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-7 mt-4">
+                          <div class="form-group row">
+                            <label for="tBAmount" class="control-label col-md-4 col-sm-2  "> Total Budget Amount In
+                              Birr</label>
+                            <div>
+                              <input type="text" class="form-control font" id="tBAmount" placeholder="text"
+                                formControlName="totalBudgetAmountInBirr">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-7 mt-3">
+                          <div class="form-group row">
+                            <label for="sType" class="control-label col-md-4 col-sm-2  "> Status Type</label>
+                            <div>
+                              <input type="text" class="form-control font" id="sType" placeholder="text"
+                                formControlName="statusType">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-7 mt-3 ">
+                          <input type="button" (click)=" createBudget(budgetForm)" value="Update"
+                            class="bt btn-xs btn-info mb-3">
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </ng-template>

@@ -1,0 +1,320 @@
+<!-- Below codes are bushra codes -->
+
+<!-- Above are bushra codes -->
+<div class="container-fluid h-100 d-flex flex-column">
+  <div class="row">
+    <div class="col-md-4 ml-auto">
+      <!-- sidenavbar -->
+      <app-org-side-navbar
+        [(currentType)]="currentType"
+        (sendClickCompleted)="sendClickCompleted($event)"
+      ></app-org-side-navbar>
+    </div>
+    <div class="col-md-8 ml-auto">
+      <div *ngIf="budgetss" class="table-responsive">
+        <br />
+
+        <p-table
+          [paginator]="true"
+          [value]="budgetss"
+          [rows]="2"
+          [resizableColumns]="true"
+          [tableStyle]="{ 'table-layout': 'auto' }"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th translate>Budget ID</th>
+              <th translate>Organization Code</th>
+              <th translate>Year</th>
+              <th translate>Total Budget Amount In Birr</th>
+              <th translate>Status Type</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-budget>
+            <tr (click)="selectBudgetTypeforSummary(budget.budget_ID)">
+              <td>{{ budget.budget_ID }}</td>
+              <td>{{ budget.organization_code }}</td>
+              <td>{{ budget.year }}</td>
+              <td>{{ budget.total_Budget_Amount_In_Birr }}</td>
+              <td>{{ budget.statusType }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+      <!-- <div class="container-fluid h-100 d-flex flex-column"> -->
+      <div class="row mt-4">
+        <p-card
+          class="mb-4 ml-4"
+          header="Budget Summary Form"
+          [style]="{ width: 'auto' }"
+          styleClass="p-card-shadow"
+        >
+          <form action="" [formGroup]='budgetSummaryFromGroup'>
+            <div class="row" style="margin: 30px">
+              <div class="col">
+                <div class="form-group row">
+                  <label
+                    for="organization_code"
+                    class="control-label col-md-6 text-secondary font"
+                    >Organization Code:</label
+                  >
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control col-md-12"
+                      id="organization_code"
+                      name="organization_code"
+                      formControlName="organization_code"
+                      #organization_code
+                      [readonly] = "true"
+                    />
+                  </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        budgetSummaryFromGroup.controls['organization_code'].invalid &&
+                        (budgetSummaryFromGroup.controls['organization_code'].dirty ||
+                        budgetSummaryFromGroup.controls['organization_code'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetSummaryFromGroup.controls['organization_code'].errors.required">
+                    Organization code is required.
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="Budge"
+                    class="control-label col-md-6 text-secondary font"
+                    >Budget ID:</label
+                  >
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control col-md-12"
+                      id="budget_ID"
+                      name="budget_ID"
+                      formControlName="budget_ID"
+                      #budget_ID
+                      [readonly] = "true"
+                    />
+                  </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        budgetSummaryFromGroup.controls['budget_ID'].invalid &&
+                        (budgetSummaryFromGroup.controls['budget_ID'].dirty ||
+                        budgetSummaryFromGroup.controls['budget_ID'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetSummaryFromGroup.controls['budget_ID'].errors.required">
+                    Budget ID is required.
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="btype"
+                    class="control-label col-md-6 text-secondary font"
+                    >Budget Type</label
+                  >
+                  <div>
+                    <select
+                      class="form-control col-md-12"
+                      id="budget_Type"
+                      name="budget_Type"
+                      formControlName="budget_Type"
+                      #budget_Type
+                    >
+                      <option   value = "" [selected] ng-disabled="isBudgetSummaryToEdit">Select Budget Type</option>
+                      <option *ngFor="let list of budgetTypes" [ngValue] = "list.code">
+                        {{ list.code }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="bunit"
+                    class="control-label col-md-6 text-secondary font"
+                  >
+                    Unit</label
+                  >
+                  <div>
+                    <select
+                      class="form-control col-md-12"
+                      id="bunit"
+                      name="unit"
+                      formControlName="unit"
+                      #unit
+                    >
+                      <option  value = "" [selected]>Select Unit:</option>
+                      <option
+                        *ngFor="let item of cunits"
+                        [ngValue]="item.unit"
+                      >
+                        {{ item.unit }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        budgetSummaryFromGroup.controls['unit'].invalid &&
+                        (budgetSummaryFromGroup.controls['unit'].dirty ||
+                        budgetSummaryFromGroup.controls['unit'].touched)
+                    "
+                    class="alert alert-danger "
+                    >
+                  <div *ngIf="budgetSummaryFromGroup.controls['unit'].errors.required">
+                    Unit is required.
+                  </div>
+                </div>
+              </div>
+
+              <!-- col two -->
+              <div class="col">
+                <div class="form-group row">
+                  <label
+                    for="docno"
+                    class="control-label col-md-6 text-secondary font"
+                  >
+                    DocNo</label
+                  >
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control col-md-12"
+                      id="docNo"
+                      name="docNo"
+                      formControlName="docNo"
+                      #docNo
+                    />
+                  </div>
+                </div>
+
+
+                <div class="form-group row">
+                  <label
+                    for="budget_Ammount_Birr"
+                    class="control-label col-md-12 text-secondary font"
+                    >Parent Budget Amount(Birr):</label
+                  >
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control col-md-12"
+                      id="budget_Ammount_Birr"
+                      formControlName="budget_Ammount_Birr"
+                      #budget_Ammount_Birr
+                    />
+                  </div>
+                </div>
+
+                <div class="form-check row col-md-12">
+                  <label
+                    class="form-check-label col-sm-7 text-secondary font"
+                    for="Check1"
+                    >Is Approved
+                    <input
+                      type="checkbox"
+                      class="form-check-input col-sm-8"
+                      id="is_Approved"
+                      name="is_Approved"
+                      formControlName="is_Approved"
+                      #is_Approved
+                  /></label>
+                </div>
+
+                <div class="form-group row float-center mt-4">
+                  <div *ngIf="isBudgetSummaryToEdit">
+                    <input
+                      type="button"
+                      class="btn btn-xs btn-info"
+                      [disabled] = "budgetSummaryFromGroup.invalid"
+                      (click)="updateBudgetSummary()"
+                      value="Save/Update"
+                    />
+                    <input
+                      type="button"
+                      class="btn btn-xs btn-danger"
+                      (click)="deleteBudgetsummary()"
+                      value="Delete"
+                    />
+                  </div>
+                  <div *ngIf="!isBudgetSummaryToEdit">
+                    <input
+                      type="button"
+                      class="btn btn-xs btn-success"
+                      [disabled] = "budgetSummaryFromGroup.pristine || budgetSummaryFromGroup.invalid"
+                      (click)="saveBudgetSummary()"
+                      value="New"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </p-card>
+
+        <div class="container-fluid">
+          <div *ngIf="budgetsummaryss" class="table-responsive">
+            <p-table
+              class="p-5 mb-5"
+              [paginator]="true"
+              [rows]="2"
+              [value]="budgetsummaryss"
+              [resizableColumns]="true"
+              [tableStyle]="{ 'table-layout': 'auto' }"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th translate>Budget Type</th>
+                  <th translate>Organization code</th>
+                  <th translate>Parent Budget SumID</th>
+                  <th translate>Unit</th>
+                  <th translate>Is Approved</th>
+                  <th translate>Budget Amount Birr</th>
+                  <th translate>DocNo</th>
+                  <th translate>Log</th>
+                  <th></th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-budget>
+                <tr>
+                  <td>{{ budget.budget_Type }}</td>
+                  <td>{{ budget.organization_code }}</td>
+                  <td>{{ budget.parentBuget_Sum_ID }}</td>
+                  <td>{{ budget.unit }}</td>
+                  <td>{{ budget.is_Approved }}</td>
+                  <td>{{ budget.budget_Ammount_Birr }}</td>
+                  <td>{{ budget.docNo }}</td>
+                  <td>{{ budget.log }}</td>
+                  <td>
+                    <button
+                      class="btn btn-xs btn-info"
+                      type="button"
+                      (click)="selectBudgetSummary(budget)"
+                      translate
+                    >
+                      Select
+                    </button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

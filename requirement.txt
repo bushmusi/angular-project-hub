@@ -1,0 +1,4 @@
+Path for Doc lett trans = http://localhost:4200/a55414c6-cf12-44aa-bd9e-cd3f2710c7ee/ba81aa74-81f8-417d-8c1c-a063f4f72b63/22ee8583-571b-4760-8831-f6bec38de9b3
+//Belows are how to add ngx bootstrap
+npm install ngx-bootstrap --save
+ng add ngx-bootstrap 

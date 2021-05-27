@@ -1,0 +1,60 @@
+{
+ "pages": [
+  {
+   "name": "Validation For Additional Budget",
+   "elements": [
+    {
+     "type": "checkbox",
+     "name": "Is The GL Account Code Valid? ",
+     "isRequired": true,
+     "choices": [
+      {
+       "value": "1",
+       "text": "Valid"
+      },
+      {
+       "value": "2",
+       "text": "Invalid "
+      }
+     ]
+    },
+    {
+     "type": "checkbox",
+     "name": "Is The Additional Budget Amount Valid?",
+     "isRequired": true,
+     "choices": [
+      {
+       "value": "1",
+       "text": "Valid "
+      },
+      {
+       "value": "2",
+       "text": "Invalid"
+      }
+     ]
+    },
+    {
+     "type": "checkbox",
+     "name": "Is Reason For Additional Budget Request Valid?",
+     "isRequired": true,
+     "choices": [
+      {
+       "value": "1",
+       "text": "Valid"
+      },
+      {
+       "value": "2",
+       "text": "Invalid"
+      }
+     ]
+    },
+    {
+     "type": "comment",
+     "name": "Remark On Additional Budget Request"
+    }
+   ],
+   "title": "Validation For Additional Budget"
+  }
+ ],
+ "completeText": "Save"
+}
