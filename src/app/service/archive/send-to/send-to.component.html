@@ -1,0 +1,196 @@
+<div *ngIf="canAddCC">
+  <button
+    class="btn btn-md btn-info"
+    type="button"
+    (click)="showSendToDialog()"
+  >
+    Send To
+  </button>
+</div>
+<div *ngIf="!canAddCC">
+  <button
+    class="btn btn-md btn-info"
+    type="button"
+    (click)="showSendToDialog()"
+    disabled
+  >
+    Send To
+  </button>
+</div>
+
+<p-dialog
+  header="Sendto Dialog Form"
+  [(visible)]="displaySendToDialog"
+  [style]="{ width: '75vw', height: 'auto' }"
+  [baseZIndex]="10000"
+>
+  <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+    <div class="card m-3">
+      <div class="card-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Number of CC</label>
+            <!-- <input type="number" class="form-control"  formControlName="numberOfTickets"               (change)="onChangeTickets($event)"
+            [ngClass]="{
+              'is-invalid': submitted && f.numberOfTickets.errors
+            }"> -->
+            <select
+              formControlName="numberOfTickets"
+              class="form-control"
+              (change)="onChangeTickets($event)"
+              [ngClass]="{
+                'is-invalid': submitted && f.numberOfTickets.errors
+              }"
+            >
+              <option value=""></option>
+              <option *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+                {{ i }}
+              </option>
+            </select>
+            <div
+              *ngIf="submitted && f.numberOfTickets.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.numberOfTickets.errors.required">
+                Number is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <table class="table table-striped table-inverse table-responsive">
+            <thead class="thead-inverse">
+              <tr>
+                <th>Organization</th>
+                <th>Department</th>
+                <th>Structural Role</th>
+                <th>CC</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let ticket of t.controls; let i = index">
+              <tr [formGroup]="ticket">
+                <td>
+                  <select
+                    formControlName="org_ID"
+                    #org_ID
+                    class="form-control"
+                    (change)="fetchDeptList(org_ID.value, i)"
+                    [ngClass]="{
+                      'is-invalid': submitted && ticket.get('org_ID').errors
+                    }"
+                  >
+                    <option value="">Select Organization</option>
+                    <option
+                      *ngFor="let i of orgList"
+                      [ngValue]="i.organization_Code"
+                    >
+                      {{ i.name_En }}
+                    </option>
+                  </select>
+
+                  <div
+                    *ngIf="submitted && ticket.get('org_ID').errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="ticket.get('org_ID').errors.required">
+                      Organization required
+                    </div>
+                  </div>
+                </td>
+
+                <td scope="row">
+                  <select
+                    formControlName="department_ID"
+                    #department_ID
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted && ticket.get('department_ID').errors
+                    }"
+                    (change)="fetchStrList(department_ID.value, i)"
+                  >
+                    <option value="">Select Departement</option>
+                      <option
+                        *ngFor="let j of tempArray[i]"
+                        [ngValue]="j.department_Code"
+                      >
+                        {{ j.department_Name }}
+                      </option>
+                  </select>
+
+                  <div
+                    *ngIf="submitted && ticket.get('department_ID').errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="ticket.get('department_ID').errors.required">
+                      Department required
+                    </div>
+                  </div>
+                </td>
+
+                <td>
+                  <select
+                    formControlName="stracture_Role_ID"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted && ticket.get('stracture_Role_ID').errors
+                    }"
+                  >
+                    <option value="">Select Structural Role</option>
+                    <option
+                      *ngFor="let k of strTempArray[i]"
+                      [ngValue]="k.structure_ID"
+                    >
+                      {{ k.roleName }}
+                    </option>
+                  </select>
+
+                  <div
+                    *ngIf="submitted && ticket.get('stracture_Role_ID').errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="ticket.get('stracture_Role_ID').errors.required"
+                    >
+                      Structural role required
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="i == 0">
+                    <input
+                      type="checkbox"
+                      formControlName="cc"
+                      class="form-control"
+                    />
+                  </div>
+                  <div *ngIf="i !== 0">
+                    <input
+                      type="checkbox"
+                      formControlName="cc"
+                      class="form-control"
+                    />
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="card-footer text-center">
+            <button class="btn btn-primary mr-1">Submit</button>
+            <button
+              class="btn btn-secondary mr-1"
+              type="reset"
+              (click)="onReset()"
+            >
+              Reset
+            </button>
+            <button class="btn btn-secondary" type="button" (click)="onClear()">
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</p-dialog>

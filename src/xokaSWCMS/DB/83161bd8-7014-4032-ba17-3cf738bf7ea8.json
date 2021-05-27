@@ -1,0 +1,60 @@
+{
+ "pages": [
+  {
+   "name": "Validation For Transfer Budget",
+   "elements": [
+    {
+     "type": "checkbox",
+     "name": "Is The Transfers GL Account Codes Valid? ",
+     "isRequired": true,
+     "choices": [
+      {
+       "value": "1",
+       "text": "Valid"
+      },
+      {
+       "value": "2",
+       "text": "Invalid "
+      }
+     ]
+    },
+    {
+     "type": "checkbox",
+     "name": "Is The Transfer Budget Amount Valid?",
+     "isRequired": true,
+     "choices": [
+      {
+       "value": "1",
+       "text": "Valid "
+      },
+      {
+       "value": "2",
+       "text": "Invalid"
+      }
+     ]
+    },
+    {
+     "type": "checkbox",
+     "name": "Is Reason For Transfer Budget Request Valid?",
+     "isRequired": true,
+     "choices": [
+      {
+       "value": "1",
+       "text": "Valid"
+      },
+      {
+       "value": "2",
+       "text": "Invalid"
+      }
+     ]
+    },
+    {
+     "type": "comment",
+     "name": "Remark On Transfer Budget Request"
+    }
+   ],
+   "title": "Validation For Transfer Budget"
+  }
+ ],
+ "completeText": "Save"
+}

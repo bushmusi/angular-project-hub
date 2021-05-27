@@ -1,0 +1,112 @@
+<div class="m-3">
+
+    <div class="p-3 bg-success text-white">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col" translate>Application NO: </th>
+            <th scope="col" translate>Service Name: </th>
+            <th scope="col" translate>Plot ID: </th>
+            <th scope="col" translate>Property ID: </th>
+            <th scope="col" translate>Certificate ID: </th>
+          </tr>
+          </thead>
+        </table>
+      
+      </div>
+  
+     
+      <div class="m-3 row">
+  
+        <div class="col-md-12">
+          <ng-sidebar-container
+            style="height: 100vh">
+            <ng-sidebar
+              [(opened)]="_opened"
+              [mode]="'push'"
+              [closeOnClickOutside]="true"
+            >
+    
+              <div>
+    
+                <div class="form-row mt-5">
+                  <div class="col-md-12">
+                    <div *ngIf="RequerdDocs">
+                      <div class="form-group row col-md-12" *ngFor="let RequiredDoc of RequerdDocs; let i = index;">
+                        <label for="File" class="col-md-4 col-form-label">{{RequiredDoc.description_en}}</label>
+                        <div class="col-md-10">
+                          <p-fileUpload id="File" name="demo[]" customUpload="true"
+                                        (uploadHandler)="upload($event,RequiredDoc)"
+                                        accept="application/pdf,image/*">
+                            <ng-template pTemplate="content">
+                              <!-- <ul *ngIf="uploadedFiles.length">
+                                 <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                               </ul>-->
+                            </ng-template>
+                          </p-fileUpload>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+    
+              <button class="demo-control" (click)="_toggleOpened()">Close Upload</button>
+              <div>
+    
+              </div>
+            </ng-sidebar>
+    
+            <div ng-sidebar-content>
+              <header class="demo-header">
+                <button (click)="_toggleOpened()" type="button" class="demo-header__toggle">Toggle sidebar</button>
+                <span>Upload File</span>
+              </header>
+    
+              <section class="demo-contents">
+    
+                <div *ngIf="id==1">
+                    <app-archive></app-archive>
+                </div>
+                <div *ngIf="id==2">
+                  <app-archive-type></app-archive-type>
+                </div>
+  
+                
+        
+                <div *ngIf="id==3">
+                    <h1>Survey</h1><survey [json]="json"></survey>
+                </div>
+        
+              </section>
+        
+            </div>
+          </ng-sidebar-container>
+    
+        </div>
+    
+      </div>  
+    
+    
+    
+      <div class="p-3 border-secondary border-5 bg-secondary text-white h-100 text-center  m-10 mt-10">
+        <button type="button" class="btn btn-primary mr-2" >Review</button>
+        <span class="dropdown">
+          <button  type="button" class="btn btn-primary dropdown-toggle mr-2"
+                  data-toggle="dropdown" translate>
+            Required Action
+          </button>
+          <span class="dropdown-menu">
+            <a class="dropdown-item" > Submit/ላከው</a>
+           
+            </span>
+          
+      </span>
+    
+        <button type="button" class="btn btn-primary mr-2" (click)="Close()"  translate>Pend & close</button>
+      </div>
+    
+  
+  </div>
+  

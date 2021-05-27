@@ -1,0 +1,211 @@
+<div class="container-fluid h-100 d-flex flex-column">
+  <div class="container pt-20 mt-3">
+    <div class="row">
+      <div class="col">
+        <form action="" [formGroup]="tempFormGroup" novalidate>
+          
+          <div class="form-group ">
+            <label class="col-md-4">Type Name</label>
+            <input
+              type="text"
+              class="form-control col-md-8"
+              formControlName="name_Type"
+              #name_Type
+              
+            />
+            <small id="emailHelp" class="form-text text-muted">Don't edit this field if you are updating this</small>
+          </div>
+          <div
+            *ngIf="
+              tempFormGroup.controls['name_Type'].invalid &&
+              (tempFormGroup.controls['name_Type'].dirty ||
+                tempFormGroup.controls['name_Type'].touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="tempFormGroup.controls['name_Type'].errors.required">
+              Type name is required.
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-md-4">Description</label>
+            <textarea name="" id="" cols="30" rows="10" class="form-control "
+            formControlName="description"
+            #description>
+
+            </textarea>
+          </div>
+          <div
+            *ngIf="
+              tempFormGroup.controls['description'].invalid &&
+              (tempFormGroup.controls['description'].dirty ||
+                tempFormGroup.controls['description'].touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="tempFormGroup.controls['description'].errors.required">
+              Description is required.
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <label class="col-md-4">Room</label>
+            <input
+              type="text"
+              class="form-control col-md-8"
+              formControlName="room"
+              #room
+              
+            />
+          </div>
+          <div
+            *ngIf="
+              tempFormGroup.controls['room'].invalid &&
+              (tempFormGroup.controls['room'].dirty ||
+                tempFormGroup.controls['room'].touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="tempFormGroup.controls['room'].errors.required">
+              Room is required.
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-md-4">Site</label>
+            <select class="form-control col-md-8" formControlName="site" #site>
+              <option *ngFor="let item of orgList" [value]="item.organization_Code">{{item.name_En}}</option>
+            </select>
+            <!-- <input
+              type="text"
+              class="form-control col-md-8"
+              formControlName="site"
+              #site
+            /> -->
+          </div>
+          <div
+            *ngIf="
+              tempFormGroup.controls['site'].invalid &&
+              (tempFormGroup.controls['site'].dirty ||
+                tempFormGroup.controls['site'].touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="tempFormGroup.controls['site'].errors.required">
+              Site is required.
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <label class="col-md-4">Block Floor</label>
+            <input
+              type="text"
+              class="form-control col-md-8"
+              formControlName="block_Floor"
+              #block_Floor
+              
+            />
+          </div>
+          <div
+            *ngIf="
+              tempFormGroup.controls['block_Floor'].invalid &&
+              (tempFormGroup.controls['block_Floor'].dirty ||
+                tempFormGroup.controls['block_Floor'].touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="tempFormGroup.controls['block_Floor'].errors.required">
+              Block floor is required.
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-md-4">Shelf Number</label>
+            <input
+              type="text"
+              class="form-control col-md-8"
+              formControlName="shelf_NO"
+              #shelf_NO
+            />
+          </div>
+          <div
+            *ngIf="
+              tempFormGroup.controls['shelf_NO'].invalid &&
+              (tempFormGroup.controls['shelf_NO'].dirty ||
+                tempFormGroup.controls['shelf_NO'].touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="tempFormGroup.controls['shelf_NO'].errors.required">
+              Shelf number is required.
+            </div>
+          </div>
+
+          
+          <div class="form-group">  
+            <button type="submit" class="btn btn-primary"  *ngIf="!isSelected"
+            [disabled]="tempFormGroup.pristine || tempFormGroup.invalid" (click)="register()">  
+              Add 
+            </button>  
+            <button type="submit" class="btn btn-primary"   *ngIf="isSelected" (click)="tempUpdate()">  
+              update 
+            </button> 
+            <button type="submit" class="btn btn-danger"  *ngIf="isSelected"
+             (click)="tempDelete()">  
+              Delete 
+            </button> 
+          </div> 
+        </form>
+      </div>
+      <div class="col">
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <p-table
+      class="p-5 mb-5"
+      [paginator]="true"
+      [rows]="4"
+      [value]="archiveTypeList"
+      [resizableColumns]="true"
+      [tableStyle]="{ 'table-layout': 'auto' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th translate>Name Type</th>
+          <th translate>Description</th>
+          <th translate>Room</th>
+          <th translate>Site</th>
+          <th translate>Block Floor</th>
+          <th translate>Shelf No</th>
+          <th></th></tr
+      ></ng-template>
+
+      <ng-template pTemplate="body" let-name>
+        <tr>
+          <td>{{ name.name_Type }}</td>
+          <td>{{ name.description }}</td>
+          <td>{{ name.room }}</td>
+          <td>{{ name.site }}</td>
+          <td>{{ name.block_Floor }}</td>
+          <td>{{ name.shelf_NO }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-xs btn-info"
+              (click)="selectElement(name)"
+            >
+              Select
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+   Docs: https://www.itsolutionstuff.com/post/how-to-use-toaster-notification-in-angular-8example.html
+   
+   //Below are for toast
+   showToasterSuccess(){
+
+    this.notifyService.showSuccess("Data shown successfully !!", "ItSolutionStuff.com")
+
+}
+
+
+
+showToasterError(){
+
+    this.notifyService.showError("Something is wrong", "ItSolutionStuff.com")
+
+}
+
+
+
+showToasterInfo(){
+
+    this.notifyService.showInfo("This is info", "ItSolutionStuff.com")
+
+}
+
+
+
+showToasterWarning(){
+
+    this.notifyService.showWarning("This is warning", "ItSolutionStuff.com")
+
+}

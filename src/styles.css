@@ -1,0 +1,84 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~ngx-smart-modal/ngx-smart-modal.css"; 
+
+
+
+
+tr.active td {
+    background-color: #123456 !important;
+    color: white;
+  }
+  
+  tr.green td {
+    background-color: #2ec800 !important;
+    color: white;
+  }
+  
+  tr.yeloww td {
+    background-color: #f1e800 !important;
+    color: black;
+  }
+  tr.red td {
+    background-color: #e12600 !important;
+    color: white;
+  }
+  
+  .tooltip222 {
+    position: relative;
+  
+  }
+  
+  /* Tooltip text */
+  .tooltip222 .tooltiptext222 {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+  
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    top: 100%;
+    right: 25%;
+    z-index: 1;
+  }
+  
+  .tooltip222 .tooltiptext2221 {
+     visibility: hidden;
+     width: 500px;
+     background-color: black;
+     color: #fff;
+     text-align: center;
+     padding: 5px 0;
+     border-radius: 6px;
+  
+     /* Position the tooltip text - see examples below! */
+     position: absolute;
+     top: 100%;
+     right: 25%;
+     z-index: 1;
+   }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip222:hover .tooltiptext222 {
+    visibility: visible;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip222:hover .tooltiptext2221 {
+    visibility: visible;
+  }
+  
+  
+  
+  .holds-the-iframe {
+    background:url(/src/assets/images/loader.gif) center center no-repeat;
+   }
+  html, body { height: 100%; }
+  body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  
+
+

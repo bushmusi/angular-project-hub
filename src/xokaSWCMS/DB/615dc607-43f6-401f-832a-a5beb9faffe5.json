@@ -1,0 +1,16 @@
+{
+ "completedHtml": "ያስገቡት ዳታ ወደ ዳታቤዝ ተቀምጧል። እባክዎ ወደ ሚቀጥለው ሥራ ይቀጥሉ። The data you entered is saved to database, please proceed to attaching any supporting documents or taking required action on the task.",
+ "pages": [
+  {
+   "name": "page1",
+   "elements": [
+    {
+     "type": "comment",
+     "name": "question1",
+     "title": "Comment"
+    }
+   ],
+   "title": "Assign to Concerned FHC Organ"
+  }
+ ]
+}

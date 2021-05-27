@@ -1,0 +1,48 @@
+{
+ "pages": [
+  {
+   "name": "page1",
+   "elements": [
+    {
+     "type": "text",
+     "name": "Reference No ",
+     "isRequired": true,
+     "inputType": "number"
+    },
+    {
+     "type": "text",
+     "name": "Employee ID ",
+     "title": "Employee ID",
+     "isRequired": true,
+     "inputType": "number"
+    },
+    {
+     "type": "text",
+     "name": "GL Account",
+     "title": "GL account",
+     "isRequired": true,
+     "inputType": "number"
+    },
+    {
+     "type": "text",
+     "name": "Allocated Budget ",
+     "isRequired": true,
+     "inputType": "number"
+    },
+    {
+     "type": "text",
+     "name": "Additional Budget Amount ",
+     "isRequired": true,
+     "inputType": "number"
+    },
+    {
+     "type": "comment",
+     "name": "Reason for budget ",
+     "title": "Reason For Additional Budget ",
+     "isRequired": true
+    }
+   ]
+  }
+ ],
+ "completeText": "Save "
+}

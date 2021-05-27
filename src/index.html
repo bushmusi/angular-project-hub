@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Archive</title>
+  <base href="/">
+  <script>
+    (function () {
+      window['_UserName'] = "@HttpContext.Current.User.Identity.Name";
+      window['_UserNameId'] = "@HttpContext.Current.User.Identity.Id";
+      window['rootPath'] = 'http://197.156.93.110/XOKA.eoffice.bpel/api/';
+      window['rootPath'] = 'http://197.156.93.110/XOKA.eoffice.bpel/api/';
+      window["rootApiPath"] = "http://197.156.93.110/xoka.ERP.API/api/";
+      window["formPath"] = "http://197.156.93.110/xokaerp/DB/";
+      window['lang'] = window.location.pathname.split('/')[2];
+      // window['phisicalPath'] = (window.location.host == "local.dnn9.com" ? "" : "http://197.156.93.110/xokaerp") + "/DesktopModules/XokaBudget/assets/assets/xokaSWCMS/DB/";
+      window['GISURL'] = 'https://js.arcgis.com/4.9/';
+
+      if (window.location.pathname !== "/")
+          if (
+            window.location.pathname.split("/")[1] !== "task" &&
+            window.location.pathname.split("/")[1] !== "service" &&
+            window.location.pathname.split("/")[1] !== "services" &&
+            window.location.pathname.split("/")[2] == "language"
+          ) {
+            console.log(window.location.pathname.split('/')[1]);
+            window["_app_base"] =
+              "/" +
+              window.location.pathname.split("/")[1] +
+              "/" +
+              window.location.pathname.split("/")[2] +
+              "/" +
+              window.location.pathname.split("/")[3] +
+              "/" +
+              window.location.pathname.split("/")[4] +
+              "/" +
+              window.location.pathname.split("/")[5] +
+              "/" +
+              window.location.pathname.split("/")[6];
+          } else if (
+            window.location.pathname.split("/")[1] !== "task" &&
+            window.location.pathname.split("/")[1] !== "service" &&
+            window.location.pathname.split("/")[1] !== "services"
+          ) {
+            console.log(window.location.pathname.split('/'));
+            window["_app_base"] =
+              "/" +
+              window.location.pathname.split("/")[1] +
+              "/" +
+              window.location.pathname.split("/")[2] +
+              "/" +
+              window.location.pathname.split("/")[3] +
+              "/" +
+              window.location.pathname.split("/")[4];
+          }
+
+          console.log( window["_app_base"])
+
+
+    })();
+  </script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+
+</html>

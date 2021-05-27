@@ -1,0 +1,470 @@
+<div class="pt-5"></div>
+<div class="table-responsive">
+  <p-table  [value]="dlTransactionList" [paginator]="true" [rows]="4" [resizableColumns]="true" [tableStyle]="{'table-layout':'auto'}">
+    <ng-template pTemplate="header" >
+          <tr >
+            <th translate>Letter ID</th>
+            <th translate>Ref No </th>
+            <th translate>From</th>
+            <th translate>To</th>
+            <th translate>Is In</th>
+            <th translate>Is Out</th>
+            <th translate>Subject</th>
+            <th translate>Number Of Page</th>
+            <th translate>Number Of Attachment</th>
+            <th translate>Letter written Date </th>
+            <th translate>Received By</th>
+            <th translate>Received By Name </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-letters let-columns="columns">
+          <tr
+              [ngClass]="{
+                active: letters.letter_ID == dlTransaction.letter_ID
+              }"
+
+              onclick="document.getElementById('folderNO').focus()"
+          >
+
+            <td>
+              {{ letters.letter_ID }}
+            </td>
+
+            <td>
+              {{ letters.ref_No }}
+            </td>
+
+            <td>
+              {{ letters.from }}
+            </td>
+
+            <td>
+              {{ letters.to }}
+            </td>
+
+            <td>
+              {{ letters.is_IN }}
+            </td>
+
+            <td>
+              {{ letters.iS_Out }}
+            </td>
+
+            <td>
+              {{ letters.subject }}
+            </td>
+
+            <td>
+              {{ letters.number_Of_Page }}
+            </td>
+
+            <td>
+              {{ letters.number_Of_Attachment }}
+            </td>
+
+            <td>
+              {{ letters.letter_written_Date }}
+            </td>
+
+            <td>
+              {{ letters.recived_By }}
+            </td>
+
+            <td>
+              {{ letters.recivedBy_Name }}
+            </td>
+            <td>
+                <button  class="mr-3 btn-xs btn-info"  (click)="initLetterEdit(letters)"  style="font-size: 0.8em;" type="button" >Edit</button>
+                <span *ngIf="ableToDelete">
+                    <button  class="mr-3 btn-xs btn-danger"  (click)="initLetterDelete(letters)"    style="font-size: 0.8em;" type="submit">Delete</button>
+                </span>
+
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+</div>
+
+
+
+<div class="container-fluid h-100 d-flex flex-column">
+
+
+  <div class="m-3  p-5" style="text-align:right" *ngIf = "!isThereRecord" >
+    <button  (click)="showNewBasicDialog()" class="mr-3 btn-xs btn-info" style="font-size: 0.8em;" type="submit" data-toggle="modal" data-target="#exampleModal">New</button>
+
+  </div>
+
+  <!-- Dialog sample -->
+  <p-dialog header="Document Letter Transaction" [(visible)]="displayBasic" [style]="{width: '75vw',height:'105vw'}" [baseZIndex]="10000">
+      <form action="/api/document/DocumentArchive"  [formGroup]="dlTransactionFormGroup">
+          <div class="row " style="margin-left: 20px">
+            <!-- Coloumn one -->
+            <div class="col">
+                <div class="form-group row">
+                    <label for="fno" class="control-label col-sm-4 text-secondary font">Refrence No:</label>
+                    <div>
+                      <input type="text" class="form-control" placeholder="Enter refrence No"
+                      name="ref_No" #ref_No formControlName="ref_No">
+                    </div>
+                </div>
+                <div
+                  *ngIf="
+                    dlTransactionFormGroup.controls['ref_No'].invalid &&
+                    (dlTransactionFormGroup.controls['ref_No'].dirty ||
+                      dlTransactionFormGroup.controls['ref_No'].touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  <div *ngIf="dlTransactionFormGroup.controls['ref_No'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="fno" class="control-label col-sm-4 text-secondary font">From:</label>
+                    <div>
+                      <input type="text" class="form-control" placeholder="Enter from" name="from" #from formControlName="from">
+                    </div>
+                </div>
+
+                <div
+                  *ngIf="
+                    dlTransactionFormGroup.controls['from'].invalid &&
+                    (dlTransactionFormGroup.controls['from'].dirty ||
+                      dlTransactionFormGroup.controls['from'].touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  <div *ngIf="dlTransactionFormGroup.controls['from'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="fno" class="control-label col-sm-4 text-secondary font">To:</label>
+                    <div>
+                      <input type="text" class="form-control" placeholder="Enter to" name="to" #to formControlName="to">
+                    </div>
+                </div>
+
+                <div
+                  *ngIf="
+                    dlTransactionFormGroup.controls['to'].invalid &&
+                    (dlTransactionFormGroup.controls['to'].dirty ||
+                      dlTransactionFormGroup.controls['to'].touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  <div *ngIf="dlTransactionFormGroup.controls['to'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+
+
+            </div>
+
+            <!-- Column two -->
+            <div class="col">
+              <div class="form-group row">
+                  <label for="fno" class="control-label col-sm-4 text-secondary font">Subject:</label>
+                  <div>
+                    <input type="text" class="form-control" placeholder="Enter subject" name="subject" #subject formControlName="subject">
+                  </div>
+              </div>
+
+              <div
+                *ngIf="
+                  dlTransactionFormGroup.controls['subject'].invalid &&
+                  (dlTransactionFormGroup.controls['subject'].dirty ||
+                    dlTransactionFormGroup.controls['subject'].touched)
+                "
+                class="alert alert-danger"
+              >
+                <div *ngIf="dlTransactionFormGroup.controls['subject'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+
+              <div class="form-group row">
+                  <label for="fno" class="control-label col-sm-4 text-secondary font">Received by:</label>
+                  <div>
+                    <input type="text"
+                            class="form-control"
+                            placeholder="Enter recived by"
+                            name="recived_By"
+                            #recived_By formControlName="recived_By"
+                            disabled
+                            >
+                  </div>
+              </div>
+
+              <div
+                *ngIf="
+                  dlTransactionFormGroup.controls['recived_By'].invalid &&
+                  (dlTransactionFormGroup.controls['recived_By'].dirty ||
+                    dlTransactionFormGroup.controls['recived_By'].touched)
+                "
+                class="alert alert-danger"
+              >
+                <div *ngIf="dlTransactionFormGroup.controls['recived_By'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+
+
+
+
+
+              <div class="form-group row">
+                  <label for="fno" class="control-label col-sm-4 text-secondary font">Received by name:</label>
+                  <div>
+                    <input type="text" class="form-control"  placeholder="Enter recived by name" name="recivedBy_Name" #recivedBy_Name formControlName="recivedBy_Name">
+                  </div>
+              </div>
+
+              <div
+                *ngIf="
+                  dlTransactionFormGroup.controls['recivedBy_Name'].invalid &&
+                  (dlTransactionFormGroup.controls['recivedBy_Name'].dirty ||
+                    dlTransactionFormGroup.controls['recivedBy_Name'].touched)
+                "
+                class="alert alert-danger"
+              >
+                <div *ngIf="dlTransactionFormGroup.controls['recivedBy_Name'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+
+
+              <div style="text-align:left" >
+                  <div *ngIf="editLetterForm">
+                      <button  (click)="updateDLTransaction()" class="btn btn-info btn-md " style="font-size: 0.8em;" type="button" [disabled]="dlTransactionFormGroup.invalid">Save</button>
+                  </div>
+                  <div *ngIf="!editLetterForm">
+                      <button (click)="saveData()"  class="btn btn-info btn-md " style="font-size: 0.8em;" type="submit" [disabled]="dlTransactionFormGroup.invalid || dlTransactionFormGroup.pristine">Add</button>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+  </p-dialog>
+  <!-- dialog sample user001 -->
+
+
+  <!-- Archive Document add sample f -->
+  <div class="container pt-20 mt-3">
+    <form action="/api/document/procArchive" [formGroup]="procArchiveFromGroup">
+      <div class="row">
+          <div class="form-group col-md-12">
+              <label for="fno" class="control-label col-sm-6 text-secondary font">Folder No:*</label>
+
+              <div class="col-sm-4">
+
+                  <input id="folderNO"
+                  name="folderNO"
+                  class="form-control invalid"
+                  type="text"
+                  formControlName="folderNO"
+                  #folderNO required>
+
+                  <div
+                      *ngIf="
+                        procArchiveFromGroup.controls['folderNO'].invalid &&
+                        (procArchiveFromGroup.controls['folderNO'].dirty ||
+                          procArchiveFromGroup.controls['folderNO'].touched)
+                      "
+                      class="alert alert-danger"
+                    >
+                      <div *ngIf="procArchiveFromGroup.controls['folderNO'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+
+              </div>
+
+      </div>
+      <div class="row">
+          <div class="form-group col-md-12">
+              <label for="fno" class="control-label col-sm-6 text-secondary font">Name:*</label>
+              <div class="col-sm-4">
+
+                  <input id="name"
+                         name="name"
+                         class="form-control invalid"
+                          type="text"
+                          formControlName="name"
+                          #name
+                          required>
+
+                          <div
+                              *ngIf="
+                                procArchiveFromGroup.controls['name'].invalid &&
+                                (procArchiveFromGroup.controls['name'].dirty ||
+                                  procArchiveFromGroup.controls['name'].touched)
+                              "
+                              class="alert alert-danger"
+                            >
+                              <div *ngIf="procArchiveFromGroup.controls['name'].errors.required">
+                                This field is required.
+                              </div>
+                          </div>
+
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="form-group col-md-12">
+              <label for="fno" class="control-label col-sm-6 text-secondary font">Archive Type:*</label>
+              <div class="col-sm-4">
+                <select class="form-control"
+                      id="archive_Type"
+                      name="archive_Type"
+                      formControlName="archive_Type"
+                      #archive_Type
+                      required
+                    >
+                    <option  selected>Select Archive Type</option>
+
+                    <option *ngFor="let list of procArchiveTypelist">{{ list.name_Type }}</option>
+
+
+                </select>
+
+
+                <div
+                    *ngIf="
+                      procArchiveFromGroup.controls['archive_Type'].invalid &&
+                      (procArchiveFromGroup.controls['archive_Type'].dirty ||
+                        procArchiveFromGroup.controls['archive_Type'].touched)
+                    "
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="procArchiveFromGroup.controls['archive_Type'].errors.required">
+                      This field is required.
+                    </div>
+                </div>
+
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="form-group col-md-12">
+              <label for="fno" class="control-label col-sm-6 text-secondary font">Shelf Roww:*</label>
+              <div class="col-sm-4">
+
+                  <input
+                        type = "number"
+                        id="shelf_Raw"
+                        name="shelf_Raw"
+                        class="form-control invalid"
+                        formControlName="shelf_Raw"
+                        #shelf_Raw
+                        required>
+
+                        <div
+                            *ngIf="
+                              procArchiveFromGroup.controls['shelf_Raw'].invalid &&
+                              (procArchiveFromGroup.controls['shelf_Raw'].dirty ||
+                                procArchiveFromGroup.controls['shelf_Raw'].touched)
+                            "
+                            class="alert alert-danger"
+                          >
+                            <div *ngIf="procArchiveFromGroup.controls['shelf_Raw'].errors.required">
+                              This field is required.
+                            </div>
+                        </div>
+
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="form-group col-md-12">
+              <label for="fno" class="control-label col-sm-6 text-secondary font">Shelf Column:*</label>
+              <div class="col-sm-4">
+                  <input id="shelf_Column"
+                         name="shelf_Column"
+                         class="form-control invalid"
+                         type="number"
+                         formControlName="shelf_Column"
+                         #shelf_Column
+                         required>
+
+                         <div
+                            *ngIf="
+                              procArchiveFromGroup.controls['shelf_Column'].invalid &&
+                              (procArchiveFromGroup.controls['shelf_Column'].dirty ||
+                                procArchiveFromGroup.controls['shelf_Column'].touched)
+                            "
+                            class="alert alert-danger"
+                          >
+                            <div *ngIf="procArchiveFromGroup.controls['shelf_Column'].errors.required">
+                              This field is required.
+                            </div>
+                        </div>
+
+              </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group float-right">
+            <div *ngIf="isThereRecord">
+                <button  class="ml-3 btn btn-md btn-info" type="button" (click)="saveDocumentArchive()" [disabled]="procArchiveFromGroup.invalid">Save/Update</button>
+            </div>
+            <div *ngIf="!isThereRecord">
+                <button  class="ml-3 btn btn-md btn-info" type="button" disabled>Save</button>
+            </div>
+              <input type = 'hidden' id="letterId" name="letterId" class="form-control invalid"
+              required minlength="4"
+              formControlName="letterId"
+              #letterId >
+
+          </div>
+        </div>
+        <div class="col">
+          <app-send-to [(currentLetterID)]="currentLetterID" [(canAddCC)]="canAddCC"></app-send-to>
+        </div>
+        <div class="col float-right" >
+
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <!-- End of Document archive  -->
+
+  <div class="container-fluid">
+    <p-table [value]="procArchiveList"   [paginator]="true" [rows]="4" [resizableColumns]="true" [tableStyle]="{'table-layout':'auto'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th translate> Folder NO </th>
+          <th translate>Name </th>
+          <th translate>Archive Type</th>
+          <th translate>Shelf Raw</th>
+          <th translate>Shelf Column</th>
+          <th translate>Letter Id</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-name let-columns="columns">
+        <tr>
+          <td>{{name.folderNO}}</td>
+          <td>{{name.name}}</td>
+          <td>{{name.archive_Type}}</td>
+          <td>{{name.shelf_Raw}}</td>
+          <td>{{name.shelf_Column}}</td>
+          <td>{{name.letter_ID}}</td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+</div>
+
+
+
+
