@@ -1,0 +1,220 @@
+<form class="m-10">
+  <div class="form-row">
+    <div class="form-group row col-md-4">
+      <label for="CertificateID" class="col-sm-4 col-form-label" translate>Certificate ID</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" [(ngModel)]="certificateVersion.Certificate_ID" name="CertificateID"
+               id="CertificateID" placeholder="Certificate ID">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="FirstName" class="col-sm-4 col-form-label" translate>First Name</label>
+      <div class="col-sm-8">
+        <input disabled type="text" class="form-control" [(ngModel)]="certificateVersion.Applicant_First_Name_EN"
+               name="FirstName" id="FirstName" placeholder="First Name">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="FirstName2" class="col-sm-4 col-form-label" translate>First Name2</label>
+      <div class="col-sm-8">
+        <input disabled type="text" class="form-control" [(ngModel)]="certificateVersion.Applicant_First_Name_AM"
+               name="FirstName2" id="FirstName2" placeholder="First Name2">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="VersionID" class="col-sm-4 col-form-label" translate>Version ID</label>
+      <div class="col-sm-8">
+        <input type="text" disabled class="form-control" [(ngModel)]="certificateVersion.Version_ID" name="VersionID"
+               id="VersionID" placeholder="First Name2">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="MiddleName" class="col-sm-4 col-form-label" translate>Middle Name</label>
+      <div class="col-sm-8">
+        <input type="text" disabled class="form-control" [(ngModel)]="certificateVersion.Applicant_Middle_Name_En"
+               name="MiddleName" id="MiddleName" placeholder="Middle Name">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="MiddleName2" class="col-sm-4 col-form-label" translate>Middle Name2</label>
+      <div class="col-sm-8">
+        <input type="text" disabled class="form-control" [(ngModel)]="certificateVersion.Applicant_Middle_Name_AM"
+               name="MiddleName2" id="MiddleName2" placeholder="Middle Name2">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="TitleDeedID" class="col-sm-4 col-form-label" translate>Title Deed No</label>
+      <div class="col-sm-8">
+        <input type="text" disabled class="form-control" [(ngModel)]="certificateVersion.Deed_ID" name="TitleDeedID"
+               id="TitleDeedID" placeholder="Title Deed ID">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="LastName" class="col-sm-4 col-form-label" translate>Last Name</label>
+      <div class="col-sm-8">
+        <input type="text" disabled class="form-control" [(ngModel)]="certificateVersion.Applicant_Last_Name_EN" name="LastName"
+               id="LastName" placeholder="Last Name">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="LastName2" class="col-sm-4 col-form-label" translate>Last Name2</label>
+      <div class="col-sm-8">
+        <input type="text" disabled class="form-control" [(ngModel)]="certificateVersion.Applicant_Last_Name_AM" name="LastName2"
+               id="LastName2" placeholder="Last Name2">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="Color" class="col-sm-4 col-form-label" translate>Color</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" [(ngModel)]="certificateVersion.Color" name="Color" id="Color"
+               placeholder="Color">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="IssuedBy" class="col-sm-4 col-form-label" translate>Issued By</label>
+      <div class="col-sm-8">
+        <select (click)="openModal(template)"  class="form-control" [(ngModel)]="certificateVersion.Issued_By" name="IssuedBy" id="IssuedBy">
+          <option disabled>select</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="VersionNo" class="col-sm-4 col-form-label" translate>VersionNo</label>
+      <div class="col-sm-8">
+        <input type="text" disabled class="form-control" [(ngModel)]="certificateVersion.Version_No" name="VersionNo"
+               id="VersionNo" placeholder="VersionNo">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="Photo" class="col-sm-4 col-form-label" translate>Photo</label>
+      <div class="col-sm-8">
+        <!--<input type="file" class="form-control" [(ngModel)]="certificateVersion.Photo" name="Photo" id="Photo"
+               placeholder="Photo">-->
+        <p-fileUpload id="Photo" name="Photo"  customUpload="true" (uploadHandler)="upload($event)"
+                      accept="image/*">
+          <ng-template pTemplate="content">
+            <!-- <ul *ngIf="uploadedFiles.length">
+               <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+             </ul>-->
+          </ng-template>
+        </p-fileUpload>
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="ExpiredDate" class="col-sm-4 col-form-label" translate>Expired Date</label>
+      <div class="col-sm-8">
+        <input type="Date" disabled class="form-control" [(ngModel)]="certificateVersion.Expired_Date" name="ExpiredDate"
+               id="ExpiredDate" placeholder="Expired Date">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="BuiltUpArea" class="col-sm-4 col-form-label" translate>Built Up Area</label>
+      <div class="col-sm-8">
+        <input type="text" disabled class="form-control" [(ngModel)]="certificateVersion.Built_Up_Area" name="BuiltUpArea"
+               id="BuiltUpArea" placeholder="Built Up Area">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="SerialNo" class="col-sm-4 col-form-label" translate>Serial No</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" [(ngModel)]="certificateVersion.Serial_No" name="SerialNo" id="SerialNo"
+               placeholder="Serial No">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="isPrinted" class="col-sm-4 col-form-label" translate>Is Printed</label>
+      <div class="col-sm-8">
+        <p-checkbox [(ngModel)]="certificateVersion.Is_Printed" name="isPrinted" id="isPrinted"
+                    binary="true"></p-checkbox>
+      </div>
+    </div>
+    <div class="form-group row col-md-4"></div>
+    <div class="form-group row col-md-4">
+      <label for="CustomerType" class="col-sm-4 col-form-label" translate>Customer Type</label>
+
+      <div class="col-sm-8">
+        <select class="form-control" [(ngModel)]="certificateVersion.Customer_Type_ID" name="CustomerType"
+                id="CustomerType">
+          <option disabled>select</option>
+          <option *ngFor="let custType of serviceComponent.CustomerTypeLookUP;" [value]="custType.Customer_Type_ID">{{custType.Customer_Type}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="IsIssued" class="col-sm-4 col-form-label" translate>Is Issued</label>
+
+      <div class="col-sm-8">
+        <p-checkbox  [(ngModel)]="certificateVersion.IsIssued" name="IsIssued" id="IsIssued" binary="true"></p-checkbox>
+      </div>
+    </div>
+
+    <div class="form-group row col-md-4"></div>
+
+    <div class="form-group row col-md-4">
+      <label for="Remark" class="col-sm-4 col-form-label" translate>Remark</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" [(ngModel)]="certificateVersion.Remark" name="Remark" id="Remark"
+               placeholder="Remark">
+      </div>
+    </div>
+    <div class="form-group row col-md-4">
+      <label for="isActive" class="col-sm-4 col-form-label" translate>Is Active</label>
+
+      <div class="col-sm-8">
+        <p-checkbox [(ngModel)]="certificateVersion.Is_Active" name="isActive" id="isActive" binary="true"></p-checkbox>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary mr-2" (click)="AddNew()"  translate>New Version</button>
+  <button type="button" class="btn btn-primary" (click)="Save()" translate>Save</button>
+</form>
+
+<p-toast [style]="{marginTop: '80px'}" styleClass="bg-danger alert-danger" key="custom"
+         position="bottom-center"></p-toast>
+
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Issued By</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+
+    <p-table #dt [value]="serviceComponent.CustomerLookUP" [paginator]="true" [rows]="5"
+             [globalFilterFields]="['TIN','FullName_AM','FullName_EN','Applicant_Mother_Name_AM','Applicant_Mother_Name_EN','Mobile_No']">
+      <ng-template pTemplate="caption">
+        <div style="text-align: right">
+          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+          <input type="text" pInputText size="50" placeholder="Global Filter"
+                 (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>TIN</th>
+          <th>Full Name AM</th>
+          <th>Full Name EN</th>
+          <th>Mother Name AM</th>
+          <th>Mother Name EN</th>
+          <th>mobile Number</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-Customer>
+        <tr (click)="closeModal(Customer)">
+          <td>{{Customer.TIN}}</td>
+          <td>{{Customer.FullName_AM}}</td>
+          <td>{{Customer.FullName_EN}}</td>
+          <td>{{Customer.Applicant_Mother_Name_AM}}</td>
+          <td>{{Customer.Applicant_Mother_Name_EN}}</td>
+          <td>{{Customer.Mobile_No}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+
+  </div>
+</ng-template>

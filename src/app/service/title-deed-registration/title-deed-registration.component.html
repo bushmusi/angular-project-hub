@@ -1,0 +1,129 @@
+<form *ngIf="deedform">
+  <div class="form-row">
+
+    <div class="form-group row col-md-7">
+      <label for="TitleDeedNo" class="col-sm-3 col-form-label" translate>Title Deed No</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" [(ngModel)]="titleDeedRegistration.TitleDeedNo" name="TitleDeedNo" id="TitleDeedNo" placeholder="Title Deed No">
+      </div>
+    </div>
+
+    <div class="form-group row col-md-7">
+      <label for="PropertyID" class="col-sm-3 col-form-label" translate>Property ID</label>
+      <div class="col-sm-9">
+        <input type="text" disabled class="form-control" [(ngModel)]="titleDeedRegistration.Property_ID" name="PropertyID" id="PropertyID" placeholder="Property ID">
+      </div>
+    </div>
+    <div class="form-group row col-md-7">
+      <label for="RegistrationDate" class="col-sm-3 col-form-label" translate>Registration Date</label>
+      <div class="col-sm-9">
+        <input type="Date" class="form-control" [(ngModel)]="titleDeedRegistration.Date" name="RegistrationDate" id="RegistrationDate" placeholder="Registration Date">
+      </div>
+    </div>
+
+    <div class="form-group row col-md-7">
+      <label for="TransferredFrom" class="col-sm-3 col-form-label" translate>Transferred From</label>
+      <div class="col-sm-9">
+        <select (click)="openModal(template)" class="form-control" [(ngModel)]="titleDeedRegistration.Transfer_From_Customer" name="TransferredFrom" id="TransferredFrom">
+          <option disabled translate>select</option>
+          <option *ngFor="let customer of serviceComponent.CustomerLookUP;" [value]="customer.Customer_ID">{{customer.Applicant_First_Name_EN}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row col-md-7">
+      <label for="ParentDeedID" class="col-sm-3 col-form-label" translate>Parent Deed ID</label>
+      <div class="col-sm-9">
+        <select class="form-control" [(ngModel)]="titleDeedRegistration.ParentDeedID" name="ParentDeedID" id="ParentDeedID">
+          <option disabled translate>select</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row col-md-7">
+      <label for="TransferType" class="col-sm-3 col-form-label" translate>Transfer Type</label>
+      <div class="col-sm-9">
+        <select class="form-control" [(ngModel)]="titleDeedRegistration.Transfer_Type" name="TransferType" id="TransferType">
+          <option disabled translate>select</option>
+          <option *ngFor="let TransferType of serviceComponent.TransferTypeLookUP;" [value]="TransferType.Transfer_ID">{{TransferType.Type}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row col-md-7">
+      <label for="IsActive" class="col-sm-3 col-form-label" translate>Is Active</label>
+      <div class="col-sm-8">
+        <p-checkbox [(ngModel)]="titleDeedRegistration.Is_Active" name="IsActive" id="IsActive" binary="true"></p-checkbox>
+      </div>
+    </div>
+  </div>
+  <button  type="button"  class="btn btn-primary" (click)="save()" translate>Save</button>
+</form>
+
+
+<p-table [value]="titleDeedRegistrationList" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="header">
+    <tr>
+      <th scope="col" translate>Ownership Id</th>
+      <th scope="col" translate>Date</th>
+      <th scope="col" translate>isAcrive</th>
+      <th scope="col">
+        <button type="button" class="btn btn-primary" (click)=" adddeed()" translate>Add New</button>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-deed>
+    <tr>
+      <td>{{deed.Ownership_ID}}</td>
+      <td>{{deed.Date}}</td>
+      <td>{{deed.Is_Active}}</td>
+      <td>
+        <button type="button" class="btn btn-primary" (click)="selectdeed(deed)" translate>Edit</button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Transferred From</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+
+    <p-table #dt [value]="serviceComponent.CustomerLookUP" [paginator]="true" [rows]="5"  [globalFilterFields]="['TIN','FullName_AM','FullName_EN','Applicant_Mother_Name_AM','Applicant_Mother_Name_EN','Mobile_No']">
+      <ng-template pTemplate="caption">
+        <div style="text-align: right">
+          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+          <input type="text" pInputText size="50" placeholder="Global Filter"
+                 (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>TIN</th>
+          <th>Full Name AM</th>
+          <th>Full Name EN</th>
+          <th>Mother Name AM</th>
+          <th>Mother Name EN</th>
+          <th>mobile Number</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-Customer>
+        <tr (click)="closeModal(Customer)">
+          <td>{{Customer.TIN}}</td>
+          <td>{{Customer.FullName_AM}}</td>
+          <td>{{Customer.FullName_EN}}</td>
+          <td>{{Customer.Applicant_Mother_Name_AM}}</td>
+          <td>{{Customer.Applicant_Mother_Name_EN}}</td>
+          <td>{{Customer.Mobile_No}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+
+  </div>
+</ng-template>
