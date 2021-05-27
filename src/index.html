@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>BSC</title>
+    <base href="/" />
+    <script>
+      (function () {
+        window["_UserName"] = "@HttpContext.Current.User.Identity.Name";
+        window["rootPath"] = "http://197.156.93.110/XOKA.eoffice.bpel/api/";
+        window["rootPath2"] = "http://197.156.93.110/xoka.ERP.API/api/";
+        window["formPath"] = "/xokaerp/DB/";
+        if (window.location.pathname !== "/")
+          if (
+            window.location.pathname.split("/")[1] !== "task" &&
+            window.location.pathname.split("/")[1] !== "service" &&
+            window.location.pathname.split("/")[1] !== "services" &&
+            window.location.pathname.split("/")[2] == "language"
+          ) {
+            window["_app_base"] =
+              "/" + window.location.pathname.split("/")[1] +
+              "/" + window.location.pathname.split("/")[2] +
+              "/" + window.location.pathname.split("/")[3] +
+              "/" + window.location.pathname.split("/")[4] +
+              "/" + window.location.pathname.split("/")[5] +
+              "/" + window.location.pathname.split("/")[6];
+           } else if (
+            window.location.pathname.split("/")[1] !== "task" &&
+            window.location.pathname.split("/")[1] !== "service" &&
+            window.location.pathname.split("/")[1] !== "services"
+          ) {
+            window["_app_base"] =
+              "/" + window.location.pathname.split("/")[1] +
+              "/" + window.location.pathname.split("/")[2] +
+              "/" + window.location.pathname.split("/")[3] +
+              "/" + window.location.pathname.split("/")[4];
+            }
+        //if it is still not working comment all the above code, and un comment the below code.
+        // window['_app_base'] ='xokaswcms/my-tasks';
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

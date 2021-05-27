@@ -1,0 +1,300 @@
+<table>
+  <tr>
+    <th>Annual Strategic Goal ID</th>
+    <th>Strategic Theme ID</th>
+    <th>Created Date</th>
+    <th>Year</th>
+    <th>Result In %</th>
+    <th>IsActive</th>
+    <td [attr.rowspan]="AnnualStrategyGoalsList?.length+1">
+      <div class="CRUD-buttons-container-1">
+        <input type="button" class="button" value="New" (click)="newAnnualStrategyGoalsPopup()">
+        <input type="button" class="button" (click)="getAnnualStrategyGoals()" value="Save/Update">
+        <input type="button" class="button" (click)="deleteAnnualStrategyGoals()" [disabled]="deleteBtn1IsSelected" value="Delete">
+      </div>
+    </td>
+  </tr>
+  <tr  *ngFor="let _annualStrategyGoal of AnnualStrategyGoalsList;index as i " [ngClass]="{'active': selectedAnnualStrategyGoalsRowIndex == i}"  (click)="selectAnnualStrategyGoalsTableRow(i);">
+    <td> {{  _annualStrategyGoal.annual_Strategic_GoalID  }} </td>
+    <td> {{  _annualStrategyGoal.strategic_ThemeID  }} </td>
+    <td> {{  _annualStrategyGoal.created_Date  }} </td>
+    <td> {{  _annualStrategyGoal.year  }} </td>
+    <td> {{  _annualStrategyGoal.result_In_Per  }} </td>
+    <td> {{  _annualStrategyGoal.isActive  }} </td>
+  </tr>
+</table>
+
+<!-- new popup -->
+
+<div  id="new-popup" class="modal">
+  <div class="modal-content animate  container">
+    <div class="container">
+
+
+      <div class="row">
+        <label for="annual_Strategic_GoalID"><b>Annual Strategic GoalID</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.annual_Strategic_GoalID"  name="annual_Strategic_GoalID" id="annual_Strategic_GoalID" placeholder="Annual Strategic GoalID">
+      </div>
+
+      <div class="row">
+        <label for="strategic_ThemeID"><b>Strategic ThemeID</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.strategic_ThemeID"
+        (focus)="onFocus()" name="strategic_ThemeID" id="strategic_ThemeID" placeholder="strategic ThemeID">
+      </div>
+
+      <div class="row">
+        <label for="created_Date"><b>Created Date</b></label>
+        <input type="text" disabled [(ngModel)]="AnnualStrategyGoals.created_Date"  name="created_Date" id="created_Date">
+      </div>
+
+      <div class="row">
+        <label for="year"><b>Year</b></label>
+        <input type="number" [(ngModel)]="AnnualStrategyGoals.year"
+         name="year" id="year"
+         oninput="validity.valid||(value='');"
+         (keypress)="numberOnly($event)"
+         min="0"
+         step="1"
+         placeholder="Year">
+      </div>
+
+      <div class="row">
+        <label for="result_In_Per"><b>Result In Per</b></label>
+        <input type="number" step="any"
+        [(ngModel)]="AnnualStrategyGoals.result_In_Per"
+        oninput="validity.valid||(value='');"
+        name="result_In_Per" id="result_In_Per" placeholder="Result In Per">
+      </div>
+
+    <div class="CRUD-buttons-container-2">
+      <input type="button" [disabled]="newBtn1IsSelected"  (click)="saveAnnualStrategyGoals()" value="Save">
+       <input type="button" onclick="document.getElementById('new-popup').style.display='none'"
+      class="cancelbtn" value="Cancel">
+    </div>
+   </div>
+      <!-- popup for input valiue selection -->
+      <div  id="popup-input-values" class="modal1" >
+        <div class="modal-content1 animate  container">
+          <div class="list-div">
+
+             <!-- <tr  *ngFor="let StrategicThemes of StrategicThemesList;index as i " [ngClass]="{'active': selectedStrategicThemesRowIndex == i}"  (click)="selectStrategicThemesTableRow(i);"> -->
+              <table>
+
+                <tr>
+                  <th>Strategic Theme ID</th>
+                  <th>Strategy NO</th>
+                  <th>Strategic Theme</th>
+                  <th>Strategic Result</th>
+                  <th>Strategic Theme Description</th>
+                </tr>
+                <tr  *ngFor="let _strategicTheme of StrategicThemesList ;index as i " [ngClass]="{'active': selectedStrategicThemesRowIndex == i}"  (click)="selectStrategicThemesTableRow(i);">
+                  <td>{{ _strategicTheme.strategic_ThemeID }} </td>
+                  <td> {{ _strategicTheme.strategy_NO }}  </td>
+                  <td> {{ _strategicTheme.strategic_Theme }}  </td>
+                  <td> {{ _strategicTheme.strategic_Result }}  </td>
+                  <td> {{ _strategicTheme.strategic_Theme_Description }}  </td>
+                </tr>
+
+              </table>
+           </div>
+             <!-- <div>
+               <input type="button" onclick="document.getElementById('popup-input-values').style.display='none'" class="cancelbtn" value="Cancel">
+             </div> -->
+             <div class="cancel-btn-div">
+               <input type="button"  (click)="OnSelectStrategicTheme()"  value="Select" class="selectBtn2">
+               <input type="button"  onclick="document.getElementById('popup-input-values').style.display='none'" class="cancelbtn2" value="Cancel">
+             </div>
+         </div>
+      </div>
+      <!-- end popup -->
+  </div>
+</div>
+
+<!-- popup end -->
+
+
+<!-- Save/Update popup -->
+
+ <div  id="SaveOrUpdate-popup" class="modal">
+  <div class="modal-content animate  container">
+    <div class="container">
+
+
+      <div class="row">
+        <label for="annual_Strategic_GoalID"><b>Annual Strategic GoalID</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.annual_Strategic_GoalID"  name="annual_Strategic_GoalID" id="annual_Strategic_GoalID" placeholder="Annual Strategic GoalID">
+      </div>
+
+      <div class="row">
+        <label for="strategic_ThemeID"><b>Strategic ThemeID</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.strategic_ThemeID"
+        (focus)="onFocus2()" name="strategic_ThemeID" id="strategic_ThemeID" placeholder="strategic ThemeID">
+      </div>
+
+      <div class="row">
+        <label for="created_Date"><b>Created Date</b></label>
+        <input type="text" disabled [(ngModel)]="AnnualStrategyGoals.created_Date"  name="created_Date" id="created_Date">
+      </div>
+
+      <div class="row">
+        <label for="year"><b>Year</b></label>
+        <input type="number" [(ngModel)]="AnnualStrategyGoals.year"
+         name="year" id="year"
+         oninput="validity.valid||(value='');"
+         (keypress)="numberOnly($event)"
+         min="0"
+         step="1"
+         placeholder="Year">
+      </div>
+
+      <div class="row">
+        <label for="result_In_Per"><b>Result In Per</b></label>
+        <input type="number" step="any"
+        [(ngModel)]="AnnualStrategyGoals.result_In_Per"
+        oninput="validity.valid||(value='');"
+        name="result_In_Per" id="result_In_Per" placeholder="Result In Per">
+      </div>
+
+    <div class="CRUD-buttons-container-2">
+      <input type="button" [disabled]="saveBtn1IsSelected" (click)="saveOrUpdateAnnualStrategyGoals()"  value="Save/Update">
+      <input type="button" onclick="document.getElementById('SaveOrUpdate-popup').style.display='none'" class="cancelbtn" value="Cancel">
+    </div>
+
+   </div>
+         <!-- popup for input valiue selection -->
+         <div  id="popup-input-values2" class="modal1" >
+          <div class="modal-content1 animate  container">
+            <div class="list-div">
+
+               <!-- <tr  *ngFor="let StrategicThemes of StrategicThemesList;index as i " [ngClass]="{'active': selectedStrategicThemesRowIndex == i}"  (click)="selectStrategicThemesTableRow(i);"> -->
+                <table>
+
+                  <tr>
+                    <th>Strategic Theme ID</th>
+                    <th>Strategy NO</th>
+                    <th>Strategic Theme</th>
+                    <th>Strategic Result</th>
+                    <th>Strategic Theme Description</th>
+                  </tr>
+                  <tr  *ngFor="let _strategicTheme of StrategicThemesList ;index as i " [ngClass]="{'active': selectedStrategicThemesRowIndex == i}"  (click)="selectStrategicThemesTableRow(i);">
+                    <td>{{ _strategicTheme.strategic_ThemeID }} </td>
+                    <td> {{ _strategicTheme.strategy_NO }}  </td>
+                    <td> {{ _strategicTheme.strategic_Theme }}  </td>
+                    <td> {{ _strategicTheme.strategic_Result }}  </td>
+                    <td> {{ _strategicTheme.strategic_Theme_Description }}  </td>
+                  </tr>
+
+                </table>
+             </div>
+               <!-- <div>
+                 <input type="button" onclick="document.getElementById('popup-input-values').style.display='none'" class="cancelbtn" value="Cancel">
+               </div> -->
+               <div class="cancel-btn-div">
+                 <input type="button"  (click)="OnSelectStrategicTheme2()"  value="Select" class="selectBtn2">
+                 <input type="button"  onclick="document.getElementById('popup-input-values2').style.display='none'" class="cancelbtn2" value="Cancel">
+               </div>
+           </div>
+        </div>
+        <!-- end popup -->
+  </div>
+</div>
+
+<!-- popup end -->
+
+
+  <div class="container">
+    <!-- dividing the form in two (left and right) -->
+  <div class="form-divider">
+
+    <!-- left form panel -->
+    <div class="left-form">
+      <div class="row">
+        <label for="ASPA_ID"><b>ASPA ID</b></label>
+        <input type="text" disabled [(ngModel)]="AnnualStrategicPlanAssignment.aspA_ID" name="ASPA_ID" id="ASPA_ID">
+      </div>
+
+      <div class="row">
+        <label for="ASGD_ID"><b>ASGD ID</b></label>
+        <input type="text" disabled [(ngModel)]="AnnualStrategicPlanAssignment.asgD_ID" name="asgD_ID" id="asgD_ID">
+      </div>
+      <div class="row">
+        <label for="assigned_body"><b>Assigned Body</b></label>
+        <select id="assigned_body" (change)="onAssignedBodyChange($event.target.value)" [(ngModel)]="AnnualStrategicPlanAssignment.assigned_Body">
+          <option selected>select</option>
+          <option *ngFor="let data of DepartmentsList" [value]="data.department_Code">{{data.department_Name}}</option>
+        </select>
+      </div>
+
+      <!-- <div class="row">
+        <label for="responsible_role"><b>Responsible Role</b></label>
+        <select id="responsible_role" (change)="onResponsibleRoleChange($event.target.value)" [disabled]="AnnualStrategicPlanAssignment.assigned_Body == null" [(ngModel)]="AnnualStrategicPlanAssignment.responsible_Role">
+          <option selected>select</option>
+          <option *ngFor="let data of OrganizationalStructuresList" [value]="data.structure_ID">{{data.roleName}}</option>
+        </select>
+      </div> -->
+
+      <div class="row">
+        <label for="responsible_role"><b>Responsible Role</b></label>
+        <select id="responsible_role" (change)="onResponsibleRoleChange($event.target.value)" [disabled]="AnnualStrategicPlanAssignment.assigned_Body == null" [(ngModel)]="AnnualStrategicPlanAssignment.responsible_Role">
+          <option selected>select</option>
+          <option *ngFor="let data of ResponsibleUserList" [value]="data.structure_ID">{{data.Employee_name}}</option>
+        </select>
+      </div>
+<!--
+      <div class="row">
+        <label for="responsible_user_ID"><b>Responsible User ID</b></label>
+        <input type="text" disabled [(ngModel)]="Responsible_User_ID" name="Responsible_User_ID" id="Responsible_User_ID" placeholder="Responsible User ID">
+
+      </div> -->
+
+      <div class="row">
+        <label for="is_active"><b>Is Active</b></label>
+        <input type="checkbox" id="is_active" [(ngModel)]="AnnualStrategicPlanAssignment.is_Active" name="is_active">
+      </div>
+
+      <div class="row">
+        <label for="assigned_by"><b>Assigned By</b></label>
+        <input type="text" disabled [value]="CurrentUsername" name="assigned_By" id="assigned_By" placeholder="Assigned By">
+      </div>
+    </div>
+    <!-- right form panel -->
+    <div class="right-form" >
+    </div>
+  </div>
+
+<div class="CRUD-buttons-container-2">
+  <input type="button"  (click)="newAnnualStrategicPlanAssignment()" value="New"
+    [disabled]="
+    this.AnnualStrategicPlanAssignment.asgD_ID == undefined &&
+    this.AnnualStrategicPlanAssignment.assigned_Body == undefined &&
+    this.AnnualStrategicPlanAssignment.responsible_Role == undefined &&
+    this.AnnualStrategicPlanAssignment.is_Active == undefined &&
+    this.AnnualStrategicPlanAssignment.assigned_By == undefined"
+    >
+  <input type="button"  (click)="saveOrUpdateAnnualStrategicPlanAssignment()" [disabled]="saveBtn2IsSelected" value="Save/Update" >
+  <input type="button"  (click)="deleteAnnualStrategicPlanAssignment()" [disabled]="deleteBtn2IsSelected" value="Delete">
+</div>
+
+</div>
+
+  <table>
+    <tr>
+      <th>ASPA ID</th>
+      <th>ASGD ID</th>
+      <th>Assigned Body</th>
+      <th>Responsible Role</th>
+      <th>Is Active</th>
+      <th>Assigned By</th>
+    </tr>
+    <tr  *ngFor="let _AnnualStrategicPlanAssignment of AnnualStrategicPlanAssignmentList2 ;index as i " [ngClass]="{'active': selectedAnnualStrategicPlanAssignmentRowIndex == i}"  (click)="selectAnnualStrategicPlanAssignmentTableRow(i);">
+      <td> {{ _AnnualStrategicPlanAssignment.aspA_ID }} </td>
+      <td> {{ _AnnualStrategicPlanAssignment.asgD_ID }} </td>
+      <td> {{ _AnnualStrategicPlanAssignment.assigned_Body }} </td>
+      <td> {{ _AnnualStrategicPlanAssignment.responsible_Role }} </td>
+      <td> {{ _AnnualStrategicPlanAssignment.is_Active }} </td>
+      <td> {{ _AnnualStrategicPlanAssignment.assigned_By }} </td>
+    </tr>
+
+  </table>
+
+

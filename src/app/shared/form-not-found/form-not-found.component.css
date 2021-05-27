@@ -1,0 +1,31 @@
+.text {
+  background-color: #fff;
+  border-top: 2px solid #1ab394;
+  padding: 1em 1em 1.6428em;
+  box-sizing: border-box;
+  font-size: small;
+  vertical-align: baseline;
+  color: #6d7072;
+  font-family: Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  display: block;
+}
+
+h1 {
+  color: #3678be;
+  font-family: "Segoe UI Light", "Segoe UI", Tahoma, Helvetica, Arial, Verdana,
+    sans-serif;
+  text-rendering: optimizelegibility;
+  letter-spacing: normal;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  text-align: left;
+  border-bottom: 1px dotted #28a745;
+  display: block;
+  font-weight: 300;
+  margin: 2rem 0 1rem;
+  padding-bottom: 0.5rem;
+  font-size: 2.5rem;
+}

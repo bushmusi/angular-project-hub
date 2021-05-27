@@ -1,0 +1,761 @@
+<div class="table-countainer">
+<table>
+  <tr>
+    <th>ipA_ID</th>
+    <th>innitiative_ID</th>
+    <th>assigned_Body</th>
+    <th>assigned_Body_Name</th>
+    <th>responsible_Role</th>
+    <th>responsible_Role_Name</th>
+    <th>is_Active</th>
+    <th>applicationCode</th>
+    <th>application_NO</th>
+    <th>assigned_By</th>
+    <th>assigned_By_name</th>
+    <th>is_Owner</th>
+  </tr>
+  <tr  *ngFor="let View_BSC_IPAG of ViewBSCInnitiativePlanAssigmentGridList;index as i " [ngClass]="{'active': selected_View_BSCIPAG_RowIndex == i}"  (click)="selectView_BSCIPAGTableRow(i,View_BSC_IPAG.innitiative_ID );">
+    <td> {{  View_BSC_IPAG.ipA_ID  }} </td>
+    <td> {{  View_BSC_IPAG.innitiative_ID  }} </td>
+    <td> {{  View_BSC_IPAG.assigned_Body  }} </td>
+    <td> {{  View_BSC_IPAG.assigned_Body_Name  }} </td>
+    <td> {{  View_BSC_IPAG.responsible_Role  }} </td>
+    <td> {{  View_BSC_IPAG.responsible_Role_Name  }} </td>
+    <td> {{  View_BSC_IPAG.is_Active  }} </td>
+    <td> {{  View_BSC_IPAG.applicationCode  }} </td>
+    <td> {{  View_BSC_IPAG.application_NO  }} </td>
+    <td> {{  View_BSC_IPAG.assigned_By  }} </td>
+    <td> {{  View_BSC_IPAG.assigned_By_name  }} </td>
+    <td> {{  View_BSC_IPAG.is_Owner  }} </td>
+  </tr>
+</table>
+</div>
+
+<!-- new popup -->
+
+<div  id="new-popup" class="modal">
+  <div class="modal-content animate  container">
+    <div class="container">
+      <div class="popup-form-divider">
+        <div>
+          <div class="row">
+            <label for="Innitiative_ID"><b>Innitiative ID</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.innitiative_ID" placeholder="Innitiative ID" name="Innitiative_ID" id="Innitiative_ID">
+          </div>
+
+          <div class="row">
+            <label for="aspA_ID"><b>ASPA ID</b></label>
+            <select id="aspA_ID" [(ngModel)]="StrategicInnitiative.aspA_ID" >
+              <option selected="selected">select</option>
+              <option *ngFor="let data of AnnualStrategicPlanAssignmentList" [value]="data.aspA_ID">{{data.aspA_ID}}</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label for="Type_Of_Innitiative"><b>Type Of Innitiative</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.type_Of_Innitiative" placeholder="Type Of Innitiative" name="Type_Of_Innitiative" id="Type_Of_Innitiative">
+          </div>
+
+          <div class="row">
+            <label for="Innitiative"><b>Innitiative</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.innitiative" placeholder="Innitiative" name="Innitiative" id="Innitiative">
+          </div>
+
+          <div class="row">
+            <label for="Description"><b>Description</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.description" placeholder="Description" name="Description" id="Description">
+          </div>
+
+          <div class="row">
+            <label for="Estimated_Cost_In_Birr"><b>Estimated Cost In Birr</b></label>
+            <input type="number"
+            (keypress)="numberOnly($event)"
+            min="0"
+            step="1"
+            oninput="validity.valid||(value='');"
+             [(ngModel)]="StrategicInnitiative.estimated_Cost_In_Birr" placeholder="Estimated Cost In Birr" name="Estimated_Cost_In_Birr" id="Estimated_Cost_In_Birr">
+          </div>
+
+          <div class="row">
+            <label for="Value_In_Per"><b>Value In Per</b></label>
+            <input type="number"
+            min="0"
+            step="any"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="StrategicInnitiative.value_In_Per" placeholder="Value In Per" name="Value_In_Per" id="Value_In_Per">
+          </div>
+
+          <div class="row">
+            <label for="Unit"><b>Unit</b></label>
+            <select id="Unit" [(ngModel)]="StrategicInnitiative.unit" >
+              <option selected="selected">select</option>
+              <option *ngFor="let data of cUnitList" [value]="data.unit">{{data.unit}}</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label for="Expected_Result"><b>Expected Result</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.expected_Result" placeholder="Expected Result" name="Expected_Result" id="Expected_Result">
+          </div>
+
+          <div class="row">
+            <label for="Required_Inputs"><b>Required Inputs</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.required_Inputs" placeholder="Required Inputs" name="Required_Inputs" id="Required_Inputs">
+          </div>
+
+          <div class="row">
+            <label for="EstimatedBudget"><b>Estimated Budget</b></label>
+            <input
+            type="number"
+            min="0"
+            step="any"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="StrategicInnitiative.estimatedBudget"
+             placeholder="Estimated Budget" name="EstimatedBudget" id="EstimatedBudget">
+          </div>
+
+          <div class="row">
+            <label for="budget_Account"><b>Budget Account</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.budget_Account" placeholder="Budget Account" name="budget_Account" id="budget_Account">
+          </div>
+
+        </div>
+
+        <div>
+
+          <div class="row">
+            <label for="StartDate"><b>Start Date</b></label>
+            <input type="datetime-local" [(ngModel)]="StrategicInnitiative.startDate" placeholder="Start Date" name="StartDate" id="StartDate">
+          </div>
+
+          <div class="row">
+            <label for="EndDate"><b>End Date</b></label>
+            <input type="datetime-local" [(ngModel)]="StrategicInnitiative.endDate" placeholder="End Date" name="EndDate" id="EndDate">
+          </div>
+
+          <div class="row">
+            <label for="ParentInnitiative_ID"><b>ParentInnitiative ID</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.parentInnitiative_ID" placeholder="ParentInnitiative ID" name="ParentInnitiative_ID" id="ParentInnitiative_ID">
+          </div>
+
+          <div class="row">
+            <label for="Is_Active"><b>Is Active</b></label>
+            <input type="checkbox" [(ngModel)]="StrategicInnitiative.is_Active" name="Is_Active" id="Is_Active">
+          </div>
+
+          <div class="row">
+            <label for="Created_By_User"><b>Created By User</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.created_By_User" placeholder="Created By User" name="Created_By_User" id="Created_By_User">
+          </div>
+
+          <div class="row">
+            <label for="acctual"><b>Acctual</b></label>
+            <input
+            type="number"
+            min="0"
+            step="any"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="StrategicInnitiative.acctual"
+            placeholder="Acctual" name="acctual" id="acctual">
+          </div>
+
+          <div class="row">
+            <label for="variance"><b>Variance</b></label>
+            <input type="number"
+            min="0"
+            step="any"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="StrategicInnitiative.variance" placeholder="Variance" name="variance" id="variance">
+          </div>
+
+          <div class="row">
+            <label for="duration_In_Days"><b>Duration In Days</b></label>
+            <input
+            type="number"
+            min="0"
+            step="any"
+            oninput="validity.valid||(value='');"
+             [(ngModel)]="StrategicInnitiative.duration_In_Days" placeholder="Duration In Days" name="duration_In_Days" id="duration_In_Days">
+          </div>
+
+          <div class="row">
+            <label for="priority"><b>Priority</b></label>
+            <input
+            type="number"
+            (keypress)="numberOnly($event)"
+            min="0"
+            step="1"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="StrategicInnitiative.priority" [(ngModel)]="StrategicInnitiative.priority" placeholder="Priority" name="priority" id="priority">
+          </div>
+
+          <div class="row">
+            <label for="document_Details_ID"><b>Document Details ID</b></label>
+            <select disabled id="document_Details_ID" [(ngModel)]="StrategicInnitiative.document_Details_ID" >
+              <option selected="selected">select</option>
+              <option *ngFor="let data of DocumentDetailList" [value]="data.id">{{data.title}}</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label for="document"><b>Document</b></label>
+            <input type="file" [(ngModel)]="StrategicInnitiative.document"
+            name="document" id="document" placeholder="document"
+            (change)="handleUpload($event)">
+          </div>
+
+        </div>
+      </div>
+      <div class="CRUD-buttons-container-for-popup">
+        <input type="button"  (click)="saveStrategicInnitiative()" [disabled]="newBtn1IsSelected" value="Save">
+        <input type="button" onclick="document.getElementById('new-popup').style.display='none'" class="cancelbtn" value="Cancel">
+      </div>
+   </div>
+  </div>
+</div>
+
+<!-- popup end -->
+
+
+<!-- Save/Update popup -->
+
+ <div  id="SaveOrUpdate-popup" class="modal">
+  <div class="modal-content animate  container">
+    <div class="container">
+
+      <div class="popup-form-divider">
+        <div>
+          <div class="row">
+            <label for="Innitiative_ID"><b>Innitiative ID</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.innitiative_ID" placeholder="Innitiative ID" name="Innitiative_ID" id="Innitiative_ID">
+          </div>
+
+          <div class="row">
+            <label for="aspA_ID"><b>ASPA ID</b></label>
+            <select id="aspA_ID" [(ngModel)]="StrategicInnitiative.aspA_ID" >
+              <option selected="selected">select</option>
+              <option *ngFor="let data of AnnualStrategicPlanAssignmentList" [value]="data.aspA_ID">{{data.aspA_ID}}</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label for="Type_Of_Innitiative"><b>Type Of Innitiative</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.type_Of_Innitiative" placeholder="Type Of Innitiative" name="Type_Of_Innitiative" id="Type_Of_Innitiative">
+          </div>
+
+          <div class="row">
+            <label for="Innitiative"><b>Innitiative</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.innitiative" placeholder="Innitiative" name="Innitiative" id="Innitiative">
+          </div>
+
+          <div class="row">
+            <label for="Description"><b>Description</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.description" placeholder="Description" name="Description" id="Description">
+          </div>
+
+          <div class="row">
+            <label for="Estimated_Cost_In_Birr"><b>Estimated Cost In Birr</b></label>
+            <input type="number"
+            (keypress)="numberOnly($event)"
+            min="0"
+            step="1"
+            oninput="validity.valid||(value='');"
+             [(ngModel)]="StrategicInnitiative.estimated_Cost_In_Birr" placeholder="Estimated Cost In Birr" name="Estimated_Cost_In_Birr" id="Estimated_Cost_In_Birr">
+          </div>
+
+          <div class="row">
+            <label for="Value_In_Per"><b>Value In Per</b></label>
+            <input type="number"
+            min="0"
+            step="any"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="StrategicInnitiative.value_In_Per" placeholder="Value In Per" name="Value_In_Per" id="Value_In_Per">
+          </div>
+
+          <div class="row">
+            <label for="Unit"><b>Unit</b></label>
+            <select id="Unit" [(ngModel)]="StrategicInnitiative.unit" >
+              <option selected="selected">select</option>
+              <option *ngFor="let data of cUnitList" [value]="data.unit">{{data.unit}}</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label for="Expected_Result"><b>Expected Result</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.expected_Result" placeholder="Expected Result" name="Expected_Result" id="Expected_Result">
+          </div>
+
+          <div class="row">
+            <label for="Required_Inputs"><b>Required Inputs</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.required_Inputs" placeholder="Required Inputs" name="Required_Inputs" id="Required_Inputs">
+          </div>
+
+          <div class="row">
+            <label for="EstimatedBudget"><b>Estimated Budget</b></label>
+            <input
+            type="number"
+            min="0"
+            step="any"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="StrategicInnitiative.estimatedBudget"
+             placeholder="Estimated Budget" name="EstimatedBudget" id="EstimatedBudget">
+          </div>
+
+          <div class="row">
+            <label for="budget_Account"><b>Budget Account</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.budget_Account" placeholder="Budget Account" name="budget_Account" id="budget_Account">
+          </div>
+
+
+        </div>
+
+        <div>
+
+          <div class="row">
+            <label for="StartDate"><b>Start Date</b></label>
+            <input type="datetime-local" [(ngModel)]="StrategicInnitiative.startDate" placeholder="Start Date" name="StartDate" id="StartDate">
+          </div>
+
+          <div class="row">
+            <label for="EndDate"><b>End Date</b></label>
+            <input type="datetime-local" [(ngModel)]="StrategicInnitiative.endDate" placeholder="End Date" name="EndDate" id="EndDate">
+          </div>
+
+          <div class="row">
+            <label for="ParentInnitiative_ID"><b>ParentInnitiative ID</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.parentInnitiative_ID" placeholder="ParentInnitiative ID" name="ParentInnitiative_ID" id="ParentInnitiative_ID">
+          </div>
+
+          <div class="row">
+            <label for="Is_Active"><b>Is Active</b></label>
+            <input type="checkbox" [(ngModel)]="StrategicInnitiative.is_Active" name="Is_Active" id="Is_Active">
+          </div>
+
+          <div class="row">
+            <label for="Created_By_User"><b>Created By User</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.created_By_User" placeholder="Created By User" name="Created_By_User" id="Created_By_User">
+          </div>
+
+          <div class="row">
+            <label for="acctual"><b>Acctual</b></label>
+            <input
+            type="number"
+            min="0"
+            step="any"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="StrategicInnitiative.acctual"
+            placeholder="Acctual" name="acctual" id="acctual">
+          </div>
+
+          <div class="row">
+            <label for="variance"><b>Variance</b></label>
+            <input type="number"
+            min="0"
+            step="any"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="StrategicInnitiative.variance" placeholder="Variance" name="variance" id="variance">
+          </div>
+
+          <div class="row">
+            <label for="duration_In_Days"><b>Duration In Days</b></label>
+            <input
+            type="number"
+            min="0"
+            step="any"
+            oninput="validity.valid||(value='');"
+             [(ngModel)]="StrategicInnitiative.duration_In_Days" placeholder="Duration In Days" name="duration_In_Days" id="duration_In_Days">
+          </div>
+
+          <div class="row">
+            <label for="priority"><b>Priority</b></label>
+            <input
+            type="number"
+            (keypress)="numberOnly($event)"
+            min="0"
+            step="1"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="StrategicInnitiative.priority" [(ngModel)]="StrategicInnitiative.priority" placeholder="Priority" name="priority" id="priority">
+          </div>
+
+          <div class="row">
+            <label for="document_Details_ID"><b>Document Details ID</b></label>
+            <select disabled id="document_Details_ID" [(ngModel)]="StrategicInnitiative.document_Details_ID" >
+              <option selected="selected">select</option>
+              <option *ngFor="let data of DocumentDetailList" [value]="data.id">{{data.title}}</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label for="document"><b>Document</b></label>
+            <input type="file" [(ngModel)]="StrategicInnitiative.document"
+            name="document" id="document" placeholder="document"
+            (change)="handleUpload($event)">
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="CRUD-buttons-container-for-popup">
+        <input type="button" (click)="saveOrUpdateStrategicInnitiative()" [disabled]="saveBtn1IsSelected" value="Save/Update">
+        <input type="button" onclick="document.getElementById('SaveOrUpdate-popup').style.display='none'" class="cancelbtn" value="Cancel">
+      </div>
+
+   </div>
+  </div>
+</div>
+
+<!-- popup end -->
+
+      <!-- KPI popup for input value selection -->
+      <div  id="kpi-popup-input-values" class="modal" >
+        <div class="modal-content2 animate  container">
+          <div class="list-div" >
+            <p-table
+            #dt2
+            [value]="KeyPerformanceIndicatorsList"
+            dataKey="id"
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10, 25, 50]"
+            [loading]="loading"
+            styleClass="p-datatable-customers"
+            [paginator]="true"
+            appendTo="body"
+            [autoLayout]="true"
+            [tableStyle]="{ 'table-layout': 'auto' }"
+            [resizableColumns]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+
+          >    <ng-template pTemplate="header">
+                <tr>
+                  <th>KpI ID</th>
+                  <th>Performance Indicator</th>
+                  <th>Description</th>
+                  <th>Perspective ID</th>
+                  <th>Update Interval Weekly</th>
+                  <th>Update Interval Monthly</th>
+                  <th>Update Interval 6Monthly</th>
+                  <th>Group Function</th>
+                  <th>Unit</th>
+                  <th>IS Quantitative</th>
+                  <th>Is Composite</th>
+                </tr>
+                <tr>
+                  <th>
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Search by kpI ID"
+                      class="p-column-filter"
+                      (input)="
+                        dt2.filter($event.target.value,
+                          'kpI_ID',
+                          'startsWith');
+                        newKeyPerformanceIndicators();
+                      "
+                    />
+                  </th>
+
+                  <th>
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Search by performance_Indicator"
+                      class="p-column-filter"
+                      (input)="
+                        dt2.filter($event.target.value,
+                          'performance_Indicator',
+                          'startsWith');
+                        newKeyPerformanceIndicators();
+                      "
+                    />
+                  </th>
+
+                  <th>
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Search by description"
+                      class="p-column-filter"
+                      (input)="
+                        dt2.filter($event.target.value,
+                          'description',
+                          'startsWith');
+                        newKeyPerformanceIndicators();
+                      "
+                    />
+                  </th>
+
+                  <th>
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Search by perspective_ID"
+                      class="p-column-filter"
+                      (input)="
+                        dt2.filter($event.target.value,
+                          'perspective_ID',
+                          'startsWith');
+                        newKeyPerformanceIndicators();
+                      "
+                    />
+                  </th>
+
+                  <th>
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Search by update_Interval_Weekly"
+                      class="p-column-filter"
+                      (input)="
+                        dt2.filter($event.target.value,
+                          'update_Interval_Weekly',
+                          'startsWith');
+                        newKeyPerformanceIndicators();
+                      "
+                    />
+                  </th>
+
+                  <th>
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Search by update_Interval_Monthly"
+                      class="p-column-filter"
+                      (input)="
+                        dt2.filter($event.target.value,
+                          'update_Interval_Monthly',
+                          'startsWith');
+                        newKeyPerformanceIndicators();
+                      "
+                    />
+                  </th>
+
+                  <th>
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Search by update_Interval_6Monthly"
+                      class="p-column-filter"
+                      (input)="
+                        dt2.filter($event.target.value,
+                          'update_Interval_6Monthly',
+                          'startsWith');
+                        newKeyPerformanceIndicators();
+                      "
+                    />
+                  </th>
+
+                  <th>
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Search by group_Function"
+                      class="p-column-filter"
+                      (input)="
+                        dt2.filter($event.target.value,
+                          'group_Function',
+                          'startsWith');
+                        newKeyPerformanceIndicators();
+                      "
+                    />
+                  </th>
+
+                  <th>
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Search by unit"
+                      class="p-column-filter"
+                      (input)="
+                        dt2.filter($event.target.value,
+                          'unit',
+                          'startsWith');
+                        newKeyPerformanceIndicators();
+                      "
+                    />
+                  </th>
+
+                  <th>
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Search by iS_Quantitative"
+                      class="p-column-filter"
+                      (input)="
+                        dt2.filter($event.target.value,
+                          'iS_Quantitative',
+                          'startsWith');
+                        newKeyPerformanceIndicators();
+                      "
+                    />
+                  </th>
+
+                  <th>
+                    <input
+                      pInputText
+                      type="text"
+                      placeholder="Search by is_Composite"
+                      class="p-column-filter"
+                      (input)="
+                        dt2.filter($event.target.value,
+                          'is_Composite',
+                          'startsWith');
+                        newKeyPerformanceIndicators();
+                      "
+                    />
+                  </th>
+                </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-_KeyPerformanceIndicator let-i="rowIndex">
+                  <tr
+                  [ngStyle]="{'background-color':  selectedKeyPerformanceIndicatorsRowIndex == i? 'yellow':null }"
+                    (click)="selectKeyPerformanceIndicatorsTableRow(i, _KeyPerformanceIndicator.kpI_ID)"
+                  >
+                  <td>{{ _KeyPerformanceIndicator.kpI_ID }} </td>
+                  <td>{{ _KeyPerformanceIndicator.performance_Indicator }} </td>
+                  <td>{{ _KeyPerformanceIndicator.description }} </td>
+                  <td>{{ _KeyPerformanceIndicator.perspective_ID }} </td>
+                  <td>{{ _KeyPerformanceIndicator.update_Interval_Weekly }} </td>
+                  <td>{{ _KeyPerformanceIndicator.update_Interval_Monthly }} </td>
+                  <td>{{ _KeyPerformanceIndicator.update_Interval_6Monthly }} </td>
+                  <td>{{ _KeyPerformanceIndicator.group_Function }} </td>
+                  <td>{{ _KeyPerformanceIndicator.unit }} </td>
+                  <td>{{ _KeyPerformanceIndicator.iS_Quantitative }} </td>
+                  <td>{{ _KeyPerformanceIndicator.is_Composite }} </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td [attr.colspan]="KeyPerformanceIndicatorsList?.length">No Items found.</td>
+                </tr>
+              </ng-template>
+              </p-table>
+           </div>
+             <div class="cancel-btn-div">
+               <input type="button"  (click)="OnSelectKeyPerformanceIndicators()"  value="Select" class="selectBtn2">
+               <input type="button"  (click)="OnKPIPopupCancel()" class="cancelbtn2" value="Cancel">
+             </div>
+         </div>
+      </div>
+    <!-- end popup -->
+
+
+<div class="container">
+
+<div class="form-divider">
+
+  <!-- left panel form -->
+
+  <div class="left-panel-form">
+
+    <div class="row">
+      <label>KPI Mapping ID</label>
+      <input type="text" disabled [(ngModel)]="KPIGoalMapping.kpiMapping_ID" id="kpiMapping_ID" name="kpiMapping_ID" placeholder="KPI Mapping ID">
+    </div>
+
+    <div class="row">
+      <label>Initiative ID</label>
+      <input type="text" disabled [(ngModel)]="KPIGoalMapping.innitiative_ID" id="innitiative_ID" name="innitiative_ID" placeholder="Initiative ID">
+    </div>
+
+    <div class="row">
+      <label>KPI ID</label>
+      <input type="text" (focus)="onFocus()" [(ngModel)]="KPIGoalMapping.kpI_ID" id="kpI_ID" name="kpI_ID" placeholder="KPI ID">
+    </div>
+
+    <div class="row">
+      <label>Base Line</label>
+      <input type="number" oninput="validity.valid||(value='');" step="any" [(ngModel)]="KPIGoalMapping.baseLine" id="baseLine" name="baseLine" placeholder="Base Line">
+    </div>
+
+    <div class="row">
+      <label>Target</label>
+      <input type="number" oninput="validity.valid||(value='');" step="any" [(ngModel)]="KPIGoalMapping.target" id="target" name="target" placeholder="Target">
+    </div>
+
+    <div class="row">
+      <label>Min</label>
+      <input type="number" oninput="validity.valid||(value='');" step="any" [(ngModel)]="KPIGoalMapping.min" id="min" name="min" placeholder="Min">
+    </div>
+
+  </div>
+
+  <!-- right panel form -->
+  <div class="right-panel-form">
+
+    <div class="row">
+      <label>Max</label>
+      <input type="number" oninput="validity.valid||(value='');" step="any" [(ngModel)]="KPIGoalMapping.max" id="max" name="max" placeholder="Max">
+    </div>
+
+    <div class="row">
+      <label>Value</label>
+      <input type="number" oninput="validity.valid||(value='');" step="any" [(ngModel)]="KPIGoalMapping.value" id="value" name="value" placeholder="Value">
+    </div>
+
+    <div class="row">
+      <label>Weight</label>
+      <input type="number" oninput="validity.valid||(value='');" step="any" [(ngModel)]="KPIGoalMapping.weight" id="weight" name="weight" placeholder="Weight">
+    </div>
+
+    <div class="row">
+      <label>Accomplished Per</label>
+      <input type="number" oninput="validity.valid||(value='');" step="any" [(ngModel)]="KPIGoalMapping.accomplished_Per" id="accomplished_Per" name="accomplished_Per" placeholder="Accomplished Per">
+    </div>
+
+    <div class="row">
+      <label>Varance</label>
+      <input type="number" oninput="validity.valid||(value='');" step="any" [(ngModel)]="KPIGoalMapping.varance" id="varance" name="varance" placeholder="Varance">
+    </div>
+
+  </div>
+
+  <div class="CRUD-buttons-container-1">
+    <input type="button" class="button" value="New" (click)="newStrategicInnitiativePopup()">
+    <input type="button" class="button" [disabled]="this.StrategicInnitiative.innitiative_ID == null" (click)="getStrategicInnitiativePopup()" value="Save/Update">
+    <input type="button" class="button" (click)="deleteStrategicInnitiative()" [disabled]="deleteBtn1IsSelected || this.StrategicInnitiative.innitiative_ID == null" value="Delete">
+  </div>
+
+</div>
+
+<div class="CRUD-buttons-container-2">
+  <input type="button"  (click)="newKPIGoalMapping()" value="New">
+  <input type="button"  (click)="saveOrUpdateKPIGoalMapping()" [disabled]="saveBtn2IsSelected" value="Save/Update" >
+  <input type="button"  (click)="deleteKPIGoalMapping()" [disabled]="deleteBtn2IsSelected" value="Delete">
+</div>
+
+<table>
+
+  <tr>
+    <th>KPI Mapping ID</th>
+    <th>KPI ID</th>
+    <th>Initiative ID</th>
+    <th>Base Line</th>
+    <th>Target</th>
+    <th>Min</th>
+    <th>Max</th>
+    <th>Value</th>
+    <th>Weight</th>
+    <th>Accomplished per</th>
+    <th>Variance</th>
+  </tr>
+  <tr  *ngFor="let _KPIGoalMapping of KPIGoalMappingList2;index as i " [ngClass]="{'active': selectedKPIGoalMappingRowIndex == i}"(click)="selectKPIGoalMappingTableRow(i);" outerLinkActive="active">
+    <td> {{ _KPIGoalMapping.kpiMapping_ID  }} </td>
+    <td> {{ _KPIGoalMapping.kpI_ID  }} </td>
+    <td> {{ _KPIGoalMapping.innitiative_ID  }} </td>
+    <td> {{ _KPIGoalMapping.baseLine  }} </td>
+    <td> {{ _KPIGoalMapping.target  }} </td>
+    <td> {{ _KPIGoalMapping.min  }} </td>
+    <td> {{ _KPIGoalMapping.max  }} </td>
+    <td> {{ _KPIGoalMapping.value  }} </td>
+    <td> {{ _KPIGoalMapping.weight  }} </td>
+    <td> {{ _KPIGoalMapping.accomplished_Per  }} </td>
+    <td> {{ _KPIGoalMapping.varance  }} </td>
+  </tr>
+
+</table>
+
+
+</div>

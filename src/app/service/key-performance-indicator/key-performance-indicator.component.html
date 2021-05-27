@@ -1,0 +1,166 @@
+
+<div class="container">
+
+  <!-- dividing the form in two (left and right) -->
+<div class="form-divider">
+
+  <!-- left form panel -->
+  <div class="left-form">
+
+    <div class="row">
+      <label for="kpI_ID"><b>KPI ID</b></label>
+      <input type="text"  name="kpI_ID" id="kpI_ID" disabled [(ngModel)]="KeyPerformanceIndicators.kpI_ID">
+    </div>
+
+    <div class="row">
+      <label for="group_Function"><b>Group Function</b></label>
+      <input type="text"  name="group_Function" id="group_Function" [(ngModel)]="KeyPerformanceIndicators.group_Function">
+    </div>
+
+    <div class="row">
+      <label for="description"><b>Description</b></label>
+      <textarea id="description" name="description" placeholder="Description..."  [(ngModel)]="KeyPerformanceIndicators.description"></textarea>
+    </div>
+
+    <div class="row">
+      <label for="performance_indicator"><b>Performance Indicator</b></label>
+      <input type="text"  name="performance_indicator" id="performance_indicator" [(ngModel)]="KeyPerformanceIndicators.performance_Indicator">
+    </div>
+
+
+     <div class="row">
+        <label for="perspective_ID"><b>Perspective ID</b></label>
+        <select id="perspective_ID"  [(ngModel)]="KeyPerformanceIndicators.perspective_ID">
+          <option selected>select</option>
+          <option *ngFor="let data of PerspectivesList" [value]="data.perspective_ID">{{data.perspective_Name}}</option>
+        </select>
+      </div>
+  <!--
+    <div class="row">
+      <label for="KPI_mapping_ID"><b>KPI Mapping ID</b></label>
+      <select id="KPI_mapping_ID" >
+        <option value="select">select</option>
+      </select>
+    </div>
+    <div class="row">
+      <label for="budget_year"><b>Budget Year</b></label>
+      <input type="date"  name="budget_year" id="budget_year"  >
+    </div> -->
+
+  </div>
+
+  <!-- right form panel -->
+    <div class="right-form" >
+
+      <div class="row">
+        <label for="unit"><b>Unit</b></label>
+        <select id="unit"  [(ngModel)]="KeyPerformanceIndicators.unit">
+          <option selected>select</option>
+          <option *ngFor="let data of cUnitList" [value]="data.unit">{{data.unit}}</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="update_Interval_Weekly"><b>Update Interval Weekly</b></label>
+        <input type="checkbox"  name="update_Interval_Weekly" id="update_Interval_Weekly"  [(ngModel)]="KeyPerformanceIndicators.update_Interval_Weekly">
+      </div>
+
+
+      <div class="row">
+        <label for="update_Interval_Monthly"><b>Update Interval Monthly</b></label>
+        <input type="checkbox"  name="update_Interval_Monthly" id="update_Interval_Monthly"  [(ngModel)]="KeyPerformanceIndicators.update_Interval_Monthly">
+      </div>
+
+
+    <div class="row">
+      <label for="update_Interval_6Monthly"><b>Update Interval 6Monthly</b></label>
+      <input type="checkbox"  name="update_Interval_6Monthly" id="update_Interval_6Monthly"  [(ngModel)]="KeyPerformanceIndicators.update_Interval_6Monthly">
+    </div>
+
+    <div class="row">
+      <label for="iS_Quantitative"><b>IS Quantitative</b></label>
+      <input type="checkbox"  name="iS_Quantitative" id="iS_Quantitative"  [(ngModel)]="KeyPerformanceIndicators.iS_Quantitative">
+    </div>
+
+
+    <div class="row">
+      <label for="is_Composite"><b>Is Composite</b></label>
+      <input type="checkbox"  name="is_Composite" id="is_Composite"  [(ngModel)]="KeyPerformanceIndicators.is_Composite">
+    </div>
+    <!-- <div class="row">
+      <label for="value"><b>Value</b></label>
+      <select id="value"  >
+        <option value="select">select</option>
+      </select>
+    </div> -->
+
+    <!-- <div class="row">
+      <label for="perspective_goal_ID"><b>Perspective Goal ID</b></label>
+      <select id="perspective_goal_ID"  >
+        <option value="select">select</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <label for="base_year_performance"><b>Base Year Performance</b></label>
+      <select id="base_year_performance" >
+        <option value="select">select</option>
+      </select>
+    </div>
+    <div class="row">
+      <label for="base_year"><b>Base Year</b></label>
+      <input type="date"  name="base_year" id="base_year"  >
+    </div> -->
+
+  </div>
+</div>
+
+<div class="CRUD-buttons-container-2">
+  <input type="button"  (click)="newKeyPerformanceIndicators()" value="New"
+  [disabled]="
+  this.KeyPerformanceIndicators.performance_Indicator == undefined &&
+  this.KeyPerformanceIndicators.description == undefined &&
+  this.KeyPerformanceIndicators.unit == undefined &&
+  this.KeyPerformanceIndicators.perspective_ID == undefined &&
+  this.KeyPerformanceIndicators.update_Interval_Weekly == undefined &&
+  this.KeyPerformanceIndicators.update_Interval_Monthly == undefined &&
+  this.KeyPerformanceIndicators.update_Interval_6Monthly == undefined &&
+  this.KeyPerformanceIndicators.iS_Quantitative == undefined &&
+  this.KeyPerformanceIndicators.is_Composite == undefined
+  "
+  >
+  <input type="button"  (click)="saveOrUpdateKeyPerformanceIndicators()" [disabled]="saveBtn2IsSelected" value="Save/Update" >
+  <input type="button"  (click)="deleteKeyPerformanceIndicators()" [disabled]="deleteBtn2IsSelected" value="Delete">
+</div>
+
+<table>
+
+  <tr>
+    <th>KPI ID</th>
+    <th>Performance Indicator</th>
+    <th>Description</th>
+    <th>Perspective ID</th>
+    <th>Unit</th>
+    <th>Update Interval Weekly</th>
+    <th>Update Interval Monthly</th>
+    <th>Update Interval 6Monthly</th>
+    <th>IS Quantitative</th>
+    <th>Is Composite</th>
+  </tr >
+  <tr *ngFor="let _KeyPerformanceIndicators of KeyPerformanceIndicatorsList2;index as i " [ngClass]="{'active': selectedKeyPerformanceIndicatorsRowIndex == i}"  (click)="selectKeyPerformanceIndicatorsTableRow(i);">
+    <td> {{  _KeyPerformanceIndicators.kpI_ID  }} </td>
+    <td> {{  _KeyPerformanceIndicators.performance_Indicator  }} </td>
+    <td> {{  _KeyPerformanceIndicators.description  }} </td>
+    <td> {{  _KeyPerformanceIndicators.perspective_ID  }} </td>
+    <td> {{  _KeyPerformanceIndicators.unit  }} </td>
+    <td> {{  _KeyPerformanceIndicators.update_Interval_Weekly  }} </td>
+    <td> {{  _KeyPerformanceIndicators.update_Interval_Monthly  }} </td>
+    <td> {{  _KeyPerformanceIndicators.update_Interval_6Monthly  }} </td>
+    <td> {{  _KeyPerformanceIndicators.iS_Quantitative  }} </td>
+    <td> {{  _KeyPerformanceIndicators.is_Composite  }} </td>
+  </tr>
+
+
+</table>
+
+</div>

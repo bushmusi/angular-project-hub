@@ -1,0 +1,89 @@
+<div class="container">
+<br>
+  <h3>Data Collection</h3>
+<br>
+  <table >
+    <tr>
+      <th>BSC transaction Data ID</th>
+      <th>Innitiative ID</th>
+      <th>Strategic Goal</th>
+      <th>Unit</th>
+      <th>Value</th>
+      <th>Created Date</th>
+    </tr>
+    <tr  *ngFor="let _BacDataCollectionTransaction of BacDataCollectionTransactionList;">
+      <td> {{  _BacDataCollectionTransaction.bsC_Tran_ID  }} </td>
+      <td> {{  _BacDataCollectionTransaction.innitiative_ID  }} </td>
+      <td> {{  _BacDataCollectionTransaction.strategic_Goal  }} </td>
+      <td> {{  _BacDataCollectionTransaction.unit  }} </td>
+      <td> {{  _BacDataCollectionTransaction.value  }} </td>
+      <td> {{  _BacDataCollectionTransaction.created_Date  }} </td>
+    </tr>
+  </table>
+
+<br>
+ <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2">
+        <input type="button" style="width: 100px;" (click)="add()" [disabled]="newBtn2IsSelected" value="Add">
+      </span>
+      <table class="table table2 table-bordered table-responsive-md table-striped text-center">
+        <tr>
+          <th>performance Indicator</th>
+          <th>period</th>
+          <th>start Date</th>
+          <th>end Date</th>
+          <th>unit</th>
+          <th>value</th>
+          <th>remark</th>
+           <th>user_Name</th>
+          <th>user_ID</th>
+          <th>created_Date</th>
+          <th>update_Date</th>
+
+          <th class="text-center">Remove</th>
+        </tr>
+        <tr *ngFor="let data of BSCValuesList; let id = index">
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(id, 'performance_Indicator', $event)" (blur)="updateList(id, 'performance_Indicator', $event)">{{data.performance_Indicator}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(id, 'period', $event)" (blur)="updateList(id, 'period', $event)">{{data.period}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(id, 'start_Date', $event)" (blur)="updateList(id, 'start_Date', $event)">{{data.start_Date}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(id, 'end_Date', $event)" (blur)="updateList(id, 'end_Date', $event)">{{data.end_Date}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(id, 'unit', $event)" (blur)="updateList(id, 'unit', $event)">{{data.unit}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(id, 'value', $event)" (blur)="updateList(id, 'value', $event)">{{data.value}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(id, 'remark', $event)" (blur)="updateList(id, 'remark', $event)">{{data.remark}}</span>
+          </td>
+          <td>
+            <span  >{{data.user_Name}}</span>
+          </td>
+          <td>
+            <span >{{data.user_ID}}</span>
+          </td>
+          <td>
+            <span >{{data.created_Date}}</span>
+          </td>
+          <td>
+            <span >{{data.update_Date}}</span>
+          </td>
+
+          <td>
+            <span class="table-remove">
+              <button type="button" style="background: rgb(226, 62, 62);width: 100px;padding: 5px;" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="remove(id)">Remove</button>
+            </span>
+          </td>
+        </tr>
+      </table>
+</div>
+<!-- Editable table -->

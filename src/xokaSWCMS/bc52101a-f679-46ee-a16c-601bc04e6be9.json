@@ -1,0 +1,130 @@
+{
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "type": "text",
+          "name": "question9",
+          "title": "የአመልካች ሙሉ ስም ከነአያት"
+        },
+        {
+          "type": "text",
+          "name": "question7",
+          "title": "Full Name of Applicant"
+        },
+        {
+          "type": "checkbox",
+          "name": "question8",
+          "title": "Is Form filled by owner / legal representative? / ፎርሙ የተሞላው በባለቤት / በወኪል?",
+          "choices": [
+            {
+              "value": "item1",
+              "text": "Is Representative? / ተወካይ?"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "question1",
+          "title": "Title Deed No / የካርታ ቁጥር"
+        },
+        {
+          "type": "dropdown",
+          "name": "question3",
+          "title": "Woreda / ወረዳ",
+          "choices": [
+            {
+              "value": "item1",
+              "text": "1"
+            },
+            {
+              "value": "item2",
+              "text": "2"
+            },
+            {
+              "value": "item3",
+              "text": "3"
+            },
+            {
+              "value": "item4",
+              "text": "4"
+            },
+            {
+              "value": "item5",
+              "text": "5"
+            },
+            {
+              "value": "item6",
+              "text": "6"
+            },
+            {
+              "value": "item7",
+              "text": "7"
+            },
+            {
+              "value": "item8",
+              "text": "8"
+            },
+            {
+              "value": "item9",
+              "text": "9"
+            },
+            {
+              "value": "item10",
+              "text": "10"
+            },
+            {
+              "value": "item11",
+              "text": "11"
+            },
+            {
+              "value": "item12",
+              "text": "12"
+            },
+            {
+              "value": "item13",
+              "text": "13"
+            },
+            {
+              "value": "item14",
+              "text": "14"
+            },
+            {
+              "value": "item15",
+              "text": "15"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "question4",
+          "title": "Old Kebele Number / የቀድሞው ቀበሌ ቁጥር"
+        },
+        {
+          "type": "text",
+          "name": "question5",
+          "title": "House Number / የቤት ቁጥር"
+        },
+        {
+          "type": "comment",
+          "name": "question2",
+          "title": "Remark / አስተያየት"
+        },
+        {
+          "type": "checkbox",
+          "name": "question6",
+          "title": "የኃላፊነት መውሰጃ",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "item1",
+              "text": "እኔ አመልካች በዚህ የአገልግሎት መጠየቂያ ቅጽ ላይ የሞላሁት እንዲሁም አያይዤ ያቀረብኳቸው መረጃዎች መንግስታዊ በሆኑ ተቋማት ዕውቅና የተሰጡኝ ትክክለኛና ሕጋዊ መረጃዎች መሆናቸውን እንዲሁም አገልግሎቱን ለማግኘት መሟላት የሚገባቸውን ቅድመ ሁኔታዎች ሁሉ ያሟላው መሆኔን በፊርማዬ አረጋግጣለሁ፡፡"
+            }
+          ]
+        }
+      ]
+    }
+  ],    "showCompletedPage": false
+
+}

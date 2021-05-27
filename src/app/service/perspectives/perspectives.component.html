@@ -1,0 +1,63 @@
+<div class="top-container">
+<!--
+  <div class="left-panel">
+      <ol>
+        <li>Customer</li>
+        <li>Financial</li>
+        <li>Internal process</li>
+        <li>Learn and growth</li>
+      </ol>
+  </div> -->
+
+  <div class="right-panel">
+    <div class="container">
+
+      <div class="row">
+        <label for="perspective_ID"><b>Perspective ID</b></label>
+        <input type="text" [(ngModel)]="Perspectives.perspective_ID"  name="perspective_ID" id="perspective_ID" placeholder="Perspective ID">
+      </div>
+
+      <div class="row">
+        <label for="perspective_Name"><b>Perspective Name</b></label>
+        <input type="text" [(ngModel)]="Perspectives.perspective_Name"  name="perspective_Name" id="perspective_Name" placeholder="Perspective Name">
+      </div>
+
+      <div class="row">
+        <label for="is_active"><b>Is Active</b></label>
+        <input type="checkbox" id="is_active" [(ngModel)]="Perspectives.iSactive" name="is_active">
+      </div>
+
+      <div class="CRUD-buttons-container-2">
+        <input type="button"  (click)="newPerspectives()" value="New"
+        [disabled]="
+        this.Perspectives.perspective_ID == undefined &&
+        this.Perspectives.perspective_Name == undefined &&
+        this.Perspectives.iSactive == undefined"
+        >
+        <input type="button"  (click)="saveOrUpdatePerspectives()" [disabled]="saveBtn2IsSelected" value="Save/Update" >
+        <input type="button"  (click)="deletePerspectives()" [disabled]="deleteBtn2IsSelected" value="Delete">
+      </div>
+      <br>
+      <br>
+    <table>
+
+      <tr>
+        <th>Perspective ID</th>
+        <th>Perspective Name</th>
+        <th>IS Active</th>
+      </tr>
+      <tr  *ngFor="let _Perspectives of PerspectivesList;index as i " [ngClass]="{'active': selectedPerspectivesRowIndex == i}"  (click)="selectPerspectivesTableRow(i);">
+        <td> {{  _Perspectives.perspective_ID  }} </td>
+        <td> {{  _Perspectives.perspective_Name  }} </td>
+        <td>  {{ _Perspectives.iSactive  }} </td>
+      </tr>
+
+    </table>
+
+
+  </div>
+
+  </div>
+
+
+</div>

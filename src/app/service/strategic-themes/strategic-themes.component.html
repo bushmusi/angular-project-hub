@@ -1,0 +1,235 @@
+<table >
+  <tr>
+    <th>Strategy No</th>
+    <th>Title</th>
+    <th>Start Year</th>
+    <th>End Year</th>
+    <th>version</th>
+    <th>mission</th>
+    <!-- <th>file</th> -->
+    <td [attr.rowspan]="CompanyStrategyList?.length+1">
+      <div class="CRUD-buttons-container-1">
+        <input type="button" class="button" value="New" (click)="newCompanyStrategyPopup()">
+        <input type="button" class="button" (click)="getCompanyStrategy()" value="Save/Update">
+        <input type="button" class="button" (click)="deleteCompanyStrategy()" [disabled]="deleteBtn1IsSelected" value="Delete">
+      </div>
+    </td>
+  </tr>
+    <tr  *ngFor="let _companyStrategy of CompanyStrategyList;index as i " [ngClass]="{'active': selectedCompanyStrategyRowIndex == i}"(click)="selectCompanyStrategyTableRow(i);" outerLinkActive="active">
+      <td> {{ _companyStrategy.strategy_NO  }} </td>
+      <td> {{ _companyStrategy.title  }} </td>
+      <td> {{ _companyStrategy.start_Year  }} </td>
+      <td> {{ _companyStrategy.end_Year  }} </td>
+      <td> <p [title]="_companyStrategy.version" class="long-text-in-the-table"> {{ _companyStrategy.version  }} </p></td>
+      <td> <p [title]="_companyStrategy.mission" class="long-text-in-the-table"> {{ _companyStrategy.mission  }} </p></td>
+      <!-- <td> <p class="long-text-in-the-table"> {{ _companyStrategy.file  }} </p></td> -->
+    </tr>
+</table>
+
+<!-- new popup -->
+
+<div  id="new-popup" class="modal">
+  <div class="modal-content animate  container">
+    <div class="container">
+    <div class="popup-form-container">
+
+      <div>
+      <div class="row">
+        <label for="strategy_NO"><b>Strategy NO</b></label>
+        <input type="text" [(ngModel)]="CompanyStrategy.strategy_NO"  name="strategy_NO" id="strategy_NO" placeholder="Strategy NO">
+      </div>
+
+      <div class="row">
+        <label for="title"><b>Title</b></label>
+        <input type="text" [(ngModel)]="CompanyStrategy.title"  name="title" id="title" placeholder="Title">
+      </div>
+
+      <div class="row">
+        <label for="start_Year"><b>Start_Year</b></label>
+        <input type="number" [(ngModel)]="CompanyStrategy.start_Year" min="0" step="1" oninput="validity.valid||(value='');"  name="Start_Year" id="Start_Year" placeholder="Start Year">
+      </div>
+
+      <div class="row">
+        <label for="end_Year"><b>End Year</b></label>
+        <input type="number" [(ngModel)]="CompanyStrategy.end_Year" min="0" step="1" oninput="validity.valid||(value='');" name="end_Year" id="end_Year" placeholder="end Year">
+      </div>
+<!--
+      <div class="row">
+        <label for="vision"><b>Vision</b></label>
+        <textarea id="vision" name="vision" placeholder="Vision" [(ngModel)]="CompanyStrategy.vision"></textarea>
+      </div> -->
+      </div>
+
+      <div>
+
+        <div class="row">
+          <label for="version"><b>Version</b></label>
+          <textarea id="version" name="version" placeholder="Version" [(ngModel)]="CompanyStrategy.version"></textarea>
+        </div>
+
+        <div class="row">
+          <label for="mission"><b>Mission</b></label>
+          <textarea id="mission" name="mission" placeholder="Mission" [(ngModel)]="CompanyStrategy.mission"></textarea>
+        </div>
+
+        <div class="row">
+          <label for="file"><b>File</b></label>
+          <input type="file" [(ngModel)]="CompanyStrategy.file"
+          name="file" id="file" placeholder="File"
+          (change)="handleUpload($event)">
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="CRUD-buttons-container-2">
+      <input type="button" [disabled]="newBtn1IsSelected"  (click)="saveCompanyStrategy()" [disabled]="newBtn1IsSelected" value="Save">
+      <!-- <button (click)="saveOrUpdateStrategicThemes()" [disabled]="saveBtn2IsSelected">Save/Update</button> -->
+      <input type="button" onclick="document.getElementById('new-popup').style.display='none'"
+      class="cancelbtn" value="Cancel">
+    </div>
+   </div>
+  </div>
+</div>
+<!-- popup end -->
+
+
+<!-- Save/Update popup -->
+
+<div  id="SaveOrUpdate-popup" class="modal">
+  <div class="modal-content animate  container">
+    <div class="container">
+
+      <div class="popup-form-container">
+
+        <div>
+        <div class="row">
+          <label for="strategy_NO"><b>Strategy NO</b></label>
+          <input type="text" disabled [(ngModel)]="CompanyStrategy.strategy_NO"  name="strategy_NO" id="strategy_NO" placeholder="Strategy NO">
+        </div>
+
+        <div class="row">
+          <label for="title"><b>Title</b></label>
+          <input type="text" [(ngModel)]="CompanyStrategy.title"  name="title" id="title" placeholder="Title">
+        </div>
+
+        <div class="row">
+          <label for="start_Year"><b>Start_Year</b></label>
+          <input type="number" [(ngModel)]="CompanyStrategy.start_Year" min="0" step="1" oninput="validity.valid||(value='');"   name="Start_Year" id="Start_Year" placeholder="Start Year">
+        </div>
+          <!-- below row need some improvement  -->
+        <div class="row">
+          <label for="end_Year"><b>End Year</b></label>
+          <input type="number" [(ngModel)]="CompanyStrategy.end_Year" min="0" step="1" oninput="validity.valid||(value='');" name="end_Year" id="end_Year" placeholder="end Year">
+        </div>
+
+        <!-- <div class="row">
+          <label for="vision"><b>Vision</b></label>
+          <textarea id="vision" name="vision" placeholder="Vision" [(ngModel)]="CompanyStrategy.vision"></textarea>
+        </div> -->
+        </div>
+
+        <div>
+
+          <div class="row">
+            <label for="version"><b>Version</b></label>
+            <textarea id="version" name="version" placeholder="Version" [(ngModel)]="CompanyStrategy.version"></textarea>
+          </div>
+
+          <div class="row">
+            <label for="mission"><b>Mission</b></label>
+            <textarea id="mission" name="mission" placeholder="Mission" [(ngModel)]="CompanyStrategy.mission"></textarea>
+          </div>
+
+          <div class="row">
+            <label for="file"><b>File</b></label>
+            <input type="file" [(ngModel)]="CompanyStrategy.file"
+            name="file" id="file" placeholder="File"
+            (change)="handleUpload($event)">
+          </div>
+
+        </div>
+
+      </div>
+
+    <div class="CRUD-buttons-container-2">
+      <input type="button" (click)="saveOrUpdateCompanyStrategy()" [disabled]="saveBtn1IsSelected" value="Save/Update">
+      <input type="button" onclick="document.getElementById('SaveOrUpdate-popup').style.display='none'"
+      class="cancelbtn" value="Cancel">
+    </div>
+   </div>
+  </div>
+</div>
+<!-- popup end -->
+
+<br>
+  <div class="container">
+
+  <div class="row">
+    <label for="ST_id"><b>Strategic Theme ID</b></label>
+    <input type="text" [(ngModel)]="StrategicThemes.strategic_ThemeID"  [disabled]="is_strategicThemeID_Disable" name="ST_id" id="ST_id" placeholder="Strategic Theme ID">
+  </div>
+
+  <div class="row">
+    <label for="strategyNo"><b>Strategy NO</b></label>
+    <input type="text" disabled [(ngModel)]="StrategicThemes.strategy_NO"  [value]="CompanyStrategy.strategy_NO ? CompanyStrategy.strategy_NO : null" name="strategy_NO" id="strategy_NO" placeholder="strategy NO">
+  </div>
+
+  <div class="row">
+    <label for="strategicTheme"><b>Strategic Theme</b></label>
+    <input type="text"  name="strategicTheme" id="strategicTheme" [(ngModel)]="StrategicThemes.strategic_Theme" placeholder="Strategic Theme">
+  </div>
+
+  <!-- <div class="row">
+    <label for="strategicResult"><b>Strategic Result</b></label>
+    <select id="strategicResult" [(ngModel)]="StrategicThemes.strategic_Result">
+         <option selected="selected">select</option>
+      <option *ngFor="let strategicTheme of StrategicThemesList" [value]="strategicTheme.strategic_Result"> {{ strategicTheme.strategic_Result }} </option>
+    </select>
+  </div> -->
+  <div class="row">
+    <label for="strategicResult"><b>Strategic Result</b></label>
+    <input type="text"  name="strategic_Result" id="strategic_Result" [(ngModel)]="StrategicThemes.strategic_Result" placeholder="Strategic Result">
+  </div>
+
+  <div class="row">
+    <label for="ST_description"><b>Strategic Theme Description</b></label>
+    <textarea id="ST_description" name="ST_description" placeholder="Strategic Theme Description" [(ngModel)]="StrategicThemes.strategic_Theme_Description"></textarea>
+  </div>
+
+
+
+  <div class="CRUD-buttons-container-2">
+    <input type="button"  (click)="newStrategicThemes()" value="New"
+    [disabled]="
+    this.StrategicThemes.strategic_ThemeID == undefined &&
+    this.StrategicThemes.strategy_NO == undefined &&
+    this.StrategicThemes.strategic_Theme == undefined &&
+    this.StrategicThemes.strategic_Result == undefined &&
+    this.StrategicThemes.strategic_Theme_Description == undefined"
+    >
+    <input type="button"  (click)="saveOrUpdateStrategicThemes()" [disabled]="saveBtn2IsSelected" value="Save/Update" >
+    <input type="button"  (click)="deleteStrategicThemes()" [disabled]="deleteBtn2IsSelected" value="Delete">
+  </div>
+
+</div>
+
+<table>
+
+  <tr>
+    <th>Strategic Theme ID</th>
+    <th>Strategy NO</th>
+    <th>Strategic Theme</th>
+    <th>Strategic Result</th>
+    <th>Strategic Theme Description</th>
+  </tr>
+  <tr  *ngFor="let _strategicTheme of StrategicThemesList ;index as i " [ngClass]="{'active': selectedStrategicThemesRowIndex == i}"  (click)="selectStrategicThemesTableRow(i);">
+    <td>{{ _strategicTheme.strategic_ThemeID }} </td>
+    <td> {{ _strategicTheme.strategy_NO }}  </td>
+    <td> {{ _strategicTheme.strategic_Theme }}  </td>
+    <td> {{ _strategicTheme.strategic_Result }}  </td>
+    <td> {{ _strategicTheme.strategic_Theme_Description }}  </td>
+  </tr>
+
+</table>

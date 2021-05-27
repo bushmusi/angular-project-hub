@@ -1,0 +1,367 @@
+<table>
+  <tr>
+    <th>annual Strategic GoalID</th>
+    <th>Strategic Theme ID</th>
+    <th>Created Date</th>
+    <th>Year</th>
+    <th>Result In %</th>
+    <td [attr.rowspan]="AnnualStrategyGoalsList?.length+1">
+      <div class="CRUD-buttons-container-1">
+        <!-- <input *ngIf="this.AnnualStrategyGoalsList.length <= 0 && this.AppCode == undefined" type="button" class="button" value="New" (click)="newAnnualStrategyGoalsPopup()"> -->
+        <input type="button" class="button" value="New" (click)="newAnnualStrategyGoalsPopup()">
+        <input type="button" class="button" (click)="getAnnualStrategyGoals()" value="Save/Update">
+        <input type="button" class="button" (click)="deleteAnnualStrategyGoals()" [disabled]="deleteBtn1IsSelected" value="Delete">
+      </div>
+    </td>
+  </tr>
+  <tr  *ngFor="let annualStrategyGoal of AnnualStrategyGoalsList;index as i " [ngClass]="{'active': selectedAnnualStrategyGoalsRowIndex == i}"  (click)="selectAnnualStrategyGoalsTableRow(i);">
+    <td> {{  annualStrategyGoal.annual_Strategic_GoalID  }} </td>
+    <td> {{  annualStrategyGoal.strategic_ThemeID  }} </td>
+    <td> {{  annualStrategyGoal.created_Date  }} </td>
+    <td> {{  annualStrategyGoal.year  }} </td>
+    <td> {{  annualStrategyGoal.result_In_Per  }} </td>
+  </tr>
+</table>
+
+<!-- new popup -->
+
+<div  id="new-popup" class="modal">
+  <div class="modal-content animate  container">
+    <div class="container">
+
+      <div class="row">
+        <label for="annual_Strategic_GoalID"><b>Annual Strategic GoalID</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.annual_Strategic_GoalID" placeholder="Annual Strategic GoalID" name="annual_Strategic_GoalID" id="annual_Strategic_GoalID">
+      </div>
+
+      <div class="row">
+        <label for="strategic_ThemeID"><b>Strategic ThemeID</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.strategic_ThemeID"
+        (focus)="onFocus()"
+         name="strategic_ThemeID" id="strategic_ThemeID" placeholder="strategic ThemeID">
+      </div>
+
+      <div class="row">
+        <label for="created_Date"><b>Created Date</b></label>
+        <input type="datetime-local" [(ngModel)]="AnnualStrategyGoals.created_Date" placeholder="Created Date" name="created_Date" id="created_Date">
+      </div>
+
+      <div class="row">
+        <label for="year"><b>Year</b></label>
+        <input type="number" [(ngModel)]="AnnualStrategyGoals.year" min="0" step="1" oninput="validity.valid||(value='');" name="year" id="year" placeholder="year">
+      </div>
+
+      <div class="row">
+        <label for="result_In_Per"><b>Result In Per</b></label>
+        <input type="number" [(ngModel)]="AnnualStrategyGoals.result_In_Per" min="0" step="1" oninput="validity.valid||(value='');" name="result_In_Per" id="result_In_Per" placeholder="Result In Per">
+      </div>
+
+      <!-- <div class="row">
+        <label for="applicationCode"><b>Application Code</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.applicationCode"  name="applicationCode" id="applicationCode" placeholder="Application Code">
+      </div>
+
+      <div class="row">
+        <label for="application_NO"><b>Application NO</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.application_NO"  name="application_NO" id="application_NO" placeholder="Application NO">
+      </div>
+
+      <div class="row">
+        <label for="docNo"><b>Doc No</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.docNo"  name="docNo" id="docNo" placeholder="Doc No">
+      </div> -->
+
+
+    <div class="CRUD-buttons-container-2">
+      <input type="button"  (click)="saveAnnualStrategyGoals()" [disabled]="newBtn1IsSelected" value="Save">
+       <input type="button" onclick="document.getElementById('new-popup').style.display='none'" class="cancelbtn" value="Cancel">
+    </div>
+
+   </div>
+   <!-- popup for input valiue selection -->
+   <div  id="popup-input-values" class="modal1" (blur)="onBlur()" >
+     <div class="modal-content1 animate  container">
+       <div class="list-div">
+        <table class="table2">
+
+
+            <th>Strategic Themes</th>
+          <tr  *ngFor="let StrategicThemes of StrategicThemesList;index as i " [ngClass]="{'active': selectedStrategicThemesRowIndex == i}"  (click)="selectStrategicThemesTableRow(i);">
+            <span>
+              <div class="lable">
+                <h4> Strategic ThemeID </h4>
+                <p> {{  StrategicThemes.strategic_ThemeID  }} </p>
+              </div>
+              <div class="lable">
+                <h4> Strategy NO </h4>
+              <p> {{  StrategicThemes.strategy_NO  }} </p>
+              </div>
+              <div class="lable">
+                <h4> Strategic Theme </h4>
+
+              <p> {{  StrategicThemes.strategic_Theme  }} </p>
+              </div>
+              <div class="lable">
+
+                <h4> Strategic Result </h4>
+              <p> {{  StrategicThemes.strategic_Result  }} </p>
+              </div>
+              <div class="lable">
+
+                <h4> strategic_Theme_Description </h4>
+              <p> {{  StrategicThemes.strategic_Theme_Description  }} </p>
+              </div>
+              <div class="lable">
+
+                <h4> Log </h4>
+              <p> {{  StrategicThemes.log }} </p>
+              </div>
+            </span>
+          </tr>
+
+        </table>
+        </div>
+          <!-- <div>
+            <input type="button" onclick="document.getElementById('popup-input-values').style.display='none'" class="cancelbtn" value="Cancel">
+          </div> -->
+          <div class="cancel-btn-div">
+            <input type="button"  onclick="document.getElementById('popup-input-values').style.display='none'" class="cancelbtn2" value="Cancel">
+          </div>
+      </div>
+   </div>
+   <!-- end popup -->
+  </div>
+</div>
+
+<!-- popup end -->
+
+
+<!-- Save/Update popup -->
+
+ <div  id="SaveOrUpdate-popup" class="modal">
+  <div class="modal-content animate  container">
+    <div class="container">
+
+      <div class="row">
+        <label for="annual_Strategic_GoalID"><b>Annual Strategic GoalID</b></label>
+        <input type="text" disabled [(ngModel)]="AnnualStrategyGoals.annual_Strategic_GoalID" placeholder="Annual Strategic GoalID" name="annual_Strategic_GoalID" id="annual_Strategic_GoalID">
+      </div>
+
+      <div class="row">
+        <label for="strategic_ThemeID"><b>Strategic ThemeID</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.strategic_ThemeID"
+        (focus)="onFocus2()"
+          name="strategic_ThemeID" id="strategic_ThemeID" placeholder="strategic ThemeID">
+      </div>
+
+      <div class="row">
+        <label for="created_Date"><b>Created Date</b></label>
+        <input type="datetime-local" [(ngModel)]="AnnualStrategyGoals.created_Date" placeholder="Created Date" name="created_Date" id="created_Date">
+      </div>
+
+      <div class="row">
+        <label for="year"><b>Year</b></label>
+        <input type="number" [(ngModel)]="AnnualStrategyGoals.year" min="0" step="1" oninput="validity.valid||(value='');" name="year" id="year" placeholder="year">
+      </div>
+
+      <div class="row">
+        <label for="result_In_Per"><b>Result In Per</b></label>
+        <input type="number" [(ngModel)]="AnnualStrategyGoals.result_In_Per" min="0" step="1" oninput="validity.valid||(value='');" name="result_In_Per" id="result_In_Per" placeholder="Result In Per">
+      </div>
+<!--
+      <div class="row">
+        <label for="applicationCode"><b>Application Code</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.applicationCode"  name="applicationCode" id="applicationCode" placeholder="application Code">
+      </div>
+
+      <div class="row">
+        <label for="application_NO"><b>Application NO</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.application_NO"  name="application_NO" id="application_NO" placeholder="Application NO">
+      </div>
+
+      <div class="row">
+        <label for="docNo"><b>Doc No</b></label>
+        <input type="text" [(ngModel)]="AnnualStrategyGoals.docNo"  name="docNo" id="docNo" placeholder="Doc No">
+      </div> -->
+    <div class="CRUD-buttons-container-2">
+      <input type="button" (click)="saveOrUpdateAnnualStrategyGoals()" [disabled]="saveBtn1IsSelected" value="Save/Update">
+      <input type="button" onclick="document.getElementById('SaveOrUpdate-popup').style.display='none'" class="cancelbtn" value="Cancel">
+    </div>
+
+   </div>
+
+      <!-- popup for input valiue selection -->
+      <div  id="popup-input-values2" class="modal1" (blur)="onBlur()" >
+        <div class="modal-content1 animate  container">
+          <div class="list-div">
+           <table class="table2">
+
+
+               <th>Strategic Themes</th>
+             <tr  *ngFor="let StrategicThemes of StrategicThemesList;index as i " [ngClass]="{'active': selectedStrategicThemesRowIndex == i}"  (click)="selectStrategicThemesTableRow(i);">
+               <span>
+                 <div class="lable">
+                   <h4> Strategic ThemeID </h4>
+                   <p> {{  StrategicThemes.strategic_ThemeID  }} </p>
+                 </div>
+                 <div class="lable">
+                   <h4> Strategy NO </h4>
+                 <p> {{  StrategicThemes.strategy_NO  }} </p>
+                 </div>
+                 <div class="lable">
+                   <h4> Strategic Theme </h4>
+
+                 <p> {{  StrategicThemes.strategic_Theme  }} </p>
+                 </div>
+                 <div class="lable">
+
+                   <h4> Strategic Result </h4>
+                 <p> {{  StrategicThemes.strategic_Result  }} </p>
+                 </div>
+                 <div class="lable">
+
+                  <h4> strategic_Theme_Description </h4>
+                  <p> {{  StrategicThemes.strategic_Theme_Description  }} </p>
+                  </div>
+                  <div class="lable">
+
+                  <h4> Log </h4>
+                <p> {{  StrategicThemes.log }} </p>
+                </div>
+                 <!-- <div class="lable">
+                   <h4> log </h4>
+
+                 <p> {{  StrategicThemes.log  }} </p>
+                 </div> -->
+               </span>
+             </tr>
+
+           </table>
+           </div>
+             <!-- <div>
+               <input type="button" onclick="document.getElementById('popup-input-values').style.display='none'" class="cancelbtn" value="Cancel">
+             </div> -->
+             <div class="cancel-btn-div">
+               <input type="button"  onclick="document.getElementById('popup-input-values2').style.display='none'" class="cancelbtn2" value="Cancel">
+             </div>
+         </div>
+      </div>
+      <!-- end popup -->
+
+  </div>
+</div>
+
+<!-- popup end -->
+
+
+<div class="container">
+
+  <div class="row">
+    <label for="perspective_goal_ID"><b>Perspective Goal ID</b></label>
+    <input type="text"  disabled [(ngModel)]="AnnualStrategyGoalsWithPerspectiveGoals.perspectiveGoal_ID" name="perspective_goal_ID" id="perspective_goal_ID" placeholder="Perspective Goal ID">
+  </div>
+
+  <div class="row">
+    <label for="annual_Strategic_GoalID"><b>Annual Strategic Goal ID</b></label>
+    <input type="text" disabled [(ngModel)]="AnnualStrategyGoalsWithPerspectiveGoals.annual_Strategic_GoalID" name="annual_Strategic_GoalID" id="annual_Strategic_GoalID" placeholder="annual Strategic GoalID">
+  </div>
+
+  <div class="row">
+    <label for="perspective_ID"><b>Perspective ID</b></label>
+    <select id="perspective_ID"
+    [(ngModel)]="AnnualStrategyGoalsWithPerspectiveGoals.perspective_ID"
+    >
+      <option selected="selected">select</option>
+      <option *ngFor="let Perspectives of PerspectivesList" [value]="Perspectives.perspective_ID">{{Perspectives.perspective_Name}}</option>
+   </select>
+  </div>
+
+  <div class="row">
+    <label for="strategicResult"><b>Perspective Value IN%</b></label>
+     <input type="number" [(ngModel)]="AnnualStrategyGoalsWithPerspectiveGoals.perspective_Value_IN_Per" name="perspective_Value_IN_Per" id="perspective_Value_IN_Per" placeholder="Perspective Value IN %">
+  </div>
+
+  <div class="CRUD-buttons-container-2">
+    <input type="button"  (click)="newAnnualStrategyGoalsWithPerspectiveGoals()" [disabled]="
+    this.AnnualStrategyGoalsWithPerspectiveGoals.perspective_ID == undefined &&
+    this.AnnualStrategyGoalsWithPerspectiveGoals.annual_Strategic_GoalID == undefined &&
+    this.AnnualStrategyGoalsWithPerspectiveGoals.perspective_Value_IN_Per == undefined" value="New">
+    <input type="button"  (click)="saveOrUpdateAnnualStrategyGoalsWithPerspectiveGoals()" [disabled]="saveBtn2IsSelected" value="Save/Update" >
+    <input type="button"  (click)="deleteAnnualStrategyGoalsWithPerspectiveGoals()" [disabled]="deleteBtn2IsSelected" value="Delete">
+  </div>
+
+
+  <div class="clear"></div>
+
+  <p-table
+  #dt2
+  [value]="AnnualStrategyGoalsWithPerspectiveGoalsList"
+  dataKey="id"
+  [rows]="10"
+  [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [loading]="loading"
+  styleClass="p-datatable-customers"
+  [paginator]="true"
+  appendTo="body"
+  [autoLayout]="true"
+  [tableStyle]="{ 'table-layout': 'auto' }"
+  [resizableColumns]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+
+>    <ng-template pTemplate="header">
+  <tr>
+    <th>Perspective Goal ID</th>
+    <th>Perspective ID</th>
+    <th>Annual Strategic Goal ID</th>
+    <th>Perspective Value IN%</th>
+  </tr>
+  <tr>
+    <th></th>
+    <th></th>
+
+    <th>
+      <input
+        pInputText
+        type="text"
+        placeholder="Search by Annual Strategic GoalID"
+        class="p-column-filter"
+        (input)="
+          dt2.filter(
+            $event.target.value,
+            'annual_Strategic_GoalID',
+            'startsWith'
+          );
+          newAnnualStrategyGoalsWithPerspectiveGoals();
+        "
+      />
+    </th>
+    <th></th>
+  </tr>
+</ng-template>
+  <tr>
+    <th>Perspective Goal ID</th>
+    <th>Perspective ID</th>
+    <th>Annual Strategic Goal ID</th>
+    <th>Perspective Value IN%</th>
+  </tr>
+  <ng-template pTemplate="body" let-_AnnualStrategyGoalsWithPerspectiveGoals let-i="rowIndex">
+    <tr
+    [ngStyle]="{'background-color':  selectedAnnualStrategyGoalsWithPerspectiveGoalsRowIndex == i? 'yellow':null }"
+      (click)="selectAnnualStrategyGoalsWithPerspectiveGoalsTableRow(i,_AnnualStrategyGoalsWithPerspectiveGoals.perspectiveGoal_ID )"
+    >
+    <td> {{  _AnnualStrategyGoalsWithPerspectiveGoals.perspectiveGoal_ID  }} </td>
+    <td> {{  _AnnualStrategyGoalsWithPerspectiveGoals.perspective_Name  }} </td>
+    <td> {{  _AnnualStrategyGoalsWithPerspectiveGoals.annual_Strategic_GoalID  }} </td>
+    <td> {{  _AnnualStrategyGoalsWithPerspectiveGoals.perspective_Value_IN_Per  }} </td>
+  </tr>
+</ng-template>
+<ng-template pTemplate="emptymessage">
+  <tr>
+    <td [attr.colspan]="AnnualStrategyGoalsWithPerspectiveGoalsList?.length">No Items found.</td>
+  </tr>
+</ng-template>
+</p-table>
+
+
+</div>

@@ -1,0 +1,662 @@
+<div class="table-div">
+<table>
+  <tr>
+    <th>aspA_ID</th>
+    <th>asgD_ID</th>
+    <th>annual_Strategic_GoalID</th>
+    <th>strategic_Goal</th>
+    <th>goal_Value_In_Per</th>
+    <th>assigned_Body</th>
+    <th>assigned_Body_Name</th>
+    <th>responsible_Role</th>
+    <th>responsible_Role_Name</th>
+    <th>is_Active</th>
+    <th>assigned_By</th>
+    <th>assigned_By_Name</th>
+    <th>applicationCode</th>
+    <th>application_NO</th>
+    <th>goal_Description</th>
+  </tr>
+  <tr  *ngFor="let _View_BSC_APA of ViewBSCAnualStrategicPlanAssignmentList;index as i " [ngClass]="{'active': selectedViewBSCAnualStrategicPlanAssignmentRowIndex == i}"
+   (click)="selectViewBSCAnualStrategicPlanAssignmentTableRow(i);">
+    <td> {{  _View_BSC_APA.aspA_ID  }} </td>
+    <td> {{  _View_BSC_APA.asgD_ID  }} </td>
+    <td> {{  _View_BSC_APA.annual_Strategic_GoalID  }} </td>
+    <td> {{  _View_BSC_APA.strategic_Goal  }} </td>
+    <td> {{  _View_BSC_APA.goal_Value_In_Per  }} </td>
+    <td> {{  _View_BSC_APA.assigned_Body  }} </td>
+    <td> {{  _View_BSC_APA.assigned_Body_Name  }} </td>
+    <td> {{  _View_BSC_APA.responsible_Role  }} </td>
+    <td> {{  _View_BSC_APA.responsible_Role_Name  }} </td>
+    <td> {{  _View_BSC_APA.is_Active  }} </td>
+    <td> {{  _View_BSC_APA.assigned_By  }} </td>
+    <td> {{  _View_BSC_APA.assigned_By_Name  }} </td>
+    <td> {{  _View_BSC_APA.applicationCode  }} </td>
+    <td> {{  _View_BSC_APA.application_NO  }} </td>
+    <td> {{  _View_BSC_APA.goal_Description  }} </td>
+  </tr>
+</table>
+</div>
+<br>
+<div class="table-div">
+<table>
+  <tr>
+    <th>Initative ID</th>
+    <th>ASPA ID</th>
+    <th>Type Of Initative</th>
+    <th>Initative</th>
+    <th>Description</th>
+    <th>Estimated Cost In Birr</th>
+    <th>Value In %</th>
+    <th>Unit</th>
+    <th>Expected Result</th>
+    <th>Required Inputs</th>
+    <th>Estimated Budget</th>
+    <th>Budget Account </th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Parent Initative ID</th>
+    <th>Is Active</th>
+    <th>Created By User</th>
+  </tr>
+  <tr  *ngFor="let _StrategicInnitiative of StrategicInnitiativeList;index as i " [ngClass]="{'active': selectedStrategicInnitiativeRowIndex == i}"  (click)="selectStrategicInnitiativeTableRow(i);">
+    <td> <a (click)="viewDetailStrategicInnitiativePopup()" class="LinkForPopup"> {{  _StrategicInnitiative.innitiative_ID  }} </a></td>
+    <td> <a (click)="viewDetailStrategicInnitiativePopup()" class="LinkForPopup"> {{  _StrategicInnitiative.aspA_ID  }} </a></td>
+    <td> {{  _StrategicInnitiative.type_Of_Innitiative  }} </td>
+    <td> <p id="long-text-in-the-table"> {{  _StrategicInnitiative.innitiative  }} </p></td>
+    <td> {{  _StrategicInnitiative.description  }} </td>
+    <td> {{  _StrategicInnitiative.estimated_Cost_In_Birr  }} </td>
+    <td> {{  _StrategicInnitiative.value_In_Per  }} </td>
+    <td> {{  _StrategicInnitiative.unit  }} </td>
+    <td> {{  _StrategicInnitiative.expected_Result  }} </td>
+    <td> {{  _StrategicInnitiative.required_Inputs  }} </td>
+    <td> {{  _StrategicInnitiative.estimatedBudget  }} </td>
+    <td> {{  _StrategicInnitiative.budget_Account  }} </td>
+    <td> {{  _StrategicInnitiative.startDate  }} </td>
+    <td> {{  _StrategicInnitiative.endDate  }} </td>
+    <td> {{  _StrategicInnitiative.parentInnitiative_ID  }} </td>
+    <td> {{  _StrategicInnitiative.is_Active  }} </td>
+    <td> {{  _StrategicInnitiative.created_By_User  }} </td>
+  </tr>
+</table>
+</div>
+
+
+<!-- new popup -->
+
+<div  id="new-popup" class="modal">
+  <div class="modal-content animate  container">
+    <div class="container">
+      <div class="popup-form-divider">
+
+          <div>
+            <div class="row">
+              <label for="Innitiative_ID"><b>Innitiative ID</b></label>
+              <input type="text" [(ngModel)]="StrategicInnitiative.innitiative_ID" placeholder="Innitiative ID" name="Innitiative_ID" id="Innitiative_ID">
+            </div>
+
+            <div class="row">
+              <label for="assigned_body"><b>ASPA ID</b></label>
+              <!-- <select id="assigned_body" [(ngModel)]="StrategicInnitiative.aspA_ID" >
+                <option selected="selected">select</option>
+                <option *ngFor="let data of ViewBSCAnualStrategicPlanAssignmentList" [value]="data.aspA_ID">{{data.aspA_ID}}</option>
+              </select> -->
+              <input type="text" disabled [(ngModel)]="StrategicInnitiative.aspA_ID" placeholder="ASPA ID"
+
+              name="aspA_ID" id="aspA_ID">
+            </div>
+
+            <div class="row">
+              <label for="assigned_body"><b>Type Of Innitiative</b></label>
+              <select id="assigned_body" [(ngModel)]="StrategicInnitiative.type_Of_Innitiative" >
+                <option selected="selected">select</option>
+                <option *ngFor="let data of TypeOfInnitiativeList" [value]="data.lkmaster_code">{{data.english_description}}</option>
+              </select>
+            </div>
+
+            <div class="row">
+              <label for="Innitiative"><b>Innitiative</b></label>
+              <textarea id="Innitiative" name="Innitiative" placeholder="Innitiative" [(ngModel)]="StrategicInnitiative.innitiative"></textarea>
+            </div>
+
+            <div class="row">
+              <label for="Description"><b>Description</b></label>
+              <textarea id="Description" name="Description" placeholder="Description" [(ngModel)]="StrategicInnitiative.description" ></textarea>
+            </div>
+
+            <div class="row">
+              <label for="Estimated_Cost_In_Birr"><b>Estimated Cost In Birr</b></label>
+              <input type="number" [(ngModel)]="StrategicInnitiative.estimated_Cost_In_Birr" placeholder="Estimated Cost In Birr" name="Estimated_Cost_In_Birr" id="Estimated_Cost_In_Birr">
+            </div>
+
+            <div class="row">
+              <label for="Value_In_Per"><b>Value In Per</b></label>
+              <input type="number" [(ngModel)]="StrategicInnitiative.value_In_Per" placeholder="Value In Per" name="Value_In_Per" id="Value_In_Per">
+            </div>
+
+
+          <div class="row">
+            <label for="unit"><b>Unit</b></label>
+            <select id="unit" [(ngModel)]="StrategicInnitiative.unit">
+              <option selected="selected">select</option>
+              <option *ngFor="let data of cUnitList" [value]="data.unit">{{data.unit}}</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label for="Expected_Result"><b>Expected Result</b></label>
+            <textarea id="expected_Result" name="expected_Result" placeholder="expected_Result" [(ngModel)]="StrategicInnitiative.expected_Result" ></textarea>
+          </div>
+
+          <div class="row">
+            <label for="Required_Inputs"><b>Required Inputs</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.required_Inputs" placeholder="Required Inputs" name="Required_Inputs" id="Required_Inputs">
+          </div>
+
+          <div class="row">
+            <label for="EstimatedBudget"><b>Estimated Budget</b></label>
+            <input type="number" [(ngModel)]="StrategicInnitiative.estimatedBudget" placeholder="Estimated Budget" name="EstimatedBudget" id="EstimatedBudget">
+          </div>
+
+
+          </div>
+
+          <div>
+
+            <div class="row">
+              <label for="budget_Account"><b>Budget Account</b></label>
+              <input type="text" [(ngModel)]="StrategicInnitiative.budget_Account" placeholder="Budget Account" name="budget_Account" id="budget_Account">
+            </div>
+
+            <div class="row">
+              <label for="StartDate"><b>Start Date</b></label>
+              <input type="datetime-local" [(ngModel)]="StrategicInnitiative.startDate" placeholder="Start Date" name="StartDate" id="StartDate">
+            </div>
+
+            <div class="row">
+              <label for="EndDate"><b>End Date</b></label>
+              <input type="datetime-local" [(ngModel)]="StrategicInnitiative.endDate" placeholder="End Date" name="EndDate" id="EndDate">
+            </div>
+
+            <div class="row">
+              <label for="parentInnitiative_ID"><b>ParentInnitiative ID</b></label>
+              <!-- <select id="parentInnitiative_ID" [(ngModel)]="StrategicInnitiative.parentInnitiative_ID">
+                <option selected="selected">select</option>
+                <option *ngFor="let data of StrategicInnitiativeList" [value]="data.parentInnitiative_ID">{{data.parentInnitiative_ID}}</option>
+              </select> -->
+              <input type="text" [(ngModel)]="StrategicInnitiative.parentInnitiative_ID" placeholder="Parent Innitiative ID" name="parentInnitiative_ID" id="parentInnitiative_ID">
+
+            </div>
+
+            <div class="row">
+              <label for="Is_Active"><b>Is Active</b></label>
+              <input type="checkbox" [(ngModel)]="StrategicInnitiative.is_Active" placeholder="Is Active" name="Is_Active" id="Is_Active">
+            </div>
+
+
+
+            <div class="row">
+              <label for="acctual"><b>Acctual</b></label>
+              <input type="number" [(ngModel)]="StrategicInnitiative.acctual" placeholder="acctual" name="acctual" id="acctual">
+            </div>
+
+            <div class="row">
+              <label for="variance"><b>variance</b></label>
+              <input type="text" [(ngModel)]="StrategicInnitiative.variance" placeholder="variance" name="variance" id="variance">
+            </div>
+
+            <div class="row">
+              <label for="duration_In_Days"><b>Duration In Days</b></label>
+              <input type="number" [(ngModel)]="StrategicInnitiative.duration_In_Days" placeholder="Duration In Days" name="duration_In_Days" id="duration_In_Days">
+            </div>
+
+
+            <div class="row">
+              <label for="priority"><b>Priority</b></label>
+              <input type="number" [(ngModel)]="StrategicInnitiative.priority" placeholder="Priority" name="priority" id="priority">
+            </div>
+
+
+            <div class="row">
+              <label for="document"><b>Document</b></label>
+              <input type="file" [(ngModel)]="StrategicInnitiative.document" (change)="handleUpload($event)"  placeholder="document" name="document" id="document">
+            </div>
+
+            <div class="row">
+              <label for="document_Details_ID"><b>Document Details ID</b></label>
+              <input type="text" [(ngModel)]="StrategicInnitiative.document_Details_ID" placeholder="Document Details ID" name="document_Details_ID" id="document_Details_ID">
+            </div>
+
+            <div class="row">
+              <label for="Created_By_User"><b>Created By User</b></label>
+              <input type="text" disabled [(ngModel)]="StrategicInnitiative.created_By_User" placeholder="Created By User" name="Created_By_User" id="Created_By_User">
+            </div>
+          </div>
+
+      </div>
+      <div class="CRUD-buttons-container-for-popup">
+        <input type="button"  (click)="saveStrategicInnitiative()" [disabled]="newBtn1IsSelected" value="Save">
+        <input type="button" onclick="document.getElementById('new-popup').style.display='none'" class="cancelbtn" value="Cancel">
+      </div>
+   </div>
+  </div>
+</div>
+
+<!-- popup end -->
+
+
+<!-- Save/Update popup -->
+
+ <div  id="SaveOrUpdate-popup" class="modal">
+  <div class="modal-content animate  container">
+    <div class="container">
+
+      <div class="popup-form-divider">
+
+
+        <div>
+          <div class="row">
+            <label for="Innitiative_ID"><b>Innitiative ID</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.innitiative_ID" placeholder="Innitiative ID" name="Innitiative_ID" id="Innitiative_ID">
+          </div>
+
+          <div class="row">
+            <label for="assigned_body"><b>ASPA ID</b></label>
+            <!-- <select id="assigned_body" [(ngModel)]="StrategicInnitiative.aspA_ID" >
+              <option selected="selected">select</option>
+              <option *ngFor="let data of ViewBSCAnualStrategicPlanAssignmentList" [value]="data.aspA_ID">{{data.aspA_ID}}</option>
+            </select> -->
+            <input type="text" disabled [(ngModel)]="StrategicInnitiative.aspA_ID" placeholder="ASPA ID"
+
+            name="aspA_ID" id="aspA_ID">
+          </div>
+
+          <div class="row">
+            <label for="assigned_body"><b>Type Of Innitiative</b></label>
+            <select id="assigned_body" [(ngModel)]="StrategicInnitiative.type_Of_Innitiative" >
+              <option selected="selected">select</option>
+              <option *ngFor="let data of TypeOfInnitiativeList" [value]="data.lkmaster_code">{{data.english_description}}</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label for="Innitiative"><b>Innitiative</b></label>
+            <textarea id="Innitiative" name="Innitiative" placeholder="Innitiative" [(ngModel)]="StrategicInnitiative.innitiative"></textarea>
+          </div>
+
+          <div class="row">
+            <label for="Description"><b>Description</b></label>
+            <textarea id="Description" name="Description" placeholder="Description" [(ngModel)]="StrategicInnitiative.description" ></textarea>
+          </div>
+
+          <div class="row">
+            <label for="Estimated_Cost_In_Birr"><b>Estimated Cost In Birr</b></label>
+            <input type="number" [(ngModel)]="StrategicInnitiative.estimated_Cost_In_Birr" placeholder="Estimated Cost In Birr" name="Estimated_Cost_In_Birr" id="Estimated_Cost_In_Birr">
+          </div>
+
+          <div class="row">
+            <label for="Value_In_Per"><b>Value In Per</b></label>
+            <input type="number" [(ngModel)]="StrategicInnitiative.value_In_Per" placeholder="Value In Per" name="Value_In_Per" id="Value_In_Per">
+          </div>
+
+
+        <div class="row">
+          <label for="unit"><b>Unit</b></label>
+          <select id="unit" [(ngModel)]="StrategicInnitiative.unit">
+            <option selected="selected">select</option>
+            <option *ngFor="let data of cUnitList" [value]="data.unit">{{data.unit}}</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <label for="Expected_Result"><b>Expected Result</b></label>
+          <textarea id="expected_Result" name="expected_Result" placeholder="expected_Result" [(ngModel)]="StrategicInnitiative.expected_Result" ></textarea>
+        </div>
+
+        <div class="row">
+          <label for="Required_Inputs"><b>Required Inputs</b></label>
+          <input type="text" [(ngModel)]="StrategicInnitiative.required_Inputs" placeholder="Required Inputs" name="Required_Inputs" id="Required_Inputs">
+        </div>
+
+        <div class="row">
+          <label for="EstimatedBudget"><b>Estimated Budget</b></label>
+          <input type="number" [(ngModel)]="StrategicInnitiative.estimatedBudget" placeholder="Estimated Budget" name="EstimatedBudget" id="EstimatedBudget">
+        </div>
+
+
+        </div>
+
+        <div>
+
+          <div class="row">
+            <label for="budget_Account"><b>Budget Account</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.budget_Account" placeholder="Budget Account" name="budget_Account" id="budget_Account">
+          </div>
+
+          <div class="row">
+            <label for="StartDate"><b>Start Date</b></label>
+            <input type="datetime-local" [(ngModel)]="StrategicInnitiative.startDate" placeholder="Start Date" name="StartDate" id="StartDate">
+          </div>
+
+          <div class="row">
+            <label for="EndDate"><b>End Date</b></label>
+            <input type="datetime-local" [(ngModel)]="StrategicInnitiative.endDate" placeholder="End Date" name="EndDate" id="EndDate">
+          </div>
+
+          <div class="row">
+            <label for="parentInnitiative_ID"><b>ParentInnitiative ID</b></label>
+            <!-- <select id="parentInnitiative_ID" [(ngModel)]="StrategicInnitiative.parentInnitiative_ID">
+              <option selected="selected">select</option>
+              <option *ngFor="let data of StrategicInnitiativeList" [value]="data.parentInnitiative_ID">{{data.parentInnitiative_ID}}</option>
+            </select> -->
+            <input type="text" [(ngModel)]="StrategicInnitiative.parentInnitiative_ID" placeholder="Parent Innitiative ID" name="parentInnitiative_ID" id="parentInnitiative_ID">
+
+          </div>
+
+          <div class="row">
+            <label for="Is_Active"><b>Is Active</b></label>
+            <input type="checkbox" [(ngModel)]="StrategicInnitiative.is_Active" placeholder="Is Active" name="Is_Active" id="Is_Active">
+          </div>
+
+
+
+          <div class="row">
+            <label for="acctual"><b>Acctual</b></label>
+            <input type="number" [(ngModel)]="StrategicInnitiative.acctual" placeholder="acctual" name="acctual" id="acctual">
+          </div>
+
+          <div class="row">
+            <label for="variance"><b>variance</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.variance" placeholder="variance" name="variance" id="variance">
+          </div>
+
+          <div class="row">
+            <label for="duration_In_Days"><b>Duration In Days</b></label>
+            <input type="number" [(ngModel)]="StrategicInnitiative.duration_In_Days" placeholder="Duration In Days" name="duration_In_Days" id="duration_In_Days">
+          </div>
+
+
+          <div class="row">
+            <label for="priority"><b>Priority</b></label>
+            <input type="number" [(ngModel)]="StrategicInnitiative.priority" placeholder="Priority" name="priority" id="priority">
+          </div>
+
+
+          <div class="row">
+            <label for="document"><b>Document</b></label>
+            <input type="file" [(ngModel)]="StrategicInnitiative.document" (change)="handleUpload($event)"  placeholder="document" name="document" id="document">
+          </div>
+
+          <div class="row">
+            <label for="document_Details_ID"><b>Document Details ID</b></label>
+            <input type="text" [(ngModel)]="StrategicInnitiative.document_Details_ID" placeholder="Document Details ID" name="document_Details_ID" id="document_Details_ID">
+          </div>
+
+          <div class="row">
+            <label for="Created_By_User"><b>Created By User</b></label>
+            <input type="text" disabled [(ngModel)]="StrategicInnitiative.created_By_User" placeholder="Created By User" name="Created_By_User" id="Created_By_User">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="CRUD-buttons-container-for-popup">
+        <input type="button" (click)="saveOrUpdateStrategicInnitiative()" [disabled]="saveBtn1IsSelected" value="Save/Update">
+        <input type="button" onclick="document.getElementById('SaveOrUpdate-popup').style.display='none'" class="cancelbtn" value="Cancel">
+      </div>
+
+   </div>
+  </div>
+</div>
+
+<!-- popup end -->
+
+
+<!-- view detail popup -->
+
+<div  id="view-detail-data-popup" class="modal">
+  <div class="modal-content animate  container">
+    <div class="container">
+      <div class="popup-form-divider">
+
+          <div class="view-detail-data-popup">
+            <div class="row2">
+              <label for="Innitiative_ID"><b>Innitiative ID</b></label>
+              <p>{{StrategicInnitiative.innitiative_ID}}
+                <span *ngIf="StrategicInnitiative.innitiative_ID == null">null</span>
+              </p>
+           </div>
+
+            <div class="row2">
+              <label for="assigned_body"><b>ASPA ID</b></label>
+              <p>{{StrategicInnitiative.aspA_ID}}
+                <span *ngIf="StrategicInnitiative.aspA_ID == null">null</span>
+              </p>
+            </div>
+
+            <div class="row2">
+              <label for="assigned_body"><b>Type Of Innitiative</b></label>
+              <p>{{StrategicInnitiative.type_Of_Innitiative}}
+                <span *ngIf="StrategicInnitiative.type_Of_Innitiative == null">null</span>
+              </p>
+            </div>
+
+            <div class="row2">
+              <label for="Innitiative"><b>Innitiative</b></label>
+              <p>{{StrategicInnitiative.innitiative}}
+                <span *ngIf="StrategicInnitiative.innitiative == null">null</span>
+              </p>
+            </div>
+
+            <div class="row2">
+              <label for="Description"><b>Description</b></label>
+              <p>{{StrategicInnitiative.description}}
+                <span *ngIf="StrategicInnitiative.description == null">null</span>
+              </p>
+            </div>
+
+            <div class="row2">
+              <label for="Estimated_Cost_In_Birr"><b>Estimated Cost In Birr</b></label>
+              <p>{{StrategicInnitiative.estimated_Cost_In_Birr}}
+                <span *ngIf="StrategicInnitiative.estimated_Cost_In_Birr == null">null</span>
+              </p>
+            </div>
+
+            <div class="row2">
+              <label for="Value_In_Per"><b>Value In Per</b></label>
+              <p>{{StrategicInnitiative.value_In_Per}}
+                <span *ngIf="StrategicInnitiative.value_In_Per == null">null</span>
+              </p>
+            </div>
+
+
+          <div class="row2">
+            <label for="unit"><b>Unit</b></label>
+            <p>
+              {{StrategicInnitiative.unit || null}}
+              <span *ngIf="StrategicInnitiative.unit == null">null</span>
+            </p>
+
+          </div>
+
+          </div>
+
+          <div class="view-detail-data-popup">
+
+            <div class="row2">
+              <label for="Expected_Result"><b>Expected Result</b></label>
+              <p>{{StrategicInnitiative.expected_Result}}
+                <span *ngIf="StrategicInnitiative.expected_Result == null">null</span>
+              </p>
+            </div>
+
+            <div class="row2">
+              <label for="Required_Inputs"><b>Required Inputs</b></label>
+              <p>{{StrategicInnitiative.required_Inputs}}
+                <span *ngIf="StrategicInnitiative.required_Inputs == null">null</span></p>
+            </div>
+
+            <div class="row2">
+              <label for="EstimatedBudget"><b>Estimated Budget</b></label>
+              <p>{{StrategicInnitiative.estimatedBudget}}
+                <span *ngIf="StrategicInnitiative.estimatedBudget == null">null</span>
+              </p>
+            </div>
+
+            <div class="row2">
+              <label for="budget_Account"><b>Budget Account</b></label>
+              <p>{{StrategicInnitiative.budget_Account}}
+                <span *ngIf="StrategicInnitiative.budget_Account == null">null</span>
+              </p>
+            </div>
+
+            <div class="row2">
+              <label for="StartDate"><b>Start Date</b></label>
+              <p>{{StrategicInnitiative.startDate}}
+                <span *ngIf="StrategicInnitiative.startDate == null">null</span>
+              </p>
+            </div>
+
+            <div class="row2">
+              <label for="EndDate"><b>End Date</b></label>
+              <p>{{StrategicInnitiative.endDate}}
+                <span *ngIf="StrategicInnitiative.endDate == null">null</span>
+              </p>
+            </div>
+
+            <div class="row2">
+              <label for="parentInnitiative_ID"><b>ParentInnitiative ID</b></label>
+              <p>{{StrategicInnitiative.parentInnitiative_ID}}
+                <span *ngIf="StrategicInnitiative.parentInnitiative_ID == null">null</span>
+              </p>
+            </div>
+
+            <div class="row2">
+              <label for="Is_Active"><b>Is Active</b></label>
+              <p>{{StrategicInnitiative.is_Active}}
+                <span *ngIf="StrategicInnitiative.is_Active == null">null</span>
+              </p>
+            </div>
+
+            <div class="row2">
+              <label for="Created_By_User"><b>Created By User</b></label>
+              <p>{{StrategicInnitiative.created_By_User}}
+                <span *ngIf="StrategicInnitiative.created_By_User == null">null</span>
+              </p>
+            </div>
+          </div>
+
+      </div>
+      <div class="CRUD-buttons-container-for-popup">
+        <input type="button" onclick="document.getElementById('view-detail-data-popup').style.display='none'" class="cancelbtn" value="Close">
+      </div>
+   </div>
+  </div>
+</div>
+
+<!-- popup end -->
+
+
+
+<div class="container">
+
+    <!-- dividing the form in two (left and right) and above table menu in the right -->
+  <div class="form-divider">
+
+    <!-- left form panel -->
+    <div class="left-form">
+      <div class="row">
+        <label for="TPA_ID"><b>TPA ID</b></label>
+        <input type="text" disabled [(ngModel)]="InnitiativePlanAssignment.ipA_ID" name="TPA_ID" id="TPA_ID" placeholder="TPA ID">
+      </div>
+
+      <div class="row">
+        <label for="innitiative_ID"><b>Innitiative ID</b></label>
+        <input type="text"  disabled [(ngModel)]="InnitiativePlanAssignment.innitiative_ID" name="innitiative_ID" id="innitiative_ID" placeholder="Innitiative ID">
+      </div>
+
+      <div class="row">
+        <label for="assigned_body"><b>Assigned Body</b></label>
+        <select id="assigned_body" (change)="onAssignedBodyChange($event.target.value)" [(ngModel)]="InnitiativePlanAssignment.assigned_Body">
+          <option selected>select</option>
+          <option *ngFor="let data of DepartmentsList" [value]="data.department_Code">{{data.department_Name}}</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="responsible_role"><b>Responsible Role</b></label>
+        <select id="responsible_role" (change)="onResponsibleRoleChange($event.target.value)" [disabled]="InnitiativePlanAssignment.assigned_Body == null" [(ngModel)]="InnitiativePlanAssignment.responsible_Role">
+          <option selected>select</option>
+          <option *ngFor="let data of OrganizationalStructuresList" [value]="data.structure_ID">{{data.roleName}}</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="responsible_user_ID"><b>Responsible User ID</b></label>
+        <input type="text" disabled [(ngModel)]="Responsible_User_ID" name="Responsible_User_ID" id="Responsible_User_ID" placeholder="Responsible User ID">
+      </div>
+
+      <div class="row">
+        <label for="assigned_by"><b>Assigned By</b></label>
+        <input type="text" disabled [(ngModel)]="InnitiativePlanAssignment.assigned_By" name="assigned_By" id="assigned_By" placeholder="Assigned By">
+      </div>
+
+      <div class="row">
+        <label for="is_Active"><b>Is Active</b></label>
+        <input type="checkbox" [(ngModel)]="InnitiativePlanAssignment.is_Active" name="is_Active" id="is_Active" >
+      </div>
+
+      <div class="row">
+        <label for="is_Owner"><b>Is Owner</b></label>
+        <input type="checkbox"  [(ngModel)]="InnitiativePlanAssignment.is_Owner" name="is_Owner" id="is_Owner">
+      </div>
+
+    </div>
+    <!-- right form panel -->
+    <!-- <div class="right-form" >
+
+    </div> -->
+    <!-- above table menu -->
+
+    <div class="CRUD-buttons-container-1">
+      <input type="button" class="button" [disabled]="ViewBSCAnualStrategicPlanAssignment == null" value="New" (click)="newStrategicInnitiativePopup()" >
+      <input type="button" class="button" [disabled]="ViewBSCAnualStrategicPlanAssignment == null" (click)="getStrategicInnitiativePopup()" value="Save/Update">
+      <input type="button" class="button" [disabled]="ViewBSCAnualStrategicPlanAssignment == null || deleteBtn1IsSelected" (click)="deleteStrategicInnitiative()" value="Delete">
+    </div>
+  </div>
+
+    <div class="CRUD-buttons-container-2">
+      <input type="button"  (click)="newInnitiativePlanAssignment()" value="New"
+      [disabled]="
+      this.InnitiativePlanAssignment.assigned_Body == undefined &&
+      this.InnitiativePlanAssignment.responsible_Role == undefined &&
+      this.InnitiativePlanAssignment.assigned_By == undefined"
+      >
+      <input type="button"  (click)="saveOrUpdateInnitiativePlanAssignment()" [disabled]="saveBtn2IsSelected" value="Save/Update" >
+      <input type="button"  (click)="deleteInnitiativePlanAssignment()" [disabled]="deleteBtn2IsSelected" value="Delete">
+    </div>
+  <table>
+
+    <tr>
+      <th>IPA ID</th>
+      <th>Innitiative ID</th>
+      <th>Assigned Body</th>
+      <th>Responsible Role</th>
+      <th>Is Active</th>
+      <th>Assigned By</th>
+      <th>Is Owner</th>
+    </tr>
+    <tr  *ngFor="let _InnitiativePlanAssignment of InnitiativePlanAssignmentList2;index as i " [ngClass]="{'active': selectedInnitiativePlanAssignmentRowIndex == i}"  (click)="selectInnitiativePlanAssignmentTableRow(i);">
+      <td> {{  _InnitiativePlanAssignment.ipA_ID  }} </td>
+      <td> {{  _InnitiativePlanAssignment.innitiative_ID  }} </td>
+      <td> {{  _InnitiativePlanAssignment.assigned_Body  }} </td>
+      <td> {{  _InnitiativePlanAssignment.responsible_Role  }} </td>
+      <td> {{  _InnitiativePlanAssignment.is_Active  }} </td>
+      <td> {{  _InnitiativePlanAssignment.assigned_By  }} </td>
+      <td> {{  _InnitiativePlanAssignment.is_Owner  }} </td>
+    </tr>
+
+  </table>
+
+
+</div>

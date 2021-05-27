@@ -1,0 +1,38 @@
+
+<div *ngIf="tasks">
+  <div class="m-10" *ngIf="tasks.length>0">You have {{tasks.length}} number of active tasks waiting</div>
+
+  <div>
+    <p-table [value]="tasks" [paginator]="true" [rows]="3">
+      <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" translate>#</th>
+        <th scope="col" translate>Application</th>
+        <th scope="col" translate>Date</th>
+        <th scope="col" translate>Task Description</th>
+        <th scope="col" translate>Task Status</th>
+        <th scope="col" translate>Type</th>
+        <th scope="col" translate>Module</th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+
+
+    <ng-template pTemplate="body" let-i="rowIndex" let-task>
+      <tr
+        [ngStyle]="{'background-color': task.status == 'O' ||task.status == 'A' ||task.status == 'R' ||task.status == 'AS' ? 'green' : null}"
+        [ngStyle]="{'background-color': task.status == 'S' ||task.status == 'P' ? 'yellow' : null}"
+        [ngStyle]="{'background-color': task.Minutes_late >0 ? 'red' : null}">
+        <td >{{(i+1)}}</td>
+        <td>{{task.Service}}</td>
+        <td>{{task.start_date}}</td>
+        <td>{{task.description}}</td>
+        <td>{{task.status}}</td>
+        <td>{{task.TaskType}}</td>
+        <td>{{task.Module}}</td>
+        <td><button class="btn btn-primary" (click)="go(task)"  translate>GO</button></td>
+      </tr>
+    </ng-template>
+    </p-table>
+  </div>
+</div>
