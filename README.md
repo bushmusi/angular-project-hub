@@ -1,1 +1,1 @@
-# XOKA-Angular
+# Angular Projects
